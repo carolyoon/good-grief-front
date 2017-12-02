@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
-import * as FontAwesome from 'react-icons/lib/fa';
+// import * as FontAwesome from 'react-icons/lib/fa';
 
 class NewJournalEntryForm extends React.Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class NewJournalEntryForm extends React.Component {
       return (
         <div>
           <button className='new-journal-entry-button' onClick={this.props.toggleJournalEntryFormState}>
-            <FontAwesome.FaPlus />
+
           </button>
         </div>
     )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
