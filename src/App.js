@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import './App.css';
 import Header from './Header';
 import MissionStatement from './MissionStatement';
 import Registration from './Registration';
 
+
+import Home from './components/Home';
+import User from './components/User';
+import NewJournalEntryForm from './components/NewJournalEntryForm';
 
 class App extends Component {
 
@@ -24,14 +29,29 @@ class App extends Component {
 
   render() {
     return (
+      <Router>
+        <div>
+
+          <div className='navigation-bar'>
+            <Link className='navigation-text' to='/'>Home</Link>
+          </div>
+
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/profile' component={User} />
+            <Route render={() => <h1>Page not found</h1>} />
+          </Switch>
+
+        </div>
+      </Router>
+
       <div className="App">
-        <Header />
-        <MissionStatement />
         <Registration 
             auth_token={this.state.auth_token}
             updateAuthToken={this.updateAuthToken}
         />
       </div>
+
     );
   }
 }
