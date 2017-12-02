@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import Header from './Header';
-import MissionStatement from './MissionStatement';
-import Registration from './Registration';
 
-
+import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
@@ -42,16 +39,14 @@ class App extends Component {
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
 
+          <div className="App">
+            <Registration
+                auth_token={this.state.auth_token}
+                updateAuthToken={this.updateAuthToken}
+            />
+          </div>
         </div>
       </Router>
-
-      <div className="App">
-        <Registration 
-            auth_token={this.state.auth_token}
-            updateAuthToken={this.updateAuthToken}
-        />
-      </div>
-
     );
   }
 }
