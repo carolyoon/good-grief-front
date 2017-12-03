@@ -8,6 +8,7 @@ import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
+import Goals from './components/Goals';
 
 class App extends Component {
 
