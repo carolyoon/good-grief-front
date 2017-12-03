@@ -34,7 +34,6 @@ class App extends Component {
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'>Home</Link>
           </div>
-
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/registration' render={(props) => (
@@ -47,7 +46,6 @@ class App extends Component {
             <Route exact path='/profile' component={User} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
-
         </div>
       </Router>
     );
