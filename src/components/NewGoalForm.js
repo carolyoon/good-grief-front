@@ -4,12 +4,14 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import * as FontAwesome from 'react-icons/lib/fa';
 
-class Goals extends React.Component {
+class NewGoalForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      goals:[],
-      goalFormText: ''
+      goals: [],
+      goalFormText: '',
+      formSubmitted: false,
+      createdGoalId: null
     };
 
     this.completeGoal = this.completeGoal.bind(this);
@@ -57,19 +59,28 @@ class Goals extends React.Component {
 
   handleChange(event) {
     const inputText = event.target.value
-    this.props.updateFormText(inputText)
+    this.updateFormText(inputText)
   }
 
   render() {
-    return(
-      <div className='goal-form'>
-        <form onSubmit={this.handleSubmit}>
-          <input type='text' onChange={this.handleChange} value={this.state.goalFormText} />
-          <input type='submit' value='Create New Goal' />
+    if(!this.props.displayNewGoalForm){
+      return(
+        <div>
+          <button className='new-goal-button' onClick={this.props.toggleGoalFormState}>
+            <FontAwesome.FaPlus />
+          </button>
+        </div>
+    )} else if(this.props.displayNewGoalForm && !this.state.formSubmitted){
+        return(
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              New Goal:
+              <input type='text' onChange={this.handleChange} value={this.state.goals} />
+            </label>
+            <input type='submit' value='Create New Goal' />
         </form>
-      </div>
-    );
+      )}
   }
 }
 
-export default Goals;
+export default NewGoalForm;

@@ -43,7 +43,7 @@ class NewJournalEntryForm extends React.Component {
             <FontAwesome.FaPlus />
           </button>
         </div>
-    )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
+    )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted){
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
