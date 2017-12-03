@@ -1,0 +1,18 @@
+ul {
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+}
+
+.options li {
+  margin: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
