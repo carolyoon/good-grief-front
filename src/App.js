@@ -36,7 +36,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={User} />
-            <Route path='/registration' render={(routeProps) => (
+            <Route exact path='/registration' render={(routeProps) => (
               <Registration updateAuthToken={this.updateAuthToken} auth_token={this.state.auth_token} />)} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>

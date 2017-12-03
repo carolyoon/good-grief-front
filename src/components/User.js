@@ -6,7 +6,7 @@ class User extends React.Component {
   constructor() {
     super();
     this.state = {
-      journal_entries: [],
+      journalEntries: [],
       displayNewJournalEntryForm: false
     }
   }
