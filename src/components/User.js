@@ -6,9 +6,21 @@ class User extends React.Component {
   constructor() {
     super();
     this.state = {
+      selectedOption: 'Goals',
+      options: [
+        'Goals',
+        'Journal Entries'
+      ],
       journal_entries: [],
       displayNewJournalEntryForm: false
-    }
+    };
+
+    this.updateOption = this.updateOption.bind(this);
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
+  }
+
+  updateOption(option) {
+    this.setState({ selectedOption: option })
   }
 
   toggleJournalEntryFormState() {
@@ -21,6 +33,16 @@ class User extends React.Component {
     return (
       <div className='user-profile-container'>
         <h1>User's Profile</h1>
+        <ul className='options'>
+          {this.state.options.map((option) =>
+            <li
+              style={option === this.state.selectedOption ? { color: '#d0021b' } : null }
+              onClick={() => this.updateOption(option)}
+              key={option}>
+              {option}
+            </li>
+          )}
+        </ul>
 
         <div className='journal-entries-container'>
           <NewJournalEntryForm
