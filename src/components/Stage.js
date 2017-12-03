@@ -11,7 +11,15 @@ class Stage extends React.Component {
 
   render() {
     return(
-      <h2>Stage</h2>
+      <div className='stage-container'>
+        <h1>Stage Name</h1>
+
+        <div className='advice-posts-container'>
+          <ul>
+
+          </ul>
+        </div>
+      </div>
     )
   }
 }
