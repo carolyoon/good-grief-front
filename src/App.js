@@ -36,15 +36,10 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={User} />
+            <Route path='/registration' render={(routeProps) => (
+              <Registration updateAuthToken={this.updateAuthToken} auth_token={this.state.auth_token} />)} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
-
-          <div className="App">
-            <Registration
-                auth_token={this.state.auth_token}
-                updateAuthToken={this.updateAuthToken}
-            />
-          </div>
         </div>
       </Router>
     );
