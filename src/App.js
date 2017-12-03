@@ -6,6 +6,7 @@ import './App.css';
 import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
+import Stage from './components/Stage';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
 
 class App extends Component {
@@ -36,15 +37,12 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/profile' component={User} />
+            <Route exact path='/stage/:stageId' component={Stage} />
+            <Route exact path='/registration' render={(routeProps) => (
+              <Registration updateAuthToken={this.updateAuthToken} auth_token={this.state.auth_token} />)} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
 
-          <div className="App">
-            <Registration
-                auth_token={this.state.auth_token}
-                updateAuthToken={this.updateAuthToken}
-            />
-          </div>
         </div>
       </Router>
     );
