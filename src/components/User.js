@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import NewJournalEntryForm from './NewJournalEntryForm';
 
@@ -13,7 +14,8 @@ class User extends React.Component {
       ],
       journal_entries: [],
       goals: [],
-      displayNewJournalEntryForm: false
+      displayNewJournalEntryForm: false,
+      displayNewGoalForm: false
     };
 
     this.goalsCall = this.goalsCall.bind(this);

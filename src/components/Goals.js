@@ -16,14 +16,8 @@ class Goals extends React.Component {
     this.updateFormText = this.updateFormText.bind(this);
     this.submitNewGoal = this.submitNewGoal.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    axios.get('http://localhost:3001/goals')
-    .then(response => response.json())
-    .then(data => {
-      this.setState({ goals: data })
-    })
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   completeGoal(index) {
@@ -53,15 +47,28 @@ class Goals extends React.Component {
   }
 
   handleClick(event) {
-    this.completeGoal(index)
+    this.completeGoal(this.state.goals.id)
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.submitNewGoal()
+  }
+
+  handleChange(event) {
+    const inputText = event.target.value
+    this.props.updateFormText(inputText)
   }
 
   render() {
     return(
-      <div>
-
+      <div className='goal-form'>
+        <form onSubmit={this.handleSubmit}>
+          <input type='text' onChange={this.handleChange} value={this.state.goalFormText} />
+          <input type='submit' value='Create New Goal' />
+        </form>
       </div>
-    )
+    );
   }
 }
 
