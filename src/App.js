@@ -47,6 +47,10 @@ class App extends Component {
 
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'>Home</Link>
+            <Link className='navigation-text' to='/registration'>Register</Link>
+            <Link className='navigation-text' to='/profile/:id'>My Profile</Link>
+            <Link className='navigation-text' to='/stage'>Stage</Link>
+
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
@@ -59,7 +63,7 @@ class App extends Component {
               />
             )} />
             <Route exact path='/profile/:id' component={User} />
-            <Route exact path='/stage/:stageId' component={Stage} />
+            <Route exact path='/stage' component={Stage} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
