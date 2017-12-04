@@ -7,10 +7,15 @@ import './User.css';
 import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
+
 import GoalList from './components/GoalList';
 import JournalEntryList from './components/JournalEntryList';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
 import NewGoalForm from './components/NewGoalForm';
+import Stage from './components/Stage';
+import Goals from './components/Goals';
+import NewAdvicePostForm from './components/NewAdvicePostForm';
+
 
 class App extends Component {
 
@@ -38,6 +43,7 @@ class App extends Component {
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/advice' component={NewAdvicePostForm} />
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
@@ -46,8 +52,10 @@ class App extends Component {
               />
             )} />
             <Route exact path='/profile/:id' component={User} />
+            <Route exact path='/stage/:stageId' component={Stage} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
+
         </div>
       </Router>
     );
