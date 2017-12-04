@@ -20,7 +20,7 @@ import JournalEntryList from './components/JournalEntryList';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
 import NewGoalForm from './components/NewGoalForm';
 import Stage from './components/Stage';
-import Goals from './components/Goals';
+// import Goals from './components/Goals';
 import NewAdvicePostForm from './components/NewAdvicePostForm';
 
 
