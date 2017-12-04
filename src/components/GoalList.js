@@ -5,13 +5,10 @@ class GoalList extends React.Component {
   render() {
       return(
         <ul>
-          {this.props.goals.map((goal) =>
-            <li
-              className='goals-list-container'>
-              <input type='checkbox' checked={this.props.}
-              {goal.content}
-            </li>
-          )}
+          <li className='goals-list-container'>
+            <input type='checkbox' defaultChecked={this.props.goalCompleted} onChange={this.props.updateGoal} />
+            {this.props.goal.content}
+          </li>
         </ul>
       )
   }
