@@ -123,15 +123,14 @@ class User extends React.Component {
         {this.state.selectedOption === 'Journal Entries' &&
         <div>
           <NewJournalEntryForm
-          userId={this.state.userId}
+          userId={this.props.match.params.id}
+          journal_entries={this.state.journal_entries}
           displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
           toggleJournalEntryFormState={this.toggleJournalEntryFormState}
           />
 
           <JournalEntryList
-          userId={this.state.userId}
           journal_entries={this.state.journal_entries}
-          selectedOption={this.state.selectedOption}
           />
         </div>
         }
