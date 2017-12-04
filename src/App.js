@@ -10,6 +10,7 @@ import User from './components/User';
 import Stage from './components/Stage';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
 import Goals from './components/Goals';
+import NewAdvicePostForm from './components/NewAdvicePostForm';
 
 class App extends Component {
 
@@ -37,6 +38,7 @@ class App extends Component {
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/advice' component={NewAdvicePostForm} />
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
