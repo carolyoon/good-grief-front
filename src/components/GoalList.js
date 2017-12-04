@@ -6,7 +6,7 @@ class GoalList extends React.Component {
       return(
         <ul>
           <li className='goals-list-container'>
-            <input type='checkbox' defaultChecked={this.props.goalCompleted} onChange={this.props.updateGoal} />
+            <input type='checkbox' checked={this.props.goalCompleted} onChange={this.props.updateGoal} />
             {this.props.goal.content}
           </li>
         </ul>

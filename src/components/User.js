@@ -114,7 +114,7 @@ class User extends React.Component {
           index={index}
           goal={goal}
           goalCompleted={goal['completed']}
-          updateGoal={() => this.updateGoal(goal.id)}
+          updateGoal={() => this.updateGoal(index)}
           />
         )}
         </div>
