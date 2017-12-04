@@ -20,8 +20,8 @@ class DenialQuiz extends Component {
      answerOptions: [],
      answer: '',
      answersCount: {
-       yes: 0,
-       no: 0
+       'Denial': 0,
+       'Anger': 0
      },
      result: ''
     };
@@ -128,7 +128,7 @@ class DenialQuiz extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="quiz-container">
 
         {this.state.result ? this.renderResult() : this.renderQuiz()}
 

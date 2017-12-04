@@ -64,7 +64,11 @@ render() {
           </ul>
         </div>
 
-        <Link className='navigation-text' to='/bargaining_quiz'>Ready to Move on?</Link>
+        <Link to="/bargaining_quiz">
+           <button type="button">
+              Ready to Move on?
+           </button>
+        </Link>
       </div>
 
     )

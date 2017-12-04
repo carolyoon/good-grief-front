@@ -59,7 +59,12 @@ render() {
             )}
           </ul>
         </div>
-       <Link className='navigation-text' to='/depression_quiz'>Ready to Move on?</Link>
+        <Link to="/depression_quiz">
+           <button type="button">
+              Ready to Move on?
+           </button>
+        </Link>
+
       </div>
 
     )

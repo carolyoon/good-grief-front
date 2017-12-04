@@ -3,11 +3,11 @@ var angerQuestions = [
       question: "Are you trying to win your ex back?",
       answers: [
           {
-              type: "Yes",
+              type: "Anger",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "Bargaining",
               content: "No"
           },
       ]
@@ -16,11 +16,11 @@ var angerQuestions = [
       question: "Have you begged to give the relationship another shot?",
       answers: [
           {
-              type: "Yes",
+              type: "Anger",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "Bargaining",
               content: "No"
           },
       ]
@@ -29,11 +29,11 @@ var angerQuestions = [
       question: "Have you avoided telling anyone about the breakup? ",
       answers: [
           {
-              type: "Yes",
+              type: "Anger",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "Bargaining",
               content: "No"
           },
       ]
@@ -42,11 +42,11 @@ var angerQuestions = [
       question: "Do you try to make your ex jealous, in hopes of getting them back?",
       answers: [
           {
-              type: "Yes",
+              type: "Anger",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "Bargaining",
               content: "No"
           },
       ]
@@ -55,11 +55,11 @@ var angerQuestions = [
       question: "Have you tried to guilt them into giving the relationship another try?",
       answers: [
           {
-              type: "Yes",
+              type: "Anger",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "Bargaining",
               content: "No"
           },
       ]

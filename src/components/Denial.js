@@ -66,7 +66,11 @@ class Denial extends React.Component {
             )}
           </ul>
         </div>
-       <Link className='navigation-text' to='/anger_quiz'>Ready to Move on?</Link>
+        <Link to="/anger_quiz">
+         <button type="button">
+            Ready to Move on?
+         </button>
+        </Link>
       </div>
     )
   }
