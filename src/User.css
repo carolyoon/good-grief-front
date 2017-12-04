@@ -16,3 +16,15 @@ li {
   font-weight: bold;
   cursor: pointer;
 }
+
+.journal-entries-list-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.journal-entries-list-container li {
+  margin: 10px;
+  border-bottom: 1px solid black;
+  padding-bottom: 1%
+}

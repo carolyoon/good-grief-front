@@ -51,10 +51,11 @@ class NewJournalEntryForm extends React.Component {
           </label>
           <input type='submit' value='Create New Entry' />
         </form>
-      )} else
+      )} else {
         return (
           <div></div>
         )
+      }
   }
 }
 

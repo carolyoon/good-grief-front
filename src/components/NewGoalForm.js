@@ -14,7 +14,6 @@ class NewGoalForm extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.prepareGoalParams = this.prepareGoalParams.bind(this);
     this.submitNewGoal = this.submitNewGoal.bind(this);
   }
 
@@ -24,15 +23,11 @@ class NewGoalForm extends React.Component {
     this.setState({ newGoal })
   }
 
-  prepareGoalParams() {
-    const goal = {goalParams: this.state.newGoal}
-    return goal.goalParams
-  }
-
   submitNewGoal(event) {
     event.preventDefault();
-    axios.post(`/api/users/${this.props.userId}/goals`, {goal: this.prepareGoalParams()})
+    axios.post(`/api/users/${this.props.userId}/goals`, {goal: this.state.newGoal})
     .then(({data}) => {
+      console.log(data)
       const newGoal = Object.assign({}, {...this.state.newGoal}, data)
       const displayNewGoalForm = !this.props.displayNewGoalForm
       this.setState({ newGoal, formSubmitted: true, displayNewGoalForm })
@@ -51,9 +46,13 @@ class NewGoalForm extends React.Component {
     )} else if(this.props.displayNewGoalForm && !this.state.formSubmitted){
         return(
           <form onSubmit={this.submitNewGoal}>
-            <input placeholder='enter goal' onChange={this.handleChange} value={this.state.goals} />
+            <input placeholder='enter goal' onChange={(event) => this.handleChange(event, 'content')} value={this.state.goals} />
             <button type='submit'>add</button>
         </form>
+      )
+    } else {
+      return (
+        <div></div>
       )
     }
   }
