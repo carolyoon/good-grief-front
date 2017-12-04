@@ -4,11 +4,11 @@ import Quiz from './Quiz';
 import Results from './Results';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
-import denialQuestions from '../api/denialQuestions';
+import bargainingQuestions from '../api/bargainingQuestions';
 import update from 'react-addons-update';
 
 
-class DenialQuiz extends Component {
+class BargainingQuiz extends Component {
 
   constructor(props) {
     super(props);
@@ -31,10 +31,10 @@ class DenialQuiz extends Component {
 
   componentWillMount() {
     //get information by import at top
-    const shuffledAnswerOptions = denialQuestions.map((question) => this.shuffleArray(question.answers));
+    const shuffledAnswerOptions = bargainingQuestions.map((question) => this.shuffleArray(question.answers));
 
     this.setState({
-      question: denialQuestions[0].question,
+      question: bargainingQuestions[0].question,
       answerOptions: shuffledAnswerOptions[0]
     });
   }
@@ -60,7 +60,7 @@ class DenialQuiz extends Component {
 
   handleAnswerSelected(event) {
     this.setUserAnswer(event.currentTarget.value);
-    if (this.state.questionId < denialQuestions.length) {
+    if (this.state.questionId < bargainingQuestions.length) {
         setTimeout(() => this.setNextQuestion(), 300);
       } else {
         setTimeout(() => this.setResults(this.getResults()), 300);
@@ -83,8 +83,8 @@ class DenialQuiz extends Component {
     this.setState({
       counter: counter,
       questionId: questionId,
-      question: denialQuestions[counter].question,
-      answerOptions: denialQuestions[counter].answers,
+      question: bargainingQuestions[counter].question,
+      answerOptions: bargainingQuestions[counter].answers,
       answer: ''
     });
   }
@@ -113,7 +113,7 @@ class DenialQuiz extends Component {
         answerOptions={this.state.answerOptions}
         questionId={this.state.questionId}
         question={this.state.question}
-        questionTotal={denialQuestions.length}
+        questionTotal={bargainingQuestions.length}
         onAnswerSelected={this.handleAnswerSelected}
       />
     );
@@ -137,5 +137,5 @@ class DenialQuiz extends Component {
   }
 }
 
-export default DenialQuiz;
+export default BargainingQuiz;
 
