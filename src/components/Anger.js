@@ -66,7 +66,7 @@ render() {
 
         <Link to="/bargaining_quiz">
            <button type="button">
-              Ready to Move on?
+              Ready to Move on to Bargaining?
            </button>
         </Link>
       </div>

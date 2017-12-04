@@ -129,9 +129,7 @@ class DenialQuiz extends Component {
   render() {
     return (
       <div className="quiz-container">
-
         {this.state.result ? this.renderResult() : this.renderQuiz()}
-
       </div>
     );
   }

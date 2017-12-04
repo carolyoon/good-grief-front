@@ -61,7 +61,7 @@ render() {
         </div>
         <Link to="/depression_quiz">
            <button type="button">
-              Ready to Move on?
+              Ready to Move on to Depression?
            </button>
         </Link>
 

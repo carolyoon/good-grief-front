@@ -1,9 +1,9 @@
 import React from 'react';
 
-  function Result(props) {
+function Result(props) {
     return (
       <div className="result">
-        Your stage is <strong>{props.quizResult}</strong>!
+        Based on your answers, your suggested stage is <strong>{props.quizResult}</strong>!
       </div>
     );
   }

@@ -68,7 +68,7 @@ class Denial extends React.Component {
         </div>
         <Link to="/anger_quiz">
          <button type="button">
-            Ready to Move on?
+            Ready to Move on to Anger?
          </button>
         </Link>
       </div>
