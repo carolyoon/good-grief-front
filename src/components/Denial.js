@@ -57,6 +57,11 @@ class Denial extends React.Component {
             )}
           </ul>
         </div>
+        <div className='move-on-button'>
+          <form>
+            <input type="button" value="Ready to Move on?" />
+          </form>
+        </div>
       </div>
     )
   }
