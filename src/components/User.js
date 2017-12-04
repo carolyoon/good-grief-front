@@ -25,6 +25,7 @@ class User extends React.Component {
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
     this.updateGoal = this.updateGoal.bind(this);
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
     this.toggleGoalFormState = this.toggleGoalFormState.bind(this);
@@ -61,11 +62,23 @@ class User extends React.Component {
     const status = !goal['completed']
     const goals = [...this.state.goals]
     goals[index]['completed'] = status
-    axios.put(`/api/users/${this.props.match.params.id}/goals/` + goal.id + `?goal[completed]=${status}`)
+    axios.put(`/api/users/${this.props.match.params.id}/goals/${goal.id}` + `?goal[completed]=${status}`)
     .then(response => {
       goals[index] = response.data.goal
       appTarget.setState({ goals })
     })
+    .catch((error) => console.log('Fail to update a goal.', error))
+  }
+
+  deleteCompletedGoal(index) {
+    const goal = this.state.goals[index]
+    const goals = [...this.state.goals]
+    axios.delete(`/api/users/${this.props.match.params.id}/goals/${goal.id}`)
+    .then(response => {
+      goals[index] = response.data.goal
+      this.setState({ goals })
+    })
+    .catch((error) => console.log('Error in removing a goal.', error))
   }
 
   handleClick(option) {
@@ -103,18 +116,19 @@ class User extends React.Component {
         {this.state.selectedOption === 'Goals' &&
         <div>
           <NewGoalForm
-          userId={this.state.userId}
+          userId={this.props.match.params.id}
+          goals={this.state.goals}
           displayNewGoalForm={this.state.displayNewGoalForm}
           toggleGoalFormState={this.toggleGoalFormState}
           />
 
-        {this.state.goals.map((goal,index) =>
+        {this.state.goals.map((goal, index) =>
           <GoalList
-          key={goal.id}
           index={index}
           goal={goal}
           goalCompleted={goal['completed']}
           updateGoal={() => this.updateGoal(index)}
+          deleteCompletedGoal={() => this.deleteCompletedGoal(index)}
           />
         )}
         </div>

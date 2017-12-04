@@ -9,7 +9,6 @@ class NewJournalEntryForm extends React.Component {
     this.state = {
       newJournalEntry: {},
       formSubmitted: false,
-      createdJournalId: null
     };
 
     this.handleChange = this.handleChange.bind(this);
