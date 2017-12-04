@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import GoalList from './GoalList';
+import JournalEntryList from './JournalEntryList';
 import NewJournalEntryForm from './NewJournalEntryForm';
 import NewGoalForm from './NewGoalForm';
 
@@ -23,71 +25,37 @@ class User extends React.Component {
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.displayOption = this.displayOption.bind(this);
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
     this.toggleGoalFormState = this.toggleGoalFormState.bind(this);
-    this.setId = this.setId.bind(this);
   }
 
   goalsCall() {
-     axios.get(`/api/users/${this.state.userId}/goals`)
+    const that = this
+     axios.get(`/api/users/${this.props.match.params.id}/goals`)
     .then(function(response) {
-      console.log(response)
-      const goals = []
-      response.data.map(goal => goals.push(goal))
-      this.setState({ goals })
+      const goals = response.data
+      that.setState({ goals })
     })
+    .catch((error) => console.log('Fail to fetch goals.', error))
   }
 
   journalEntriesCall() {
-    axios.get(`/api/users/${this.state.userId}/journal_entries`)
+    const that = this
+    axios.get(`/api/users/${this.props.match.params.id}/journal_entries`)
     .then(function(response) {
-      console.log(response)
-      const journal_entries = []
-      response.data.map(journal_entry => journal_entries.push(journal_entry))
-      this.setState({ journal_entries })
+      const journal_entries = response.data
+      that.setState({ journal_entries })
     })
-  }
-
-  setId() {
-    const userId = this.props.match.params.id
-    this.setState({userId})
+    .catch((error) => console.log('Fail to fetch journal entries.', error))
   }
 
   componentDidMount() {
-    this.setId();
     this.goalsCall();
     this.journalEntriesCall();
   }
 
   handleClick(option) {
     this.setState({ selectedOption: option })
-  }
-
-  displayOption() {
-    if(this.state.selectedOption === 'Goals'){
-      return (
-        <div className='goals-view-list-container'>
-          <ul>
-            {this.state.goals.map((goal) =>
-              <li className='list-item'>{goal}</li>
-            )}
-          </ul>
-
-        </div>
-      );
-    }
-    if(this.state.selectedOption === 'Journal Entries'){
-      return (
-        <div className='journal-entries-view-list-container'>
-          <ul>
-            {this.state.journal_entries.map((journal_entry) =>
-              <li className='list-item'>{journal_entry}</li>
-            )}
-          </ul>
-        </div>
-      );
-    }
   }
 
   toggleJournalEntryFormState() {
@@ -117,43 +85,38 @@ class User extends React.Component {
           )}
         </ul>
 
-        <div className='goals-container'>
+        <div>
+        {this.state.selectedOption === 'Goals' &&
+        <div>
           <NewGoalForm
-            userId={this.props.match.params.id}
+            userId={this.state.userId}
             displayNewGoalForm={this.state.displayNewGoalForm}
             toggleGoalFormState={this.toggleGoalFormState}
           />
-
-          <ul>
-            {this.state.goals.map((goal) => {
-              return(
-                <div className='goals-list-container'>
-                  <li>{goal.content}</li>
-                </div>
-              )
-            })}
-          </ul>
+          <GoalList
+            userId={this.state.userId}
+            goals={this.state.goals}
+            selectedOption={this.state.selectedOption}
+          />
+          </div>
+        }
         </div>
 
-        <div className='journal-entries-container'>
+        <div>
+          {this.state.selectedOption === 'Journal Entries' &&
+          <div>
           <NewJournalEntryForm
-            userId={this.props.match.params.id}
+            userId={this.state.userId}
             displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
             toggleJournalEntryFormState={this.toggleJournalEntryFormState}
           />
-
-          <ul>
-            {this.state.journal_entries.map((journal) => {
-              return (
-                <div className='journal-entries-list-container'>
-                  <li>{journal.content}</li>
-                </div>
-              )
-            })}
-          </ul>
-        </div>
-        <div>
-          {this.displayOption()}
+          <JournalEntryList
+            userId={this.state.userId}
+            journal_entries={this.state.journal_entries}
+            selectedOption={this.state.selectedOption}
+          />
+          </div>
+          }
         </div>
 
       </div>

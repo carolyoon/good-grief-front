@@ -7,6 +7,8 @@ import './User.css';
 import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
+import GoalList from './components/GoalList';
+import JournalEntryList from './components/JournalEntryList';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
 import NewGoalForm from './components/NewGoalForm';
 
