@@ -8,7 +8,15 @@ class Denial extends React.Component {
     super();
     this.state = {
       advicePosts : []
-    }
+    };
+
+    this.toggleAdvicePostFormState = this.toggleAdvicePostFormState.bind(this)
+  }
+
+  toggleAdvicePostFormState() {
+    this.setState(prevState => ({
+      advicePosts: !prevState.displayNewAdvicePostForm
+    }));
   }
 
   componentDidMount() {

@@ -7,14 +7,22 @@ import './User.css';
 import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
-import Stage from './components/Stage';
+
 import DenialQuiz from './components/DenialQuiz';
 import AngerQuiz from './components/AngerQuiz';
 import BargainingQuiz from './components/BargainingQuiz';
 import AcceptanceQuiz from './components/AcceptanceQuiz';
 import DepressionQuiz from './components/DepressionQuiz';
+
+
+import GoalList from './components/GoalList';
+import JournalEntryList from './components/JournalEntryList';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
+import NewGoalForm from './components/NewGoalForm';
+import Stage from './components/Stage';
 import Goals from './components/Goals';
+import NewAdvicePostForm from './components/NewAdvicePostForm';
+
 
 class App extends Component {
 
@@ -42,6 +50,7 @@ class App extends Component {
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/advice' component={NewAdvicePostForm} />
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
@@ -49,15 +58,13 @@ class App extends Component {
                 updateAuthToken={this.updateAuthToken}
               />
             )} />
-            <Route exact path='/profile' component={User} />
+            <Route exact path='/profile/:id' component={User} />
             <Route exact path='/stage/:stageId' component={Stage} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
             <Route exact path='/acceptance_quiz' component={AcceptanceQuiz} />
             <Route exact path='/anger_quiz' component={AngerQuiz} />
-            <Route exact path='/registration' render={(routeProps) => (
-              <Registration updateAuthToken={this.updateAuthToken} auth_token={this.state.auth_token} />)} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
 
