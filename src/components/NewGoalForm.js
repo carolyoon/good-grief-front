@@ -28,9 +28,9 @@ class NewGoalForm extends React.Component {
     axios.post(`/api/users/${this.props.userId}/goals`, {goal: this.state.newGoal})
     .then(({data}) => {
       console.log(data)
-      const newGoal = Object.assign({}, {...this.state.newGoal}, data)
       const displayNewGoalForm = !this.props.displayNewGoalForm
-      this.setState({ newGoal, formSubmitted: true, displayNewGoalForm })
+      this.setState({ newGoal: {content: ''}, formSubmitted: true, displayNewGoalForm })
+      this.props.addGoal(data.goal)
     })
     .catch((error) => {console.log('Error in creating a new goal.', error)})
   }

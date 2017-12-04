@@ -24,6 +24,7 @@ class User extends React.Component {
 
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
+    this.addGoal = this.addGoal.bind(this);
     this.updateGoal = this.updateGoal.bind(this);
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -54,6 +55,12 @@ class User extends React.Component {
   componentDidMount() {
     this.goalsCall();
     this.journalEntriesCall();
+  }
+
+  addGoal(newGoal) {
+    let goals = this.state.goals
+    goals.push(newGoal)
+    this.setState({ goals })
   }
 
   updateGoal(index) {
@@ -118,6 +125,7 @@ class User extends React.Component {
           <NewGoalForm
           userId={this.props.match.params.id}
           goals={this.state.goals}
+          addGoal={this.addGoal}
           displayNewGoalForm={this.state.displayNewGoalForm}
           toggleGoalFormState={this.toggleGoalFormState}
           />
