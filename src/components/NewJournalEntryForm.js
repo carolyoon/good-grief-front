@@ -28,9 +28,9 @@ class NewJournalEntryForm extends React.Component {
     .then(({data}) => {
       let newJournalEntry = Object.assign({}, {...this.state.newJournalEntry}, data)
       let journal_entries = this.props.journal_entries
-      let displayNewJournalEntryForm = this.props.displayNewJournalEntryForm
+      const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
       journal_entries.push({journal_entry: newJournalEntry})
-      this.setState({newJournalEntry, journal_entries, formSubmitted: true, displayNewJournalEntryForm: false})
+      this.setState({newJournalEntry, journal_entries, formSubmitted: true, displayNewJournalEntryForm})
     })
     .catch((error) => {console.log('Error in creating a new journal entry.', error)})
   }
