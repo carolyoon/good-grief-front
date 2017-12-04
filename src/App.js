@@ -46,6 +46,7 @@ class App extends Component {
             )} />
             <Route exact path='/profile' component={User} />
             <Route exact path='/stage/:stageId' component={Stage} />
+            <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/registration' render={(routeProps) => (
               <Registration updateAuthToken={this.updateAuthToken} auth_token={this.state.auth_token} />)} />
             <Route render={() => <h1>Page not found</h1>} />
