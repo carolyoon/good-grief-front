@@ -27,15 +27,15 @@ render() {
           <h3>Helpful Apps</h3>
             <ul>
               <li>
-              <img className="denial-image" src={require("../denial_images/blockYourEx.png")} />
+              <img className="bargaining-image" src={require("../bargaining_images/blockYourEx.png")} />
               <p>Ex-Lover Blocker: a mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
               </li><br />
               <li>
-              <img className="denial-image" src={require("../denial_images/killSwitch.png")} />
+              <img className="bargaining-image" src={require("../bargaining_images/killSwitch.png")} />
               <p>DrunkDial: a mobile app that administers a sobriety test (timed math problems) before it allows you to phone your ex.</p>
               </li><br />
               <li>
-              <img className="denial-image" src={require("../denial_images/massPasswordReset.png")} />
+              <img className="bargaining-image" src={require("../bargaining_images/massPasswordReset.png")} />
               <p>Don’t Text That Man!: an app that helps you control your urges to text your ex by providing motivational or wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
               </li><br />
             </ul>
