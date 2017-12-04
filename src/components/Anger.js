@@ -19,7 +19,7 @@ class Anger extends React.Component {
     })
   }
 
-render() {
+  render() {
     return(
       <div className="anger-container">
       <span className="stage-name"><h1>The ANGER Stage</h1></span>
@@ -27,19 +27,19 @@ render() {
           <h3>Helpful Apps</h3>
             <ul>
               <li>
-              <img className="denial-image" src={require("../denial_images/blockYourEx.png")} />
-              <p>NeverLikedItAnyway.com: an eBay type website where you can sell the stuff that lingers after a breakup, and buy things from other people doing the same thing.</p>
-              </li><br />
-              <li>
-              <img className="denial-image" src={require("../denial_images/killSwitch.png")} />
+              <img className="anger-image" src={require("../anger_images/headSpace.png")} />
               <p>Headspace: a meditation app that guides you through mindfulness exercises to help reduce stress and anger.</p>
               </li><br />
               <li>
-              <img className="denial-image" src={require("../denial_images/massPasswordReset.png")} />
+              <img className="anger-image" src={require("../anger_images/neverLiked.png")} />
+              <p>NeverLikedItAnyway.com: an eBay type website where you can sell the stuff that lingers after a breakup, and buy things from other people doing the same thing.</p>
+              </li><br />
+              <li>
+              <img className="anger-image" src={require("../anger_images/outOfYourLife.png")} />
               <p>Out of your Life: an app that buys your jewelry related to your ex, such as diamond rings and wedding bands.</p>
               </li><br />
               <li>
-              <img className="denial-image" src={require("../denial_images/massPasswordReset.png")} />
+              <img className="anger-image" src={require("../anger_images/pictureBurn.png")} />
               <p>Picture Burn- an app that allows you digitally reproduce the cathartic act of burning photos of your ex.</p>
               </li><br />
             </ul>
@@ -68,10 +68,8 @@ render() {
           </form>
         </div>
       </div>
-
     )
   }
-
 }
 
 export default Anger;
