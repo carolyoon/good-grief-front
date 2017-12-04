@@ -2,6 +2,7 @@ import React from 'react';
 import Denial from './Denial';
 import Anger from './Anger';
 import Bargaining from './Bargaining';
+import Depression from './Depression';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 class Stage extends React.Component {
@@ -11,6 +12,7 @@ class Stage extends React.Component {
         <Denial  />
         <Anger />
         <Bargaining />
+        <Depression />
       </div>
     )
   }

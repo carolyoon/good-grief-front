@@ -1,6 +1,5 @@
 import React from 'react';
 import AdvicePost from './AdvicePost';
-import img from '../denial_images/blockYourEx.png';
 import axios from 'axios';
 
 class Denial extends React.Component {

@@ -47,11 +47,11 @@ class Anger extends React.Component {
         <div className="helpful-articles">
           <h3>Helpful Articles</h3>
           <ul>
-            <li><a href="http://www.beliefnet.com/wellness/health/health-support/grief-and-loss/2000/10/anger-griefs-irate-companion.aspx">Anger: Grief's Irate Companion</a></li><br />
-            <li><a href="https://www.7cups.com/qa-breakups-21/is-it-normal-to-have-sudden-mood-shifts-of-from-anger-to-grief-to-love-again-and-many-other-shades-of-the-mood-after-a-break-up-especially-after-a-close-dependent-relationship-1247/">Mood Swings and Anger</a></li><br />
             <li><a href="https://www.psychologytoday.com/blog/me-we/201501/the-9-stages-grieving-breakup-no-8-anger">All About Anger</a></li><br />
-            <li><a href="https://www.harleytherapy.co.uk/counselling/manage-anger-after-breakup.htm">How to Manage Your Anger After a Breakup</a></li><br />
+            <li><a href="http://www.beliefnet.com/wellness/health/health-support/grief-and-loss/2000/10/anger-griefs-irate-companion.aspx">Anger: Grief's Irate Companion</a></li><br />
             <li><a href="http://rapidbreakuprecovery.com/how-to-deal-with-anger-after-a-breakup/">Dealing with Your Anger After a Breakup</a></li><br />
+            <li><a href="https://www.harleytherapy.co.uk/counselling/manage-anger-after-breakup.htm">How to Manage Your Anger After a Breakup</a></li><br />
+            <li><a href="https://www.7cups.com/qa-breakups-21/is-it-normal-to-have-sudden-mood-shifts-of-from-anger-to-grief-to-love-again-and-many-other-shades-of-the-mood-after-a-break-up-especially-after-a-close-dependent-relationship-1247/">Mood Swings and Anger</a></li><br />
           </ul>
         </div>
         <div className='advice-posts'>
