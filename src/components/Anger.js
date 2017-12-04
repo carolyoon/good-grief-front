@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import AdvicePost from './AdvicePost';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 class Anger extends React.Component {
   constructor() {
@@ -62,11 +63,8 @@ render() {
             )}
           </ul>
         </div>
-        <div className='move-on-button'>
-          <form>
-            <input type="button" value="Ready to Move on?" />
-          </form>
-        </div>
+
+        <Link className='navigation-text' to='/bargaining_quiz'>Ready to Move on?</Link>
       </div>
 
     )

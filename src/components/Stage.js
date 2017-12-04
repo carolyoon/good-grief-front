@@ -11,6 +11,7 @@ class Stage extends React.Component {
         <Denial  />
         <Anger />
         <Bargaining />
+
       </div>
     )
   }

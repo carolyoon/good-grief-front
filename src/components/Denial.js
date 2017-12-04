@@ -2,6 +2,7 @@ import React from 'react';
 import AdvicePost from './AdvicePost';
 import img from '../denial_images/blockYourEx.png';
 import axios from 'axios';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 class Denial extends React.Component {
   constructor() {
@@ -65,11 +66,7 @@ class Denial extends React.Component {
             )}
           </ul>
         </div>
-        <div className='move-on-button'>
-          <form>
-            <input type="button" value="Ready to Move on?" />
-          </form>
-        </div>
+       <Link className='navigation-text' to='/anger_quiz'>Ready to Move on?</Link>
       </div>
     )
   }

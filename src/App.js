@@ -46,10 +46,10 @@ class App extends Component {
         <div>
 
           <div className='navigation-bar'>
-            <Link className='navigation-text' to='/'>Home</Link>
-            <Link className='navigation-text' to='/registration'>Register</Link>
-            <Link className='navigation-text' to='/profile/:id'>My Profile</Link>
-            <Link className='navigation-text' to='/stage'>Stage</Link>
+            <Link className='navigation-text' to='/'>Home</Link> |
+            <Link className='navigation-text' to='/registration'> Register</Link> |
+            <Link className='navigation-text' to='/profile/:id'> My Profile</Link> |
+            <Link className='navigation-text' to='/stage'> Stages</Link>
 
           </div>
           <Switch>
