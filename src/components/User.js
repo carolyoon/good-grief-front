@@ -1,16 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import GoalList from './GoalList';
+import JournalEntryList from './JournalEntryList';
 import NewJournalEntryForm from './NewJournalEntryForm';
+import NewGoalForm from './NewGoalForm';
 
 class User extends React.Component {
   constructor() {
     super();
     this.state = {
+      userId: '',
       selectedOption: 'Goals',
       options: [
-        'Goals',
-        'Journal Entries'
+      'Goals',
+      'Journal Entries'
       ],
       journal_entries: [],
       goals: [],
@@ -20,26 +24,30 @@ class User extends React.Component {
 
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
-    this.updateOption = this.updateOption.bind(this);
+    this.updateGoal = this.updateGoal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
+    this.toggleGoalFormState = this.toggleGoalFormState.bind(this);
   }
 
   goalsCall() {
-     axios.get('http://localhost:3001/goals')
+    const that = this
+    axios.get(`/api/users/${this.props.match.params.id}/goals`)
     .then(function(response) {
-      const goals = []
-      response.data.map(goal => goals.push(goal))
-      this.setState({ goals })
+      const goals = response.data
+      that.setState({ goals })
     })
+    .catch((error) => console.log('Fail to fetch goals.', error))
   }
 
   journalEntriesCall() {
-    axios.get('http://localhost:3001/journal_entries')
+    const that = this
+    axios.get(`/api/users/${this.props.match.params.id}/journal_entries`)
     .then(function(response) {
-      const journal_entries = []
-      response.data.map(journal_entry => journal_entries.push(journal_entry))
-      this.setState({ journal_entries })
+      const journal_entries = response.data
+      that.setState({ journal_entries })
     })
+    .catch((error) => console.log('Fail to fetch journal entries.', error))
   }
 
   componentDidMount() {
@@ -47,30 +55,21 @@ class User extends React.Component {
     this.journalEntriesCall();
   }
 
-  updateOption(option) {
+  updateGoal(index) {
+    const appTarget = this
+    const goal = this.state.goals[index]
+    const status = !goal['completed']
+    const goals = [...this.state.goals]
+    goals[index]['completed'] = status
+    axios.put(`/api/users/${this.props.match.params.id}/goals/` + goal.id + `?goal[completed]=${status}`)
+    .then(response => {
+      goals[index] = response.data.goal
+      appTarget.setState({ goals })
+    })
+  }
+
+  handleClick(option) {
     this.setState({ selectedOption: option })
-    if(this.state.selectedOption === 'goals'){
-      return (
-        <div className='goals-view-list-container'>
-          <ul>
-            {this.state['goals'].map((goal) =>
-              <li className='list-item'>{goal}</li>
-            )}
-          </ul>
-        </div>
-      )
-    }
-    if(this.state.selectedOption === 'journal_entries'){
-      return (
-        <div className='journal-entries-view-list-container'>
-          <ul>
-            {this.state['journal_entries'].map((journal_entry) =>
-              <li className='list-item'>{journal_entry}</li>
-            )}
-          </ul>
-        </div>
-      )
-    }
   }
 
   toggleJournalEntryFormState() {
@@ -79,39 +78,62 @@ class User extends React.Component {
     }));
   }
 
+  toggleGoalFormState() {
+    this.setState(prevState => ({
+      displayNewGoalForm: !prevState.displayNewGoalForm
+    }));
+  }
+
   render() {
     return (
       <div className='user-profile-container'>
         <h1>User's Profile</h1>
+
         <ul className='options'>
-          {this.state.options.map((option) =>
-            <li
-              style={option === this.state.selectedOption ? { color: '#d0021b' } : null }
-              onClick={() => this.updateOption(option)}
-              key={option}>
-              {option}
-            </li>
+        {this.state.options.map((option) =>
+          <li
+          style={option === this.state.selectedOption ? { color: '#d0021b' } : null }
+          onClick={() => this.handleClick(option)}
+          key={option}>
+          {option}
+          </li>
           )}
         </ul>
 
-        <div className='journal-entries-container'>
-          <NewJournalEntryForm
-            userId={this.props.match.params.id}
-            displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
-            toggleJournalEntryFormState={this.toggleJournalEntryFormState}
+        {this.state.selectedOption === 'Goals' &&
+        <div>
+          <NewGoalForm
+          userId={this.state.userId}
+          displayNewGoalForm={this.state.displayNewGoalForm}
+          toggleGoalFormState={this.toggleGoalFormState}
           />
 
-          <ul>
-            {this.state.journal_entries.map((journal) => {
-              return (
-                <div className='journal-entries-list-container'>
-                  <li>{journal.content}</li>
-                </div>
-              )
-            })}
-          </ul>
+        {this.state.goals.map((goal,index) =>
+          <GoalList
+          key={goal.id}
+          index={index}
+          goal={goal}
+          goalCompleted={goal['completed']}
+          updateGoal={() => this.updateGoal(index)}
+          />
+        )}
         </div>
+        }
 
+        {this.state.selectedOption === 'Journal Entries' &&
+        <div>
+          <NewJournalEntryForm
+          userId={this.props.match.params.id}
+          journal_entries={this.state.journal_entries}
+          displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
+          toggleJournalEntryFormState={this.toggleJournalEntryFormState}
+          />
+
+          <JournalEntryList
+          journal_entries={this.state.journal_entries}
+          />
+        </div>
+        }
       </div>
     );
   }
