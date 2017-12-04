@@ -7,10 +7,15 @@ import './User.css';
 import Registration from './components/Registration';
 import Home from './components/Home';
 import User from './components/User';
-import Stage from './components/Stage';
+
+import GoalList from './components/GoalList';
+import JournalEntryList from './components/JournalEntryList';
 import NewJournalEntryForm from './components/NewJournalEntryForm';
+import NewGoalForm from './components/NewGoalForm';
+import Stage from './components/Stage';
 import Goals from './components/Goals';
 import NewAdvicePostForm from './components/NewAdvicePostForm';
+
 
 class App extends Component {
 
@@ -46,10 +51,8 @@ class App extends Component {
                 updateAuthToken={this.updateAuthToken}
               />
             )} />
-            <Route exact path='/profile' component={User} />
+            <Route exact path='/profile/:id' component={User} />
             <Route exact path='/stage/:stageId' component={Stage} />
-            <Route exact path='/registration' render={(routeProps) => (
-              <Registration updateAuthToken={this.updateAuthToken} auth_token={this.state.auth_token} />)} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
 
