@@ -8,8 +8,10 @@ class NewAdvicePostForm extends React.Component {
     super(props);
     this.state = {
       newAdvicePost: {
-        'content': '',
-        'stageId': ''
+        content: '',
+        stageId: '',
+        stageName: '',
+        userId: null
       },
       submitted: false,
       createdAdviceId: null
@@ -27,15 +29,21 @@ class NewAdvicePostForm extends React.Component {
     this.setState({
       [name]: value
     });
+
+    const newAdvicePost = this.state.newAdvicePost
+    newAdvicePost[fieldName] = event.target.value
+    this.setState({newAdvicePost});
   }
 
 
   handleSubmit(event) {
     event.preventDefault()
-    axios.post('http://localhost:3001/advice_posts', {advice_post: this.state.newAdvicePost})
-    .then(({data}) => {
-      const newAdvicePost = Object.assign({}, {...this.state.newAdvicePost}, data)
-      this.setState({newAdvicePost, submitted: true})
+    axios.post(`/api/advice_posts`, {advice_post: this.state.newAdvicePost})
+    .then((data) => {
+      let newAdvicePost = Object.assign({}, {...this.state.newAdvicePost}, data)
+      let advice_posts = this.props.advice_posts
+      advice_posts.push({advice_post: newAdvicePost})
+      this.setState({newAdvicePost, advice_posts, submitted: true})
     })
     .catch((error) => {console.log('Error in creating a new advice post.', error)})
   }
@@ -59,17 +67,16 @@ class NewAdvicePostForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           <p>Your Previous Stage:</p>
-
-          <select className="stages-dropdown" name="stageId" onChange={(e) => this.handleChange(e, 'content')}>
-            <option value='1'>Denial</option>
-            <option value='2'>Anger</option>
-            <option value='3'>Bargaining</option>
-            <option value='4'>Depression</option>
-            <option value='5'>Acceptance</option>
-          </select>
+            <select className="stages-dropdown" name="stageId" onChange={(e) => this.handleChange(e, 'content')}>
+              <option value='1'>Denial</option>
+              <option value='2'>Anger</option>
+              <option value='3'>Bargaining</option>
+              <option value='4'>Depression</option>
+              <option value='5'>Acceptance</option>
+            </select>
           <br /><br />
           <p>Leave Advice:</p>
-          <textarea type='input' value={this.state.newAdvicePost.content} name="adviceContent" onChange={(e) => this.handleChange(e, 'content')}></textarea>
+           <textarea type='input' value={this.state.newAdvicePost.content} name="adviceContent" onChange={(e) => this.handleChange(e, 'content')}></textarea>
         </label><br />
         <input type='submit' value='Submit Post' />
       </form>

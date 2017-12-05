@@ -1,6 +1,5 @@
 import React from 'react';
 import AdvicePost from './AdvicePost';
-import img from '../denial_images/blockYourEx.png';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 

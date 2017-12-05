@@ -2,7 +2,8 @@ import React from 'react';
 import Denial from './Denial';
 import Anger from './Anger';
 import Bargaining from './Bargaining';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import Acceptance from './Acceptance';
+import Depression from './Depression';
 
 class Stage extends React.Component {
   render() {
@@ -11,7 +12,8 @@ class Stage extends React.Component {
         <Denial  />
         <Anger />
         <Bargaining />
-
+        <Depression />
+        <Acceptance />
       </div>
     )
   }

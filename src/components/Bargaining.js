@@ -20,7 +20,7 @@ class Bargaining extends React.Component {
     })
   }
 
-render() {
+  render() {
     return(
       <div className="bargaining-container">
       <span className="stage-name"><h1>The BARGAINING Stage</h1></span>
@@ -28,27 +28,25 @@ render() {
           <h3>Helpful Apps</h3>
             <ul>
               <li>
-              <img className="denial-image" src={require("../denial_images/blockYourEx.png")} />
-              <p>Ex-Lover Blocker: a mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
-              </li><br />
-              <li>
-              <img className="denial-image" src={require("../denial_images/killSwitch.png")} />
-              <p>DrunkDial: a mobile app that administers a sobriety test (timed math problems) before it allows you to phone your ex.</p>
-              </li><br />
-              <li>
-              <img className="denial-image" src={require("../denial_images/massPasswordReset.png")} />
+              <img className="bargaining-image" src={require("../bargaining_images/dontText.png")} />
               <p>Don’t Text That Man!: an app that helps you control your urges to text your ex by providing motivational or wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
+              </li><br />
+              <li>
+              <img className="bargaining-image" src={require("../bargaining_images/drunkBlocker.png")} />
+              <p>DrunkDial: a mobile app that stops you from drunk dialing your ex by blocking calls to the numbers you selected in the app.</p>
+              </li><br />
+              <li>
+              <img className="bargaining-image" src={require("../bargaining_images/exLoverBlocker.png")} />
+              <p>Ex-Lover Blocker: a mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
               </li><br />
             </ul>
         </div>
         <div className="helpful-articles">
           <h3>Helpful Articles</h3>
           <ul>
-            <li><a href="http://www.beliefnet.com/wellness/health/health-support/grief-and-loss/2000/10/anger-griefs-irate-companion.aspx">Anger: Grief's Irate Companion</a></li><br />
-            <li><a href="https://www.7cups.com/qa-breakups-21/is-it-normal-to-have-sudden-mood-shifts-of-from-anger-to-grief-to-love-again-and-many-other-shades-of-the-mood-after-a-break-up-especially-after-a-close-dependent-relationship-1247/">Mood Swings and Anger</a></li><br />
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/the-9-stages-grieving-breakup-no-8-anger">All About Anger</a></li><br />
-            <li><a href="https://www.harleytherapy.co.uk/counselling/manage-anger-after-breakup.htm">How to Manage Your Anger After a Breakup</a></li><br />
-            <li><a href="http://rapidbreakuprecovery.com/how-to-deal-with-anger-after-a-breakup/">Dealing with Your Anger After a Breakup</a></li><br />
+            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-3-desperate-answers">Desperate for Answers</a></li><br />
+            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-4-external-bargaining">External Bargaining</a></li><br />
+            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-5-internal-bargaining">Internal Bargaining</a></li><br />
           </ul>
         </div>
         <div className='advice-posts'>
@@ -66,10 +64,8 @@ render() {
         </Link>
 
       </div>
-
     )
   }
-
 }
 
 export default Bargaining;
