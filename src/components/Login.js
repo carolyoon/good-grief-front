@@ -7,8 +7,7 @@ class Login extends React.Component {
 
     this.state = {
       userName: '',
-      userPassword: '',
-      defaultStage: 'denial'
+      userPassword: ''
     }
 
     this.handleOnChange = this.handleOnChange.bind(this)
