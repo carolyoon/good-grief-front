@@ -28,6 +28,7 @@ class Login extends React.Component {
       console.log(data)
       this.setState({userName: '', userPassword: ''})
       this.props.updateAuth(data.token, data)
+      this.props.history.push(`/profile/${data.id}`)
     })
     .catch((error) => { console.log('Error when logging in.', error) })
   }
