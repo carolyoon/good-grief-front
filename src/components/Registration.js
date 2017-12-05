@@ -23,7 +23,6 @@ class Registration extends React.Component {
   }
 
   handleOnSubmit (event) {
-    console.log("in HanddleOnSubmit thingy")
     event.preventDefault()
     axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.defaultStage}})
     .then(({data}) => {
@@ -41,6 +40,9 @@ class Registration extends React.Component {
         <form className='registration' onSubmit={this.handleOnSubmit}>
           <input type='text' placeholder='Username' onChange={(e) => this.handleOnChange(e, 'userName')} />
           <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
+          <button type='submit' value='Register'>Submit</button>
+        </form>
+          <span>Move this out to a sep comp displayed post registration with server</span>
           <p>Take a quiz to determine your stage</p>
           <ol>
             <li>Denial</li>
@@ -49,12 +51,10 @@ class Registration extends React.Component {
             <li>Depression</li>
             <li>Acceptance</li>
           </ol>
-          <p>Or choose a stage to get started</p>
+          <p>Choose a stage to get started</p>
           <span className='set-own-stage'>
             <button type='dropdown' value='set-own-stage'>Set Your Stage</button>
           </span>
-          <button type='submit' value='Register'>Submit</button>
-        </form>
       </div>
     )
   }
