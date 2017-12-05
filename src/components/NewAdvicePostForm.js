@@ -8,7 +8,9 @@ class NewAdvicePostForm extends React.Component {
     super(props);
     this.state = {
       newAdvicePost: {
-        content: ''
+        content: '',
+        stageName: '',
+        userId: null
       },
       submitted: false,
       createdAdviceId: null
@@ -19,17 +21,19 @@ class NewAdvicePostForm extends React.Component {
   }
 
   handleChange(event, fieldName) {
-    const newAdvicePost = {...this.state.NewAdvicePost}
+    const newAdvicePost = this.state.newAdvicePost
     newAdvicePost[fieldName] = event.target.value
-    this.setState({newAdvicePost})
+    this.setState({newAdvicePost});
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    axios.post('http://localhost:3001/advice_posts', {advice_post: this.state.newAdvicePost})
-    .then(({data}) => {
-      const newAdvicePost = Object.assign({}, {...this.state.newAdvicePost}, data)
-      this.setState({newAdvicePost, submitted: true})
+    axios.post(`/api/advice_posts`, {advice_post: this.state.newAdvicePost})
+    .then((data) => {
+      let newAdvicePost = Object.assign({}, {...this.state.newAdvicePost}, data)
+      let advice_posts = this.props.advice_posts
+      advice_posts.push({advice_post: newAdvicePost})
+      this.setState({newAdvicePost, advice_posts, submitted: true})
     })
     .catch((error) => {console.log('Error in creating a new advice post.', error)})
   }
@@ -40,7 +44,7 @@ class NewAdvicePostForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           <p>Your Previous Stage:</p>
-          <select name='stages' className="stages-dropdown"> 
+          <select name='stages' className="stages-dropdown" onChange={(e) => this.handleChange(e, 'stageName')}> 
             <option value="denial">Denial</option>
             <option value="anger">Anger</option>
             <option value="bargaining">Bargaining</option>
