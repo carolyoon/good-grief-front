@@ -12,7 +12,6 @@ class NewJournalEntryForm extends React.Component {
         content: ''
       },
       formSubmitted: false,
-      createdJournalId: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,8 +28,9 @@ class NewJournalEntryForm extends React.Component {
     event.preventDefault()
     axios.post('http://localhost:3001/journal_entries', {journal_entry: this.state.newJournalEntry})
     .then(({data}) => {
-      const newJournalEntry = Object.assign({}, {...this.state.newJournalEntry}, data)
-      this.setState({newJournalEntry, formSubmitted: true})
+      const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
+      this.setState({ newJournalEntry: {content: ''}, formSubmitted: true, displayNewJournalEntryForm})
+      this.props.addJournalEntry(data.journal_entry)
     })
     .catch((error) => {console.log('Error in creating a new journal entry.', error)})
   }
@@ -45,14 +45,15 @@ class NewJournalEntryForm extends React.Component {
         </div>
     )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            New Entry:
-            <input type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')} />
-          </label>
-          <input type='submit' value='Create New Entry' />
+        <form className='journal-entry-form-container' onSubmit={this.handleSubmit}>
+          <input placeholder='penny for your thoughts...' type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')} />
+          <button type='submit'>create</button>
         </form>
-    )}
+      )} else {
+        return (
+          <div></div>
+        )
+      }
   }
 }
 

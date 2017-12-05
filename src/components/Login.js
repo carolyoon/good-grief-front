@@ -1,14 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 
-class Registration extends React.Component {
+class Login extends React.Component {
   constructor () {
     super()
 
     this.state = {
       userName: '',
-      userPassword: '',
-      defaultStage: 'denial'
+      userPassword: ''
     }
 
     this.handleOnChange = this.handleOnChange.bind(this)
@@ -24,27 +23,28 @@ class Registration extends React.Component {
 
   handleOnSubmit (event) {
     event.preventDefault()
-    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.defaultStage}})
+    axios.post(`/api/sessions`, {session: {username: this.state.userName, password: this.state.userPassword}})
     .then(({data}) => {
       console.log(data)
       this.setState({userName: '', userPassword: ''})
-      this.props.updateAuth(data.token, data.user)
+      this.props.handleLogin(data.token, data)
+      this.props.history.push(`/profile/${data.id}`)
     })
-    .catch((error) => { console.log('Error in creating a new journal entry.', error) })
+    .catch((error) => { console.log('Error when logging in.', error) })
   }
 
   render () {
     return (
       <div>
-        <h2>Registration</h2>
-        <form className='registration' onSubmit={this.handleOnSubmit}>
+        <h2>Login</h2>
+        <form className='login' onSubmit={this.handleOnSubmit}>
           <input type='text' placeholder='Username' onChange={(e) => this.handleOnChange(e, 'userName')} />
           <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
-          <button type='submit' value='Register'>Submit</button>
+          <button type='submit' value='Login'>Login</button>
         </form>
       </div>
     )
   }
 }
 
-export default Registration
+export default Login
