@@ -19,15 +19,16 @@ class User extends React.Component {
       journal_entries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-      displayNewGoalForm: false
     };
 
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
+    this.addGoal = this.addGoal.bind(this);
+    this.addJournalEntry = this.addJournalEntry.bind(this);
     this.updateGoal = this.updateGoal.bind(this);
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
-    this.toggleGoalFormState = this.toggleGoalFormState.bind(this);
   }
 
   goalsCall() {
@@ -55,17 +56,41 @@ class User extends React.Component {
     this.journalEntriesCall();
   }
 
+  addGoal(newGoal) {
+    let goals = this.state.goals
+    goals.unshift(newGoal)
+    this.setState({ goals })
+  }
+
+  addJournalEntry(newJournalEntry) {
+    let journal_entries = this.state.journal_entries
+    journal_entries.unshift(newJournalEntry)
+    this.setState({ journal_entries })
+  }
+
   updateGoal(index) {
     const appTarget = this
     const goal = this.state.goals[index]
     const status = !goal['completed']
     const goals = [...this.state.goals]
     goals[index]['completed'] = status
-    axios.put(`/api/users/${this.props.match.params.id}/goals/` + goal.id + `?goal[completed]=${status}`)
+    axios.put(`/api/users/${this.props.match.params.id}/goals/${goal.id}` + `?goal[completed]=${status}`)
     .then(response => {
       goals[index] = response.data.goal
       appTarget.setState({ goals })
     })
+    .catch((error) => console.log('Fail to update a goal.', error))
+  }
+
+  deleteCompletedGoal(index) {
+    const goal = this.state.goals[index]
+    const goals = [...this.state.goals]
+    axios.delete(`/api/users/${this.props.match.params.id}/goals/${goal.id}`)
+    .then(response => {
+      goals[index] = response.data.goal
+      this.setState({ goals })
+    })
+    .catch((error) => console.log('Error in removing a goal.', error))
   }
 
   handleClick(option) {
@@ -75,12 +100,6 @@ class User extends React.Component {
   toggleJournalEntryFormState() {
     this.setState(prevState => ({
       displayNewJournalEntryForm: !prevState.displayNewJournalEntryForm
-    }));
-  }
-
-  toggleGoalFormState() {
-    this.setState(prevState => ({
-      displayNewGoalForm: !prevState.displayNewGoalForm
     }));
   }
 
@@ -103,18 +122,18 @@ class User extends React.Component {
         {this.state.selectedOption === 'Goals' &&
         <div>
           <NewGoalForm
-          userId={this.state.userId}
-          displayNewGoalForm={this.state.displayNewGoalForm}
-          toggleGoalFormState={this.toggleGoalFormState}
+          userId={this.props.match.params.id}
+          goals={this.state.goals}
+          addGoal={this.addGoal}
           />
 
-        {this.state.goals.map((goal,index) =>
+        {this.state.goals.map((goal, index) =>
           <GoalList
-          key={goal.id}
           index={index}
           goal={goal}
           goalCompleted={goal['completed']}
           updateGoal={() => this.updateGoal(index)}
+          deleteCompletedGoal={() => this.deleteCompletedGoal(index)}
           />
         )}
         </div>
@@ -125,6 +144,7 @@ class User extends React.Component {
           <NewJournalEntryForm
           userId={this.props.match.params.id}
           journal_entries={this.state.journal_entries}
+          addJournalEntry={this.addJournalEntry}
           displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
           toggleJournalEntryFormState={this.toggleJournalEntryFormState}
           />

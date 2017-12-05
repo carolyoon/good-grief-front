@@ -12,7 +12,6 @@ class NewJournalEntryForm extends React.Component {
         content: ''
       },
       formSubmitted: false,
-      createdJournalId: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,8 +28,9 @@ class NewJournalEntryForm extends React.Component {
     event.preventDefault()
     axios.post('http://localhost:3001/journal_entries', {journal_entry: this.state.newJournalEntry})
     .then(({data}) => {
-      const newJournalEntry = Object.assign({}, {...this.state.newJournalEntry}, data)
-      this.setState({newJournalEntry, formSubmitted: true})
+      const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
+      this.setState({ newJournalEntry: {content: ''}, formSubmitted: true, displayNewJournalEntryForm})
+      this.props.addJournalEntry(data.journal_entry)
     })
     .catch((error) => {console.log('Error in creating a new journal entry.', error)})
   }
@@ -52,7 +52,11 @@ class NewJournalEntryForm extends React.Component {
           </label>
           <input type='submit' value='Create New Entry' />
         </form>
-    )}
+      )} else {
+        return (
+          <div></div>
+        )
+      }
   }
 }
 

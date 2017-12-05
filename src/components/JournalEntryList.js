@@ -4,10 +4,9 @@ class JournalEntryList extends React.Component {
 
   render() {
     return(
-        <ul>
+        <ul className='journal-entries-list-container'>
           {this.props.journal_entries.map((journal) =>
-            <li
-              className='journal-entries-list-container'>
+            <li>
               {journal.content}
             </li>
           )}
