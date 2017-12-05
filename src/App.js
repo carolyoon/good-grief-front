@@ -5,6 +5,7 @@ import './App.css';
 import './User.css';
 
 import Registration from './components/Registration';
+import Login from './components/Login'
 import Home from './components/Home';
 import User from './components/User';
 
@@ -49,6 +50,7 @@ class App extends Component {
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'>Home</Link> |
             <Link className='navigation-text' to='/registration'> Register</Link> |
+            <Link className='navigation-text' to='/login'> Login</Link> |
             <Link className='navigation-text' to='/profile/:id'> My Profile</Link> |
             <Link className='navigation-text' to='/stage'> Stages</Link>
 
@@ -58,6 +60,13 @@ class App extends Component {
             <Route exact path='/advice' component={NewAdvicePostForm} />
             <Route exact path='/registration' render={(props) => (
               <Registration
+                {...props}
+                authToken={this.state.authToken}
+                updateAuth={this.updateAuth}
+              />
+            )} />
+            <Route exact path='/login' render={(props) => (
+              <Login
                 {...props}
                 authToken={this.state.authToken}
                 updateAuth={this.updateAuth}
