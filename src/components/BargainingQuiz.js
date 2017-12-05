@@ -20,8 +20,8 @@ class BargainingQuiz extends Component {
      answerOptions: [],
      answer: '',
      answersCount: {
-       yes: 0,
-       no: 0
+       'Bargaining': 0,
+       'Depression': 0
      },
      result: ''
     };

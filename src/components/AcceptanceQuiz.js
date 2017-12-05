@@ -20,8 +20,8 @@ class AcceptanceQuiz extends Component {
      answerOptions: [],
      answer: '',
      answersCount: {
-       yes: 0,
-       no: 0
+       'Acceptance': 0,
+       'None': 0
      },
      result: ''
     };

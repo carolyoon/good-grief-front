@@ -3,11 +3,11 @@ var acceptanceQuestions = [
       question: "Do you no longer want to get back with your ex?",
       answers: [
           {
-              type: "Yes",
+              type: "Acceptance",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "None",
               content: "No"
           },
       ]
@@ -16,11 +16,11 @@ var acceptanceQuestions = [
       question: "Is your life getting back to normal?",
       answers: [
           {
-              type: "Yes",
+              type: "Acceptance",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "None",
               content: "No"
           },
       ]
@@ -29,11 +29,11 @@ var acceptanceQuestions = [
       question: "Do you feel like the relationship is over and that is okay?",
       answers: [
           {
-              type: "Yes",
+              type: "Acceptance",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "None",
               content: "No"
           },
       ]
@@ -42,11 +42,11 @@ var acceptanceQuestions = [
       question: "Are you going to social events or hanging out with friends, and not dreading it?",
       answers: [
           {
-              type: "Yes",
+              type: "Acceptance",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "None",
               content: "No"
           },
       ]
@@ -55,11 +55,11 @@ var acceptanceQuestions = [
       question: "Have you imagined/considered finding someone new in the future?",
       answers: [
           {
-              type: "Yes",
+              type: "Acceptance",
               content: "Yes"
           },
           {
-              type: "No",
+              type: "None",
               content: "No"
           },
       ]

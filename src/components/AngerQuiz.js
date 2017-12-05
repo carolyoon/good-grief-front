@@ -20,8 +20,8 @@ class AngerQuiz extends Component {
      answerOptions: [],
      answer: '',
      answersCount: {
-       yes: 0,
-       no: 0
+       'Anger': 0,
+       'Bargaining': 0
      },
      result: ''
     };

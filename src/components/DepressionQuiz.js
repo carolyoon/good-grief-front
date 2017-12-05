@@ -20,8 +20,8 @@ class DepressionQuiz extends Component {
      answerOptions: [],
      answer: '',
      answersCount: {
-       yes: 0,
-       no: 0
+       'Depression': 0,
+       'Acceptance': 0
      },
      result: ''
     };
@@ -71,21 +71,23 @@ class DepressionQuiz extends Component {
     const updatedAnswersCount = update(this.state.answersCount, {
       [answer]: {$apply: (currentValue) => currentValue + 1}
     });
+
     this.setState({
-      answersCount: updatedAnswersCount,
-      answer: answer
+        answersCount: updatedAnswersCount,
+        answer: answer
     });
   }
 
   setNextQuestion() {
     const counter = this.state.counter + 1;
     const questionId = this.state.questionId + 1;
+
     this.setState({
-      counter: counter,
-      questionId: questionId,
-      question: depressionQuestions[counter].question,
-      answerOptions: depressionQuestions[counter].answers,
-      answer: ''
+        counter: counter,
+        questionId: questionId,
+        question: depressionQuestions[counter].question,
+        answerOptions: depressionQuestions[counter].answers,
+        answer: ''
     });
   }
 

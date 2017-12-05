@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import AdvicePost from './AdvicePost';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 class Anger extends React.Component {
   constructor() {
@@ -14,7 +15,7 @@ class Anger extends React.Component {
     axios.get('http://localhost:3001/api/advice_posts')
     .then(res => {
       const advicePosts = res.data.map ( (post) =>
-        ({id: post.id, content: post.content}))
+        ({id: post.id, content: post.content, stageId: post.stageId}))
       this.setState( {advicePosts})
     })
   }
@@ -62,11 +63,12 @@ class Anger extends React.Component {
             )}
           </ul>
         </div>
-        <div className='move-on-button'>
-          <form>
-            <input type="button" value="Ready to Move on?" />
-          </form>
-        </div>
+
+        <Link to="/bargaining_quiz">
+           <button type="button">
+              Ready to Move on to Bargaining?
+           </button>
+        </Link>
       </div>
     )
   }
