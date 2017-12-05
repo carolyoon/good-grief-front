@@ -45,12 +45,9 @@ class NewJournalEntryForm extends React.Component {
         </div>
     )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            New Entry:
-            <input type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')} />
-          </label>
-          <input type='submit' value='Create New Entry' />
+        <form className='journal-entry-form-container' onSubmit={this.handleSubmit}>
+          <input placeholder='penny for your thoughts...' type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')} />
+          <button type='submit'>create</button>
         </form>
       )} else {
         return (
