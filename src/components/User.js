@@ -20,7 +20,7 @@ class User extends React.Component {
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
     };
-    
+
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
     this.addGoal = this.addGoal.bind(this);
@@ -55,7 +55,7 @@ class User extends React.Component {
     this.goalsCall()
     this.journalEntriesCall()
   }
-  
+
   addGoal(newGoal) {
     let goals = this.state.goals
     goals.unshift(newGoal)
@@ -111,7 +111,7 @@ class User extends React.Component {
         <ul className='options'>
           {this.state.options.map((option) =>
             <li
-              style={option === this.state.selectedOption ? { color: '#d0021b' } : null}
+              style={option === this.state.selectedOption ? { color: '#003399' } : null}
               onClick={() => this.handleClick(option)}
               key={option}>
               {option}
@@ -120,7 +120,7 @@ class User extends React.Component {
         </ul>
 
         {this.state.selectedOption === 'Goals' &&
-        <div>
+        <div className='goal-container'>
           <NewGoalForm
             userId={this.state.userId}
             goals={this.state.goals}
@@ -140,7 +140,7 @@ class User extends React.Component {
         }
 
         {this.state.selectedOption === 'Journal Entries' &&
-        <div>
+        <div className='journal-entry-container'>
           <NewJournalEntryForm
             userId={this.props.match.params.id}
             journal_entries={this.state.journal_entries}
