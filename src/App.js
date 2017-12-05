@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 
 import './App.css'
 import './User.css'
@@ -39,6 +39,10 @@ class App extends Component {
     this.setState({authToken: token, currentUser: user})
   }
 
+  logout () {
+    this.setState({authToken: null, currentUser: null})
+  }
+
   render () {
     return (
       <Router>
@@ -50,6 +54,8 @@ class App extends Component {
               <Link className='navigation-text' to='/registration'> Register</Link>}
             { !this.state.authToken &&
               <Link className='navigation-text' to='/login'> Login</Link>}
+            { this.state.authToken &&
+              <Link className='navigation-text' to='/login' onClick={this.logout}> Logout</Link>}
             <Link className='navigation-text' to='/profile/:id'> My Profile</Link>
             <Link className='navigation-text' to='/stage'> Stages</Link>
 
