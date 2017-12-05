@@ -32,14 +32,14 @@ class App extends Component {
       currentUser: null
     }
 
-    this.updateAuth = this.updateAuth.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
-  updateAuth (token, user) {
+  handleLogin (token, user) {
     this.setState({authToken: token, currentUser: user})
   }
 
-  logout () {
+  handleLogout () {
     this.setState({authToken: null, currentUser: null})
   }
 
@@ -55,7 +55,7 @@ class App extends Component {
             { !this.state.authToken &&
               <Link className='navigation-text' to='/login'> Login</Link>}
             { this.state.authToken &&
-              <Link className='navigation-text' to='/login' onClick={this.logout}> Logout</Link>}
+              <Link className='navigation-text' to='/login' onClick={this.handleLogout}> Logout</Link>}
             <Link className='navigation-text' to='/profile/:id'> My Profile</Link>
             <Link className='navigation-text' to='/stage'> Stages</Link>
 
@@ -67,14 +67,14 @@ class App extends Component {
               <Registration
                 {...props}
                 authToken={this.state.authToken}
-                updateAuth={this.updateAuth}
+                handleLogin={this.handleLogin}
               />
             )} />
             <Route exact path='/login' render={(props) => (
               <Login
                 {...props}
                 authToken={this.state.authToken}
-                updateAuth={this.updateAuth}
+                handleLogin={this.handleLogin}
               />
             )} />
             <Route exact path='/profile/:id' component={User} />
