@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import axios from 'axios'
 
 import './App.css'
 import './User.css'
 
-import Registration from './components/Registration'
-import Login from './components/Login'
-import Home from './components/Home'
-import User from './components/User'
-
-import DenialQuiz from './components/DenialQuiz'
+import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
 import BargainingQuiz from './components/BargainingQuiz'
-import AcceptanceQuiz from './components/AcceptanceQuiz'
+import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
-
-import GoalList from './components/GoalList'
-import JournalEntryList from './components/JournalEntryList'
-import NewJournalEntryForm from './components/NewJournalEntryForm'
-import NewGoalForm from './components/NewGoalForm'
-// import Goals from './components/Goals'
-import Stage from './components/Stage'
+import Home from './components/Home'
 import NewAdvicePostForm from './components/NewAdvicePostForm'
+import Login from './components/Login'
+import Registration from './components/Registration'
+import Stage from './components/Stage'
+import User from './components/User'
+
+// import GoalList from './components/GoalList'
+// import JournalEntryList from './components/JournalEntryList'
+// import NewJournalEntryForm from './components/NewJournalEntryForm'
+// import NewGoalForm from './components/NewGoalForm'
+// import Goals from './components/Goals'
 
 class App extends Component {
   constructor () {
@@ -33,14 +33,30 @@ class App extends Component {
     }
 
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   handleLogin (token, user) {
     this.setState({authToken: token, currentUser: user})
+    window.localStorage.setItem('authToken', token)
+    window.localStorage.setItem('userId', user.id)
   }
 
   handleLogout () {
     this.setState({authToken: null, currentUser: null})
+    window.localStorage.removeItem('authToken')
+    window.localStorage.removeItem('userId')
+  }
+
+  componentWillMount () {
+    if (window.localStorage.getItem('authToken') !== null) {
+      console.log(window.localStorage.getItem('authToken'))
+      axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
+      .then(({data}) => {
+        this.handleLogin(data.token, data)
+      })
+    .catch((error) => { console.log('Error when logging in.', error) })
+    }
   }
 
   render () {
@@ -91,6 +107,5 @@ class App extends Component {
     )
   }
 }
-
 
 export default App

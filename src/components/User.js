@@ -19,17 +19,17 @@ class User extends React.Component {
       goals: [],
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
-    };
+    }
 
-    this.goalsCall = this.goalsCall.bind(this);
-    this.journalEntriesCall = this.journalEntriesCall.bind(this);
-    this.addGoal = this.addGoal.bind(this);
-    this.addJournalEntry = this.addJournalEntry.bind(this);
-    this.updateGoal = this.updateGoal.bind(this);
-    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
- }
+    this.goalsCall = this.goalsCall.bind(this)
+    this.journalEntriesCall = this.journalEntriesCall.bind(this)
+    this.addGoal = this.addGoal.bind(this)
+    this.addJournalEntry = this.addJournalEntry.bind(this)
+    this.updateGoal = this.updateGoal.bind(this)
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
+  }
 
   goalsCall () {
     const that = this
@@ -56,19 +56,19 @@ class User extends React.Component {
     this.journalEntriesCall()
   }
 
-  addGoal(newGoal) {
+  addGoal (newGoal) {
     let goals = this.state.goals
     goals.unshift(newGoal)
     this.setState({ goals })
   }
 
-  addJournalEntry(newJournalEntry) {
+  addJournalEntry (newJournalEntry) {
     let journal_entries = this.state.journal_entries
     journal_entries.unshift(newJournalEntry)
     this.setState({ journal_entries })
   }
 
-  updateGoal(index) {
+  updateGoal (index) {
     const appTarget = this
     const goal = this.state.goals[index]
     const status = !goal['completed']
@@ -82,7 +82,7 @@ class User extends React.Component {
     .catch((error) => console.log('Fail to update a goal.', error))
   }
 
-  deleteCompletedGoal(index) {
+  deleteCompletedGoal (index) {
     const goal = this.state.goals[index]
     const goals = [...this.state.goals]
     axios.delete(`/api/users/${this.props.userId}/goals/${goal.id}`)
@@ -103,7 +103,7 @@ class User extends React.Component {
     }))
   }
 
-  render() {
+  render () {
     return (
       <div className='user-profile-container'>
         <h1>User's Profile</h1>
@@ -119,7 +119,7 @@ class User extends React.Component {
             )}
         </ul>
 
-        {this.state.selectedOption === 'Goals' &&
+        {this.state.selectedOption === 'Goals' && this.props.currentUser &&
         <div className='goal-container'>
           <NewGoalForm
             userId={this.props.currentUser.id}
@@ -127,15 +127,15 @@ class User extends React.Component {
             addGoal={this.addGoal}
           />
 
-        {this.state.goals.map((goal, index) =>
-          <GoalList
-            index={index}
-            goal={goal}
-            goalCompleted={goal['completed']}
-            updateGoal={() => this.updateGoal(index)}
-            deleteCompletedGoal={() => this.deleteCompletedGoal(index)}
-          />
-        )}
+          {this.state.goals.map((goal, index) =>
+            <GoalList
+              index={index}
+              goal={goal}
+              goalCompleted={goal['completed']}
+              updateGoal={() => this.updateGoal(index)}
+              deleteCompletedGoal={() => this.deleteCompletedGoal(index)}
+            />
+          )}
         </div>
         }
 
