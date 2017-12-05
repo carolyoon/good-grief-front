@@ -1,32 +1,30 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 
-import './App.css';
-import './User.css';
+import './App.css'
+import './User.css'
 
-import Registration from './components/Registration';
-import Home from './components/Home';
-import User from './components/User';
+import Registration from './components/Registration'
+import Login from './components/Login'
+import Home from './components/Home'
+import User from './components/User'
 
-import DenialQuiz from './components/DenialQuiz';
-import AngerQuiz from './components/AngerQuiz';
-import BargainingQuiz from './components/BargainingQuiz';
-import AcceptanceQuiz from './components/AcceptanceQuiz';
-import DepressionQuiz from './components/DepressionQuiz';
+import DenialQuiz from './components/DenialQuiz'
+import AngerQuiz from './components/AngerQuiz'
+import BargainingQuiz from './components/BargainingQuiz'
+import AcceptanceQuiz from './components/AcceptanceQuiz'
+import DepressionQuiz from './components/DepressionQuiz'
 
-
-import GoalList from './components/GoalList';
-import JournalEntryList from './components/JournalEntryList';
-import NewJournalEntryForm from './components/NewJournalEntryForm';
-import NewGoalForm from './components/NewGoalForm';
-import Stage from './components/Stage';
-// import Goals from './components/Goals';
-import NewAdvicePostForm from './components/NewAdvicePostForm';
-
+// import GoalList from './components/GoalList'
+// import JournalEntryList from './components/JournalEntryList'
+// import NewJournalEntryForm from './components/NewJournalEntryForm'
+// import NewGoalForm from './components/NewGoalForm'
+// import Goals from './components/Goals'
+import Stage from './components/Stage'
+import NewAdvicePostForm from './components/NewAdvicePostForm'
 
 class App extends Component {
-
-  constructor() {
+  constructor () {
     super()
 
     this.state = {
@@ -34,22 +32,31 @@ class App extends Component {
       currentUser: null
     }
 
-    this.updateAuth = this.updateAuth.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
-  updateAuth (token, user) {
+  handleLogin (token, user) {
     this.setState({authToken: token, currentUser: user})
   }
 
-  render() {
+  handleLogout () {
+    this.setState({authToken: null, currentUser: null})
+  }
+
+  render () {
     return (
       <Router>
         <div>
 
           <div className='navigation-bar'>
-            <Link className='navigation-text' to='/'>Home</Link> |
-            <Link className='navigation-text' to='/registration'> Register</Link> |
-            <Link className='navigation-text' to='/profile/:id'> My Profile</Link> |
+            <Link className='navigation-text' to='/'>Home</Link>
+            { !this.state.authToken &&
+              <Link className='navigation-text' to='/registration'> Register</Link>}
+            { !this.state.authToken &&
+              <Link className='navigation-text' to='/login'> Login</Link>}
+            { this.state.authToken &&
+              <Link className='navigation-text' to='/login' onClick={this.handleLogout}> Logout</Link>}
+            <Link className='navigation-text' to='/profile/:id'> My Profile</Link>
             <Link className='navigation-text' to='/stage'> Stages</Link>
 
           </div>
@@ -60,7 +67,14 @@ class App extends Component {
               <Registration
                 {...props}
                 authToken={this.state.authToken}
-                updateAuth={this.updateAuth}
+                handleLogin={this.handleLogin}
+              />
+            )} />
+            <Route exact path='/login' render={(props) => (
+              <Login
+                {...props}
+                authToken={this.state.authToken}
+                handleLogin={this.handleLogin}
               />
             )} />
             <Route exact path='/profile/:id' component={User} />
@@ -75,8 +89,8 @@ class App extends Component {
 
         </div>
       </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default App
