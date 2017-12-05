@@ -51,13 +51,13 @@ class App extends Component {
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'>Home</Link>
             { !this.state.authToken &&
-              <Link className='navigation-text' to='/registration'> Register</Link>}
+              <Link className='navigation-text' to='/registration'>Register</Link>}
             { !this.state.authToken &&
-              <Link className='navigation-text' to='/login'> Login</Link>}
+              <Link className='navigation-text' to='/login'>Login</Link>}
             { this.state.authToken &&
-              <Link className='navigation-text' to='/login' onClick={this.handleLogout}> Logout</Link>}
-            <Link className='navigation-text' to='/profile/:id'> My Profile</Link>
-            <Link className='navigation-text' to='/stage'> Stages</Link>
+              <Link className='navigation-text' to='/login' onClick={this.handleLogout}>Logout</Link>}
+              <Link className='navigation-text' to='/profile/:id'>My Profile</Link>
+              <Link className='navigation-text' to='/stage'>Stages</Link>
 
           </div>
           <Switch>
@@ -77,7 +77,7 @@ class App extends Component {
                 handleLogin={this.handleLogin}
               />
             )} />
-            <Route exact path='/profile/:id' component={User} />
+            <Route path='/profile/:id' component={User} />
             <Route exact path='/stage' component={Stage} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
