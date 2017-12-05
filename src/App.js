@@ -15,10 +15,10 @@ import BargainingQuiz from './components/BargainingQuiz'
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
 
-// import GoalList from './components/GoalList'
-// import JournalEntryList from './components/JournalEntryList'
-// import NewJournalEntryForm from './components/NewJournalEntryForm'
-// import NewGoalForm from './components/NewGoalForm'
+import GoalList from './components/GoalList'
+import JournalEntryList from './components/JournalEntryList'
+import NewJournalEntryForm from './components/NewJournalEntryForm'
+import NewGoalForm from './components/NewGoalForm'
 // import Goals from './components/Goals'
 import Stage from './components/Stage'
 import NewAdvicePostForm from './components/NewAdvicePostForm'
@@ -47,7 +47,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'>Home</Link>
             { !this.state.authToken &&
@@ -56,11 +55,10 @@ class App extends Component {
               <Link className='navigation-text' to='/login'>Login</Link>}
             { this.state.authToken &&
               <Link className='navigation-text' to='/' onClick={this.handleLogout}>Logout</Link>}
-            { this.authToken &&
+            { this.state.authToken &&
               <Link className='navigation-text' to='/profile/:id'>My Profile</Link>}
-            { this.authToken &&
+            { this.state.authToken &&
               <Link className='navigation-text' to='/stage'>Stages</Link>}
-
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
@@ -79,7 +77,7 @@ class App extends Component {
                 handleLogin={this.handleLogin}
               />
             )} />
-            <Route path='/profile/:id' component={User} />
+            <Route path='/profile/:id' component={(props) => <User {...props} currentUser={this.state.currentUser} />} />
             <Route exact path='/stage' component={Stage} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
@@ -88,11 +86,11 @@ class App extends Component {
             <Route exact path='/anger_quiz' component={AngerQuiz} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
-
         </div>
       </Router>
     )
   }
 }
+
 
 export default App

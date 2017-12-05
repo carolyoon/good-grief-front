@@ -4,8 +4,8 @@ import axios from 'axios';
 import * as FontAwesome from 'react-icons/lib/fa';
 
 class NewGoalForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       newGoal: {
         content: ''
@@ -15,6 +15,9 @@ class NewGoalForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.submitNewGoal = this.submitNewGoal.bind(this);
+
+    console.log("YAYYYY")
+    console.log(this.state.newGoal, this.state.formSubmitted);
   }
 
   handleChange(event, fieldName) {
@@ -24,8 +27,9 @@ class NewGoalForm extends React.Component {
   }
 
   submitNewGoal(event) {
+    console.log("getting here")
     event.preventDefault();
-    axios.post(`/api/users/${this.props.userId}/goals`, {goal: this.state.newGoal})
+    axios.post(`http://localhost:3001/api/users/${this.props.userId}/goals`, {goal: this.state.newGoal})
     .then(({data}) => {
       const displayNewGoalForm = !this.props.displayNewGoalForm
       this.setState({ newGoal: {content: ''}, formSubmitted: true, displayNewGoalForm })

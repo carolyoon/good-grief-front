@@ -9,7 +9,7 @@ class User extends React.Component {
   constructor () {
     super()
     this.state = {
-      userId: '',
+      // userId: '',
       selectedOption: 'Goals',
       options: [
         'Goals',
@@ -85,7 +85,7 @@ class User extends React.Component {
   deleteCompletedGoal(index) {
     const goal = this.state.goals[index]
     const goals = [...this.state.goals]
-    axios.delete(`/api/users/${this.props.match.params.id}/goals/${goal.id}`)
+    axios.delete(`/api/users/${this.props.userId}/goals/${goal.id}`)
     .then(response => {
       goals[index] = response.data.goal
       this.setState({ goals })
@@ -122,7 +122,7 @@ class User extends React.Component {
         {this.state.selectedOption === 'Goals' &&
         <div className='goal-container'>
           <NewGoalForm
-            userId={this.state.userId}
+            userId={this.props.currentUser.id}
             goals={this.state.goals}
             addGoal={this.addGoal}
           />
