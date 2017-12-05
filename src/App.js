@@ -1,33 +1,30 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 
-import './App.css';
-import './User.css';
+import './App.css'
+import './User.css'
 
-import Registration from './components/Registration';
+import Registration from './components/Registration'
 import Login from './components/Login'
-import Home from './components/Home';
-import User from './components/User';
+import Home from './components/Home'
+import User from './components/User'
 
-import DenialQuiz from './components/DenialQuiz';
-import AngerQuiz from './components/AngerQuiz';
-import BargainingQuiz from './components/BargainingQuiz';
-import AcceptanceQuiz from './components/AcceptanceQuiz';
-import DepressionQuiz from './components/DepressionQuiz';
+import DenialQuiz from './components/DenialQuiz'
+import AngerQuiz from './components/AngerQuiz'
+import BargainingQuiz from './components/BargainingQuiz'
+import AcceptanceQuiz from './components/AcceptanceQuiz'
+import DepressionQuiz from './components/DepressionQuiz'
 
-
-import GoalList from './components/GoalList';
-import JournalEntryList from './components/JournalEntryList';
-import NewJournalEntryForm from './components/NewJournalEntryForm';
-import NewGoalForm from './components/NewGoalForm';
-import Stage from './components/Stage';
-// import Goals from './components/Goals';
-import NewAdvicePostForm from './components/NewAdvicePostForm';
-
+// import GoalList from './components/GoalList'
+// import JournalEntryList from './components/JournalEntryList'
+// import NewJournalEntryForm from './components/NewJournalEntryForm'
+// import NewGoalForm from './components/NewGoalForm'
+// import Goals from './components/Goals'
+import Stage from './components/Stage'
+import NewAdvicePostForm from './components/NewAdvicePostForm'
 
 class App extends Component {
-
-  constructor() {
+  constructor () {
     super()
 
     this.state = {
@@ -42,7 +39,7 @@ class App extends Component {
     this.setState({authToken: token, currentUser: user})
   }
 
-  render() {
+  render () {
     return (
       <Router>
         <div>
@@ -84,8 +81,8 @@ class App extends Component {
 
         </div>
       </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default App

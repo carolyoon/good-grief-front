@@ -23,11 +23,11 @@ class Login extends React.Component {
 
   handleOnSubmit (event) {
     event.preventDefault()
-    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.defaultStage}})
+    axios.post(`/api/sessions`, {session: {username: this.state.userName, password: this.state.userPassword}})
     .then(({data}) => {
       console.log(data)
       this.setState({userName: '', userPassword: ''})
-      this.props.updateAuth(data.token, data.user)
+      this.props.updateAuth(data.token, data)
     })
     .catch((error) => { console.log('Error when logging in.', error) })
   }
