@@ -27,7 +27,6 @@ class NewGoalForm extends React.Component {
     event.preventDefault();
     axios.post(`/api/users/${this.props.userId}/goals`, {goal: this.state.newGoal})
     .then(({data}) => {
-      console.log(data)
       const displayNewGoalForm = !this.props.displayNewGoalForm
       this.setState({ newGoal: {content: ''}, formSubmitted: true, displayNewGoalForm })
       this.props.addGoal(data.goal)

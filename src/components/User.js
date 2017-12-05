@@ -25,6 +25,7 @@ class User extends React.Component {
     this.goalsCall = this.goalsCall.bind(this);
     this.journalEntriesCall = this.journalEntriesCall.bind(this);
     this.addGoal = this.addGoal.bind(this);
+    this.addJournalEntry = this.addJournalEntry.bind(this);
     this.updateGoal = this.updateGoal.bind(this);
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -59,8 +60,14 @@ class User extends React.Component {
 
   addGoal(newGoal) {
     let goals = this.state.goals
-    goals.push(newGoal)
+    goals.unshift(newGoal)
     this.setState({ goals })
+  }
+
+  addJournalEntry(newJournalEntry) {
+    let journal_entries = this.state.journal_entries
+    journal_entries.unshift(newJournalEntry)
+    this.setState({ journal_entries })
   }
 
   updateGoal(index) {
@@ -147,6 +154,7 @@ class User extends React.Component {
           <NewJournalEntryForm
           userId={this.props.match.params.id}
           journal_entries={this.state.journal_entries}
+          addJournalEntry={this.addJournalEntry}
           displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
           toggleJournalEntryFormState={this.toggleJournalEntryFormState}
           />

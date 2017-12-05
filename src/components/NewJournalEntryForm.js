@@ -25,11 +25,9 @@ class NewJournalEntryForm extends React.Component {
     event.preventDefault()
     axios.post(`/api/users/${this.props.userId}/journal_entries`, {journal_entry: this.state.newJournalEntry})
     .then(({data}) => {
-      let newJournalEntry = Object.assign({}, {...this.state.newJournalEntry}, data)
-      let journal_entries = this.props.journal_entries
       const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
-      journal_entries.push({journal_entry: newJournalEntry})
-      this.setState({newJournalEntry, journal_entries, formSubmitted: true, displayNewJournalEntryForm})
+      this.setState({ newJournalEntry: {content: ''}, formSubmitted: true, displayNewJournalEntryForm})
+      this.props.addJournalEntry(data.journal_entry)
     })
     .catch((error) => {console.log('Error in creating a new journal entry.', error)})
   }
