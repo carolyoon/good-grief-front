@@ -45,10 +45,12 @@ class App extends Component {
         <div>
 
           <div className='navigation-bar'>
-            <Link className='navigation-text' to='/'>Home</Link> |
-            <Link className='navigation-text' to='/registration'> Register</Link> |
-            <Link className='navigation-text' to='/login'> Login</Link> |
-            <Link className='navigation-text' to='/profile/:id'> My Profile</Link> |
+            <Link className='navigation-text' to='/'>Home</Link>
+            { !this.state.authToken &&
+              <Link className='navigation-text' to='/registration'> Register</Link>}
+            { !this.state.authToken &&
+              <Link className='navigation-text' to='/login'> Login</Link>}
+            <Link className='navigation-text' to='/profile/:id'> My Profile</Link>
             <Link className='navigation-text' to='/stage'> Stages</Link>
 
           </div>
