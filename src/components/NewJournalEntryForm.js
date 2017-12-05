@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import * as FontAwesome from 'react-icons/lib/fa';
 
@@ -7,7 +8,9 @@ class NewJournalEntryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newJournalEntry: {},
+      newJournalEntry: {
+        content: ''
+      },
       formSubmitted: false,
     };
 
@@ -23,7 +26,7 @@ class NewJournalEntryForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    axios.post(`/api/users/${this.props.userId}/journal_entries`, {journal_entry: this.state.newJournalEntry})
+    axios.post('http://localhost:3001/journal_entries', {journal_entry: this.state.newJournalEntry})
     .then(({data}) => {
       const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
       this.setState({ newJournalEntry: {content: ''}, formSubmitted: true, displayNewJournalEntryForm})
@@ -40,7 +43,7 @@ class NewJournalEntryForm extends React.Component {
             <FontAwesome.FaPlus />
           </button>
         </div>
-    )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted){
+    )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
