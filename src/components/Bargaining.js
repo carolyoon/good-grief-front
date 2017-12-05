@@ -19,7 +19,7 @@ class Bargaining extends React.Component {
     })
   }
 
-render() {
+  render() {
     return(
       <div className="bargaining-container">
       <span className="stage-name"><h1>The BARGAINING Stage</h1></span>
