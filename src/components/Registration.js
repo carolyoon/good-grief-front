@@ -42,19 +42,6 @@ class Registration extends React.Component {
           <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
           <button type='submit' value='Register'>Submit</button>
         </form>
-          <span>Move this out to a sep comp displayed post registration with server</span>
-          <p>Take a quiz to determine your stage</p>
-          <ol>
-            <li>Denial</li>
-            <li>Anger</li>
-            <li>Bargaining</li>
-            <li>Depression</li>
-            <li>Acceptance</li>
-          </ol>
-          <p>Choose a stage to get started</p>
-          <span className='set-own-stage'>
-            <button type='dropdown' value='set-own-stage'>Set Your Stage</button>
-          </span>
       </div>
     )
   }
