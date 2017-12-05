@@ -56,8 +56,10 @@ class App extends Component {
               <Link className='navigation-text' to='/login'>Login</Link>}
             { this.state.authToken &&
               <Link className='navigation-text' to='/' onClick={this.handleLogout}>Logout</Link>}
-              <Link className='navigation-text' to='/profile/:id'>My Profile</Link>
-              <Link className='navigation-text' to='/stage'>Stages</Link>
+            { this.authToken &&
+              <Link className='navigation-text' to='/profile/:id'>My Profile</Link>}
+            { this.authToken &&
+              <Link className='navigation-text' to='/stage'>Stages</Link>}
 
           </div>
           <Switch>
