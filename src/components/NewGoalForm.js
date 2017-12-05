@@ -35,18 +35,11 @@ class NewGoalForm extends React.Component {
   }
 
   render() {
-    if(!this.props.displayNewGoalForm){
+    if(!this.state.formSubmitted){
       return(
-        <div>
-          <button className='new-goal-button' onClick={this.props.toggleGoalFormState}>
-            <FontAwesome.FaPlus />
-          </button>
-        </div>
-    )} else if(this.props.displayNewGoalForm && !this.state.formSubmitted){
-        return(
-          <form onSubmit={this.submitNewGoal}>
-            <input placeholder='enter goal' onChange={(event) => this.handleChange(event, 'content')} value={this.state.goals} />
-            <button type='submit'>add</button>
+        <form onSubmit={this.submitNewGoal}>
+          <input placeholder='enter goal' onChange={(event) => this.handleChange(event, 'content')} value={this.state.goals} />
+          <button type='submit'>add</button>
         </form>
       )
     } else {

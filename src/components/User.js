@@ -19,7 +19,6 @@ class User extends React.Component {
       journal_entries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-      displayNewGoalForm: false
     };
 
     this.goalsCall = this.goalsCall.bind(this);
@@ -30,7 +29,6 @@ class User extends React.Component {
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
-    this.toggleGoalFormState = this.toggleGoalFormState.bind(this);
   }
 
   goalsCall() {
@@ -105,12 +103,6 @@ class User extends React.Component {
     }));
   }
 
-  toggleGoalFormState() {
-    this.setState(prevState => ({
-      displayNewGoalForm: !prevState.displayNewGoalForm
-    }));
-  }
-
   render() {
     return (
       <div className='user-profile-container'>
@@ -133,8 +125,6 @@ class User extends React.Component {
           userId={this.props.match.params.id}
           goals={this.state.goals}
           addGoal={this.addGoal}
-          displayNewGoalForm={this.state.displayNewGoalForm}
-          toggleGoalFormState={this.toggleGoalFormState}
           />
 
         {this.state.goals.map((goal, index) =>
