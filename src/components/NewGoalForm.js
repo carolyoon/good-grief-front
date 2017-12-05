@@ -7,60 +7,44 @@ class NewGoalForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      goalFormText: '',
+      newGoal: {
+        content: ''
+      },
       formSubmitted: false,
     };
 
-    this.updateFormText = this.updateFormText.bind(this);
-    this.submitNewGoal = this.submitNewGoal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.submitNewGoal = this.submitNewGoal.bind(this);
   }
 
-  updateFormText(goalFormText) {
-    this.setState({ goalFormText })
+  handleChange(event, fieldName) {
+    const newGoal = {...this.state.newGoal}
+    newGoal[fieldName] = event.target.value
+    this.setState({ newGoal })
   }
 
-  submitNewGoal() {
-    const payload = `?goal[content]=${this.state.goalFormText}`
-    axios.post('http://localhost:3001/goals' + payload)
-    .then(response => response.json())
-    .then(data => {
-      const goals = [...this.state.goals]
-      goals.push(data)
-      this.setState({ goals })
+  submitNewGoal(event) {
+    event.preventDefault();
+    axios.post(`/api/users/${this.props.userId}/goals`, {goal: this.state.newGoal})
+    .then(({data}) => {
+      const displayNewGoalForm = !this.props.displayNewGoalForm
+      this.setState({ newGoal: {content: ''}, formSubmitted: true, displayNewGoalForm })
+      this.props.addGoal(data.goal)
     })
-    const goalFormText = ''
-    this.setState({ goalFormText })
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
-    this.submitNewGoal()
-  }
-
-  handleChange(event) {
-    const inputText = event.target.value
-    this.updateFormText(inputText)
+    .catch((error) => {console.log('Error in creating a new goal.', error)})
   }
 
   render() {
-    if(!this.props.displayNewGoalForm){
+    if(!this.state.formSubmitted){
       return(
-        <div>
-          <button className='new-goal-button' onClick={this.props.toggleGoalFormState}>
-            <FontAwesome.FaPlus />
-          </button>
-        </div>
-    )} else if(this.props.displayNewGoalForm && !this.state.formSubmitted){
-        return(
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              New Goal:
-              <input type='text' onChange={this.handleChange} value={this.state.goals} />
-            </label>
-            <input type='submit' value='Create New Goal' />
+        <form onSubmit={this.submitNewGoal}>
+          <input placeholder='enter goal' onChange={(event) => this.handleChange(event, 'content')} value={this.state.goals} />
+          <button type='submit'>add</button>
         </form>
+      )
+    } else {
+      return (
+        <div></div>
       )
     }
   }

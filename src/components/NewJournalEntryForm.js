@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import * as FontAwesome from 'react-icons/lib/fa';
 
@@ -7,9 +8,10 @@ class NewJournalEntryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newJournalEntry: {},
+      newJournalEntry: {
+        content: ''
+      },
       formSubmitted: false,
-      createdJournalId: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,13 +26,11 @@ class NewJournalEntryForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    axios.post(`/api/users/${this.props.userId}/journal_entries`, {journal_entry: this.state.newJournalEntry})
+    axios.post('http://localhost:3001/journal_entries', {journal_entry: this.state.newJournalEntry})
     .then(({data}) => {
-      let newJournalEntry = Object.assign({}, {...this.state.newJournalEntry}, data)
-      let journal_entries = this.props.journal_entries
-      let displayNewJournalEntryForm = this.props.displayNewJournalEntryForm
-      journal_entries.push({journal_entry: newJournalEntry})
-      this.setState({newJournalEntry, journal_entries, formSubmitted: true, displayNewJournalEntryForm: false})
+      const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
+      this.setState({ newJournalEntry: {content: ''}, formSubmitted: true, displayNewJournalEntryForm})
+      this.props.addJournalEntry(data.journal_entry)
     })
     .catch((error) => {console.log('Error in creating a new journal entry.', error)})
   }
@@ -43,7 +43,7 @@ class NewJournalEntryForm extends React.Component {
             <FontAwesome.FaPlus />
           </button>
         </div>
-    )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted){
+    )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
       return (
         <form onSubmit={this.handleSubmit}>
           <label>
@@ -52,10 +52,11 @@ class NewJournalEntryForm extends React.Component {
           </label>
           <input type='submit' value='Create New Entry' />
         </form>
-      )} else
+      )} else {
         return (
           <div></div>
         )
+      }
   }
 }
 
