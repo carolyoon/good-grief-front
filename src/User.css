@@ -18,13 +18,42 @@ li {
 }
 
 .journal-entries-list-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 45px auto;
+}
+
+@media (min-width: 30em) {
+
+  .journal-entries-list-container .goals-list-container {
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+ }
 }
 
 .journal-entries-list-container li {
-  margin: 10px;
-  border-bottom: 1px solid black;
-  padding-bottom: 1%
+  padding: 15px;
+  margin: 5px;
+  border-radius: 3px;
+  background: #7ACB1E;
+  color: #fff;
+}
+
+.goals-list-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: #fff;
+  margin: 25px auto;
+  width: 500px;
+}
+
+.goals-list-container li {
+  color: #fff;
+  padding: 15px;
+  margin: 5px;
+  background: #3db5da;
+  border-radius: 3px;
 }
