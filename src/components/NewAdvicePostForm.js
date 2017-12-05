@@ -8,7 +8,8 @@ class NewAdvicePostForm extends React.Component {
     super(props);
     this.state = {
       newAdvicePost: {
-        content: ''
+        'content': '',
+        'stageId': ''
       },
       submitted: false,
       createdAdviceId: null
@@ -19,10 +20,15 @@ class NewAdvicePostForm extends React.Component {
   }
 
   handleChange(event, fieldName) {
-    const newAdvicePost = {...this.state.NewAdvicePost}
-    newAdvicePost[fieldName] = event.target.value
-    this.setState({newAdvicePost})
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
+
 
   handleSubmit(event) {
     event.preventDefault()
@@ -34,22 +40,36 @@ class NewAdvicePostForm extends React.Component {
     .catch((error) => {console.log('Error in creating a new advice post.', error)})
   }
 
+  // handleSubmit(event) {
+  //   event.preventDefault()
+  //   axios.post(`/api/advice_posts`, {advice_post: this.state.newAdvicePost})
+  //   .then(({data}) => {
+  //     let newAdvicePost = Object.assign({}, {...this.state.newAdvicePost}, data)
+  //     let advice_posts = this.props.journal_entries
+  //     let displayNewJournalEntryForm = this.props.displayNewJournalEntryForm
+  //     journal_entries.push({journal_entry: newJournalEntry})
+  //     this.setState({newJournalEntry, journal_entries, formSubmitted: true, displayNewJournalEntryForm: false})
+  //   })
+  //   .catch((error) => {console.log('Error in creating a new journal entry.', error)})
+  // }
+
   render() {
    return(
     <div className="advice-post-form-container">
       <form onSubmit={this.handleSubmit}>
         <label>
           <p>Your Previous Stage:</p>
-          <select name='stages' className="stages-dropdown"> 
-            <option value="denial">Denial</option>
-            <option value="anger">Anger</option>
-            <option value="bargaining">Bargaining</option>
-            <option value="depression">Depression</option>
-            <option value="acceptance">Acceptance</option>
+
+          <select className="stages-dropdown" name="stageId" onChange={(e) => this.handleChange(e, 'content')}>
+            <option value='1'>Denial</option>
+            <option value='2'>Anger</option>
+            <option value='3'>Bargaining</option>
+            <option value='4'>Depression</option>
+            <option value='5'>Acceptance</option>
           </select>
           <br /><br />
-          <p>Leave Advice:</p> 
-          <textarea type='input' value={this.state.newAdvicePost.content} onChange={(e) => this.handleChange(e, 'content')}></textarea>
+          <p>Leave Advice:</p>
+          <textarea type='input' value={this.state.newAdvicePost.content} name="adviceContent" onChange={(e) => this.handleChange(e, 'content')}></textarea>
         </label><br />
         <input type='submit' value='Submit Post' />
       </form>

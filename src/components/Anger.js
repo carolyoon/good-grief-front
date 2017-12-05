@@ -15,7 +15,7 @@ class Anger extends React.Component {
     axios.get('http://localhost:3001/api/advice_posts')
     .then(res => {
       const advicePosts = res.data.map ( (post) =>
-        ({id: post.id, content: post.content}))
+        ({id: post.id, content: post.content, stageId: post.stageId}))
       this.setState( {advicePosts})
     })
   }
