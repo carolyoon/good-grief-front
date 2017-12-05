@@ -30,14 +30,15 @@ class App extends Component {
     super()
 
     this.state = {
-      auth_token: window.localStorage.getItem('auth_token')
+      authToken: window.localStorage.getItem('authToken'),
+      currentUser: null
     }
 
-    this.updateAuthToken = this.updateAuthToken.bind(this)
+    this.updateAuth = this.updateAuth.bind(this)
   }
 
-  updateAuthToken (current_auth) {
-    this.setState({auth_token: current_auth})
+  updateAuth (token, user) {
+    this.setState({authToken: token, currentUser: user})
   }
 
   render() {
@@ -54,8 +55,8 @@ class App extends Component {
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
-                auth_token={this.state.auth_token}
-                updateAuthToken={this.updateAuthToken}
+                authToken={this.state.authToken}
+                updateAuth={this.updateAuth}
               />
             )} />
             <Route exact path='/profile/:id' component={User} />
