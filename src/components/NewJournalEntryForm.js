@@ -48,7 +48,7 @@ class NewJournalEntryForm extends React.Component {
         <form className='journal-entry-form-container' onSubmit={this.handleSubmit}>
           <textarea className='form-control' placeholder='penny for your thoughts...' type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')}></textarea>
           <button className='create-journal-button' type='submit'>create</button>
-          <p>To retain the raw and authentic experience, you will not be able to edit or delete an entry upon submission.</p>
+          <p>To retain the raw and authentic experience, you will not be able to edit or delete an entry once submitted.</p>
         </form>
       )} else {
         return (

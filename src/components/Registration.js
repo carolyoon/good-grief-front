@@ -1,5 +1,7 @@
-import React from 'react'
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
+
+import * as FontAwesome from 'react-icons/lib/fa';
 
 class Registration extends React.Component {
   constructor () {
@@ -35,12 +37,21 @@ class Registration extends React.Component {
 
   render () {
     return (
-      <div>
-        <h2>Registration</h2>
-        <form className='registration' onSubmit={this.handleOnSubmit}>
-          <input type='text' placeholder='Username' onChange={(e) => this.handleOnChange(e, 'userName')} />
-          <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
-          <button type='submit' value='Register'>Submit</button>
+      <div className='registration-container'>
+        <h2 className='registration-text'>Registration</h2>
+
+        <form className='registration-form' onSubmit={this.handleOnSubmit}>
+          <p className='field'>
+            <input type='text' placeholder='Username' onChange={(e) => this.handleOnChange(e, 'userName')} />
+            <FontAwesome.FaUser className='registration-icon' />
+          </p>
+          <p className='field'>
+            <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
+            <FontAwesome.FaLock className='registration-icon' />
+          </p>
+          <p className='submit'>
+            <button type='submit' value='Register'><FontAwesome.FaArrowRight className='registration-icon' /></button>
+          </p>
         </form>
       </div>
     )
