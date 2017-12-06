@@ -106,7 +106,11 @@ class User extends React.Component {
   render() {
     return (
       <div className='user-profile-container'>
-        <h1>User's Profile</h1>
+        <div className='div-for-hover-item'>
+          <p className='quote-body'>“Life always waits for some crisis to occur before revealing itself at its most brilliant.”</p>
+            <div className='hidden-text'><p></p>Paulo Coelho</div>
+        </div>
+        <hr/>
 
         <ul className='options'>
           {this.state.options.map((option) =>

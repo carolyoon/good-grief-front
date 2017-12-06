@@ -40,7 +40,7 @@ class NewGoalForm extends React.Component {
         <form className='goal-form-container' onSubmit={this.submitNewGoal}>
           <input placeholder='enter goal' onChange={(event) => this.handleChange(event, 'content')} value={this.state.goals} />
           <button type='submit'>add</button>
-          <p>To remove a goal, click on an existing entry.</p>
+          <p>Upon completion, click on an existing entry to remove it.</p>
         </form>
       )
     } else {

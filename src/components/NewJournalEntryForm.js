@@ -39,15 +39,16 @@ class NewJournalEntryForm extends React.Component {
     if(!this.props.displayNewJournalEntryForm){
       return (
         <div>
-          <button className='new-journal-entry-button' onClick={this.props.toggleJournalEntryFormState}>
-            <FontAwesome.FaPlus />
+          <button className='add-button' onClick={this.props.toggleJournalEntryFormState}>
+            <FontAwesome.FaPlus className='fa-quote-add' />
           </button>
         </div>
     )} else if(this.props.displayNewJournalEntryForm && !this.state.formSubmitted) {
       return (
         <form className='journal-entry-form-container' onSubmit={this.handleSubmit}>
-          <input placeholder='penny for your thoughts...' type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')} />
-          <button type='submit'>create</button>
+          <textarea className='form-control' placeholder='penny for your thoughts...' type='text' value={this.state.newJournalEntry.content} onChange={(e) => this.handleChange(e, 'content')}></textarea>
+          <button className='create-journal-button' type='submit'>create</button>
+          <p>To retain the raw and authentic experience, you will not be able to edit or delete an entry upon submission.</p>
         </form>
       )} else {
         return (
