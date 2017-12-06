@@ -1,8 +1,8 @@
 import React from 'react'
 
 class Tracker extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.renderStage = this.renderStage.bind(this)
   }
 

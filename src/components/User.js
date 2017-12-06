@@ -44,25 +44,25 @@ class User extends React.Component {
       presenceTimeout: 30
      })
      //init presence service
-      this.service = new PubNubService({
-           pubnub:this.pubnub,
-           channel:'simple-chat'
-        });
-      //on users update, trigger screen refresh
-      this.service.onUserChange((users) => this.setState({ users:users }));
-      this.service.onMessage((evt) => {
-          this.state.messages.push({
-              text:evt.message.text,
-              sender:evt.publisher
-          });
-          this.setState({
-              messages: this.state.messages
-          })
+    this.service = new PubNubService({
+         pubnub:this.pubnub,
+         channel:'simple-chat'
       });
-      this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
+    //on users update, trigger screen refresh
+    this.service.onUserChange((users) => this.setState({ users:users }));
+    this.service.onMessage((evt) => {
+        this.state.messages.push({
+            text:evt.message.text,
+            sender:evt.publisher
+        });
+        this.setState({
+            messages: this.state.messages
+        })
+      });
+    this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
 
-      this.service.getSelfInfo((info)=>{
-          if(info.username) this.setState({username: info.username})
+    this.service.getSelfInfo((info)=>{
+        if(info.username) this.setState({username: info.username})
       });
     }
 
@@ -71,129 +71,126 @@ class User extends React.Component {
     }
     
     sendMessage() {
-        this.pubnub.publish({
-            channel:"simple-chat",
-            message: {
-                text:this.refs.input.value,
-                sender: this.pubnub.getUUID()
+      this.pubnub.publish({
+        channel:"simple-chat",
+        message: {
+            text:this.refs.input.value,
+            sender: this.pubnub.getUUID()
 
-            }
-        });
-        this.setState({ currentMessage:"" })
+        }
+    });
+      this.setState({ currentMessage:"" })
     }
 
     changedUsername() {
-        this.setState({ username:this.refs.username.value });
+      this.setState({ username:this.refs.username.value });
     }
     
     setUsername() {
-        this.service.setUserState({username:this.state.username})
+      this.service.setUserState({username:this.state.username})
     }
 
     renderUsers() {
-        var users = this.state.users.map((user,i)=> {
-            return <span key={i}>{user.username}</span>
-        });
+      var users = this.state.users.map((user,i)=> {
+        return <span key={i}>{user.username}</span>
+      });
         return <div className="userlist">{users}</div>
     }
 
-  goalsCall () {
-    const that = this
-    axios.get(`/api/users/${this.props.match.params.id}/goals`)
-    .then(function (response) {
-      const goals = response.data
-      that.setState({ goals })
-    })
-    .catch((error) => console.log('Fail to fetch goals.', error))
-  }
+    goalsCall () {
+      const that = this
+      axios.get(`/api/users/${this.props.match.params.id}/goals`)
+      .then(function (response) {
+        const goals = response.data
+        that.setState({ goals })
+      })
+      .catch((error) => console.log('Fail to fetch goals.', error))
+    }
 
-  journalEntriesCall () {
-    const that = this
-    axios.get(`/api/users/${this.props.match.params.id}/journal_entries`)
-    .then(function (response) {
-      const journalEntries = response.data
-      that.setState({ journalEntries })
-    })
-    .catch((error) => console.log('Fail to fetch journal entries.', error))
-  }
+    journalEntriesCall () {
+      const that = this
+      axios.get(`/api/users/${this.props.match.params.id}/journal_entries`)
+      .then(function (response) {
+        const journalEntries = response.data
+        that.setState({ journalEntries })
+      })
+      .catch((error) => console.log('Fail to fetch journal entries.', error))
+    }
 
-  componentDidMount () {
-    this.goalsCall()
-    this.journalEntriesCall()
-  }
+    componentDidMount () {
+      this.goalsCall()
+      this.journalEntriesCall()
+    }
 
-  addGoal (newGoal) {
-    let goals = this.state.goals
-    goals.unshift(newGoal)
-    this.setState({ goals })
-  }
-
-  addJournalEntry (newJournalEntry) {
-    let journalEntries = this.state.journalEntries
-    journalEntries.unshift(newJournalEntry)
-    this.setState({ journalEntries })
-  }
-
-  updateGoal (index) {
-    const appTarget = this
-    const goal = this.state.goals[index]
-    const status = !goal['completed']
-    const goals = [...this.state.goals]
-    goals[index]['completed'] = status
-    axios.put(`/api/users/${this.props.match.params.id}/goals/${goal.id}` + `?goal[completed]=${status}`)
-    .then(response => {
-      goals[index] = response.data.goal
-      appTarget.setState({ goals })
-    })
-    .catch((error) => console.log('Fail to update a goal.', error))
-  }
-
-  deleteCompletedGoal (index) {
-    const goal = this.state.goals[index]
-    const goals = [...this.state.goals]
-    axios.delete(`/api/users/${this.props.userId}/goals/${goal.id}`)
-    .then(response => {
-      goals[index] = response.data.goal
+    addGoal (newGoal) {
+      let goals = this.state.goals
+      goals.unshift(newGoal)
       this.setState({ goals })
-    })
-    .catch((error) => console.log('Error in removing a goal.', error))
-  }
+    }
 
-  handleClick (option) {
-    this.setState({ selectedOption: option })
-  }
+    addJournalEntry (newJournalEntry) {
+      let journalEntries = this.state.journalEntries
+      journalEntries.unshift(newJournalEntry)
+      this.setState({ journalEntries })
+    }
 
-  toggleJournalEntryFormState () {
-    this.setState(prevState => ({
-      displayNewJournalEntryForm: !prevState.displayNewJournalEntryForm
-    }))
-  }
+    updateGoal (index) {
+      const appTarget = this
+      const goal = this.state.goals[index]
+      const status = !goal['completed']
+      const goals = [...this.state.goals]
+      goals[index]['completed'] = status
+      axios.put(`/api/users/${this.props.match.params.id}/goals/${goal.id}` + `?goal[completed]=${status}`)
+      .then(response => {
+        goals[index] = response.data.goal
+        appTarget.setState({ goals })
+      })
+      .catch((error) => console.log('Fail to update a goal.', error))
+    }
 
-  render () {
-    return (
-      <div className='user-profile-container'>
-        <h1>User's Profile</h1>
-        <Tracker
-          stageId={this.props.currentUser.stage_id}
-        />
-        <ul className='options'>
-          {this.state.options.map((option) =>
-            <li
-              style={option === this.state.selectedOption ? { color: '#003399' } : null}
-              onClick={() => this.handleClick(option)}
-              key={option}>
-              {option}
-            </li>
-            )}
-        </ul>
+    deleteCompletedGoal (index) {
+      const goal = this.state.goals[index]
+      const goals = [...this.state.goals]
+      axios.delete(`/api/users/${this.props.userId}/goals/${goal.id}`)
+      .then(response => {
+        goals[index] = response.data.goal
+        this.setState({ goals })
+      })
+      .catch((error) => console.log('Error in removing a goal.', error))
+    }
 
-        {this.state.selectedOption === 'Goals' && this.props.currentUser &&
-        <div className='goal-container'>
-          <NewGoalForm
-            userId={this.props.currentUser.id}
-            goals={this.state.goals}
-            addGoal={this.addGoal}
-          />
+    handleClick (option) {
+      this.setState({ selectedOption: option })
+    }
+
+    toggleJournalEntryFormState () {
+      this.setState(prevState => ({
+        displayNewJournalEntryForm: !prevState.displayNewJournalEntryForm
+      }))
+    }
+
+    render () {
+      return (
+        <div className='user-profile-container'>
+          <h1>Profile</h1>
+          <ul className='options'>
+            {this.state.options.map((option) =>
+              <li
+                style={option === this.state.selectedOption ? { color: '#003399' } : null}
+                onClick={() => this.handleClick(option)}
+                key={option}>
+                {option}
+              </li>
+              )}
+          </ul>
+
+          {this.state.selectedOption === 'Goals' && this.props.currentUser &&
+          <div className='goal-container'>
+            <NewGoalForm
+              userId={this.props.currentUser.id}
+              goals={this.state.goals}
+              addGoal={this.addGoal}
+            />
 
           {this.state.goals.map((goal, index) =>
             <GoalList
@@ -224,32 +221,32 @@ class User extends React.Component {
         }
 
         <div className="vbox fill">
-                <h1>My Simple Chat</h1>
-                <div className="scroll grow">
-                    <ChatHistory messages={this.state.messages} service={this.service}/>
-                </div>
-                <div className="hbox">
-                    <label>username</label>
-                    <input type="text" ref="username" value={this.state.username}
-                           onChange={this.changedUsername.bind(this)}
-                    />
-                    <button onClick={this.setUsername.bind(this)}>set</button>
-                </div>
-                <div className="hbox">
-                    <input className="grow"
-                           ref="input"
-                           type="text"
-                           value={this.state.currentMessage}
-                           onChange={this.changedMessage.bind(this)}
-                    />
-                    <button
-                        onClick={this.sendMessage.bind(this)}
-                    >send</button>
-                </div>
-                <div className="hbox">
-                    {this.renderUsers()}
-                </div>
-            </div>
+          <h1>My Simple Chat</h1>
+          <div className="scroll grow">
+            <ChatHistory messages={this.state.messages} service={this.service}/>
+          </div>
+          <div className="hbox">
+            <label>username</label>
+            <input type="text" ref="username" value={this.state.username}
+              onChange={this.changedUsername.bind(this)}
+            />
+            <button onClick={this.setUsername.bind(this)}>set</button>
+          </div>
+          <div className="hbox">
+            <input className="grow"
+              ref="input"
+              type="text"
+              value={this.state.currentMessage}
+              onChange={this.changedMessage.bind(this)}
+            />
+            <button
+              onClick={this.sendMessage.bind(this)}
+            >send</button>
+          </div>
+          <div className="hbox">
+            {this.renderUsers()}
+          </div>
+        </div>
       </div>
     )
   }
