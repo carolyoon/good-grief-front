@@ -14,15 +14,13 @@ import Home from './components/Home'
 import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
 import Registration from './components/Registration'
-import Stage from './components/Stage'
+// import Stage from './components/Stage'
 import User from './components/User'
 import Anger from './components/Anger'
-
-// import GoalList from './components/GoalList'
-// import JournalEntryList from './components/JournalEntryList'
-// import NewJournalEntryForm from './components/NewJournalEntryForm'
-// import NewGoalForm from './components/NewGoalForm'
-// import Goals from './components/Goals'
+import Denial from './components/Denial'
+import Depression from './components/Depression'
+import Bargaining from './components/Bargaining'
+import Acceptance from './components/Acceptance'
 
 class App extends Component {
   constructor () {
@@ -98,7 +96,7 @@ class App extends Component {
             <Route exact path='/denial' component={Denial} />
             <Route exact path='/anger' component={Anger} />
             <Route exact path='/bargaining' component={Bargaining} />
-            <Route exact path='/depression' component={Anger} />
+            <Route exact path='/depression' component={Depression} />
             <Route exact path='/acceptance' component={Acceptance} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />

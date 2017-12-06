@@ -9,7 +9,7 @@ class Registration extends React.Component {
     this.state = {
       userName: '',
       userPassword: '',
-      stage: 'Denial'
+      stage: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -25,14 +25,15 @@ class Registration extends React.Component {
 
   handleOnSubmit (event) {
     event.preventDefault()
-    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.stage}})
+    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.stageId}})
     .then(({data}) => {
       console.log(data)
-      this.setState({userName: '', userPassword: '', stage: 'Denial'})
-      this.props.handleLogin(data.token, data.user)
+      this.setState({userName: '', userPassword: '', stage: ''})
+      this.props.handleLogin(data.token, data.id)
+      console.log(data.id)
       this.props.history.push(`/profile/${data.id}`)
     })
-    .catch((error) => { console.log('Error in creating a new journal entry.', error) })
+    .catch((error) => { console.log('Error in creating a new user.', error) })
   }
 
   render () {
@@ -44,8 +45,8 @@ class Registration extends React.Component {
           <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
           <div>
           <br /><br />
-          <label htmlFor='select-stage'>Select your stage</label><br /><br />
-          <select id='select-stage' className="stages-dropdown" name="stageId" onChange={(e) => this.handleChange(e, 'content')}>
+          <label htmlFor='select-stageId'>Select your stage</label><br /><br />
+          <select id='select-stageId' value={this.state.stageId} name="stageId" onChange={(e) => this.handleChange(e, 'stageId')}>
               <option value='1'>Denial</option>
               <option value='2'>Anger</option>
               <option value='3'>Bargaining</option>
