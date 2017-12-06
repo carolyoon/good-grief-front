@@ -139,10 +139,10 @@ class User extends React.Component {
         </div>
         }
 
-        {this.state.selectedOption === 'Journal Entries' &&
+        {this.state.selectedOption === 'Journal Entries' && this.props.currentUser &&
         <div className='journal-entry-container'>
           <NewJournalEntryForm
-            userId={this.props.match.params.id}
+            userId={this.props.currentUser.id}
             journal_entries={this.state.journal_entries}
             addJournalEntry={this.addJournalEntry}
             displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}

@@ -26,7 +26,7 @@ class NewJournalEntryForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    axios.post('http://localhost:3001/journal_entries', {journal_entry: this.state.newJournalEntry})
+    axios.post(`http://localhost:3001/api/users/${this.props.userId}/journal_entries`, {journal_entry: this.state.newJournalEntry})
     .then(({data}) => {
       const displayNewJournalEntryForm = !this.props.displayNewJournalEntryForm
       this.setState({ newJournalEntry: {content: ''}, formSubmitted: true, displayNewJournalEntryForm})
