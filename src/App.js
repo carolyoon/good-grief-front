@@ -5,6 +5,7 @@ import './App.css';
 import './User.css';
 import './Registration.css';
 import './Navigation.css';
+import './Home.css';
 
 import Registration from './components/Registration';
 import Home from './components/Home';
@@ -56,25 +57,27 @@ class App extends Component {
             <Link className='navigation-text' to='/stage'> Stages</Link>
           </div>
 
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/advice' component={NewAdvicePostForm} />
-            <Route exact path='/registration' render={(props) => (
-              <Registration
-                {...props}
-                authToken={this.state.authToken}
-                updateAuth={this.updateAuth}
-              />
-            )} />
-            <Route exact path='/profile/:id' component={User} />
-            <Route exact path='/stage' component={Stage} />
-            <Route exact path='/denial_quiz' component={DenialQuiz} />
-            <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
-            <Route exact path='/depression_quiz' component={DepressionQuiz} />
-            <Route exact path='/acceptance_quiz' component={AcceptanceQuiz} />
-            <Route exact path='/anger_quiz' component={AngerQuiz} />
-            <Route render={() => <h1>Page not found</h1>} />
-          </Switch>
+          <div>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/advice' component={NewAdvicePostForm} />
+              <Route exact path='/registration' render={(props) => (
+                <Registration
+                  {...props}
+                  authToken={this.state.authToken}
+                  updateAuth={this.updateAuth}
+                />
+              )} />
+              <Route exact path='/profile/:id' component={User} />
+              <Route exact path='/stage' component={Stage} />
+              <Route exact path='/denial_quiz' component={DenialQuiz} />
+              <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
+              <Route exact path='/depression_quiz' component={DepressionQuiz} />
+              <Route exact path='/acceptance_quiz' component={AcceptanceQuiz} />
+              <Route exact path='/anger_quiz' component={AngerQuiz} />
+              <Route render={() => <h1>Page not found</h1>} />
+            </Switch>
+          </div>
 
         </div>
       </Router>

@@ -1,0 +1,79 @@
+.mission-statement-header {
+  color: #D8BFC5;
+  font-family: 'Lora', serif;
+  font-size: 2.5em;
+}
+
+.understanding-grief-container {
+  display: flex;
+}
+
+.understanding-grief-container .image-and-title {
+  position: relative;
+}
+
+.image-and-title {
+  /*display: flex;*/
+}
+
+.fa-angle-double-down {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10%;
+  border: solid 3px #FFFFFF;
+  padding: 0;
+  background: linear-gradient(#BFD8D2, #42A2BC);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    0 1px 2px rgba(0,0,0,0.35),
+    inset 0 3px 2px rgba(255,255,255,0.2),
+    inset 0 -3px 2px rgba(0,0,0,0.1);
+}
+
+.understanding {
+  font-family: 'Bungee', cursive;
+  margin-left: 5px;
+  font-size: 2.5em;
+  position: absolute;
+  right: -240px;
+
+}
+
+.the-stages-of-grief {
+  font-family: 'Orbitron', sans-serif;
+  right: -150px;
+  top: 30px;
+  position: relative;
+}
+
+.fa-angle-double-down:hover {
+  background: #8FBBB1;
+  transition: all 0.3s ease-out;
+}
+
+.disclaimer-container {
+  width: 95%;
+  padding: 10px 0 0;
+  margin: auto;
+}
+
+.disclaimer-header {
+  float: left;
+  font-family: 'Spectral SC', serif;
+  font-size: 12px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 2px;
+  margin-right: 4px;
+}
+
+.disclaimer-body {
+  margin-top: 0;
+  font-size: 10px;
+  color: #9099A2;
+  text-align: left;
+  text-align: justify;
+}

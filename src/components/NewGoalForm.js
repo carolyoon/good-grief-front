@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import * as FontAwesome from 'react-icons/lib/fa';
-
 class NewGoalForm extends React.Component {
   constructor() {
     super();
