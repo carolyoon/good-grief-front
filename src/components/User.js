@@ -4,6 +4,7 @@ import GoalList from './GoalList'
 import JournalEntryList from './JournalEntryList'
 import NewJournalEntryForm from './NewJournalEntryForm'
 import NewGoalForm from './NewGoalForm'
+import Tracker from './Tracker'
 
 class User extends React.Component {
   constructor () {
@@ -15,7 +16,7 @@ class User extends React.Component {
         'Goals',
         'Journal Entries'
       ],
-      journal_entries: [],
+      journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
@@ -45,8 +46,8 @@ class User extends React.Component {
     const that = this
     axios.get(`/api/users/${this.props.match.params.id}/journal_entries`)
     .then(function (response) {
-      const journal_entries = response.data
-      that.setState({ journal_entries })
+      const journalEntries = response.data
+      that.setState({ journalEntries })
     })
     .catch((error) => console.log('Fail to fetch journal entries.', error))
   }
@@ -63,9 +64,9 @@ class User extends React.Component {
   }
 
   addJournalEntry (newJournalEntry) {
-    let journal_entries = this.state.journal_entries
-    journal_entries.unshift(newJournalEntry)
-    this.setState({ journal_entries })
+    let journalEntries = this.state.journalEntries
+    journalEntries.unshift(newJournalEntry)
+    this.setState({ journalEntries })
   }
 
   updateGoal (index) {
@@ -107,7 +108,9 @@ class User extends React.Component {
     return (
       <div className='user-profile-container'>
         <h1>User's Profile</h1>
-
+        <Tracker
+          stageId={this.props.currentUser.stage_id}
+        />
         <ul className='options'>
           {this.state.options.map((option) =>
             <li
@@ -143,14 +146,14 @@ class User extends React.Component {
         <div className='journal-entry-container'>
           <NewJournalEntryForm
             userId={this.props.currentUser.id}
-            journal_entries={this.state.journal_entries}
+            journalEntries={this.state.journalEntries}
             addJournalEntry={this.addJournalEntry}
             displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
             toggleJournalEntryFormState={this.toggleJournalEntryFormState}
           />
 
           <JournalEntryList
-            journal_entries={this.state.journal_entries}
+            journalEntries={this.state.journalEntries}
           />
         </div>
         }

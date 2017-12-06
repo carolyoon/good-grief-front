@@ -16,6 +16,7 @@ import Login from './components/Login'
 import Registration from './components/Registration'
 import Stage from './components/Stage'
 import User from './components/User'
+import Anger from './components/Anger'
 
 // import GoalList from './components/GoalList'
 // import JournalEntryList from './components/JournalEntryList'
@@ -71,8 +72,8 @@ class App extends Component {
               <Link className='navigation-text' to='/login'>Login</Link>}
             { this.state.authToken &&
               <Link className='navigation-text' to='/' onClick={this.handleLogout}>Logout</Link>}
-            { this.state.authToken &&
-              <Link className='navigation-text' to='/profile/:id'>My Profile</Link>}
+            { this.state.authToken && this.state.currentUser &&
+              <Link className='navigation-text' to={`/profile/${this.state.currentUser.id}`}>My Profile</Link>}
             { this.state.authToken &&
               <Link className='navigation-text' to='/stage'>Stages</Link>}
           </div>
@@ -94,7 +95,7 @@ class App extends Component {
               />
             )} />
             <Route path='/profile/:id' component={(props) => <User {...props} currentUser={this.state.currentUser} />} />
-            <Route exact path='/stage' component={Stage} />
+            <Route exact path='/Anger' component={Anger} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />

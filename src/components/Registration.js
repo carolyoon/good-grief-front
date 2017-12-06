@@ -59,6 +59,10 @@ class Registration extends React.Component {
           <p>If you're unsure of which stage you're currently at, take our quizzes to find out!</p>
           <ul>
             <li><Link className='navigation-text' to='/denial_quiz'>Denial</Link></li>
+            <li><Link className='navigation-text' to='/anger_quiz'>Anger</Link></li>
+            <li><Link className='navigation-text' to='/bargaining_quiz'>Bargaining</Link></li>
+            <li><Link className='navigation-text' to='/depression_quiz'>Depression</Link></li>
+            <li><Link className='navigation-text' to='/acceptance_quiz'>Acceptance</Link></li>
           </ul>
         </div>
 
