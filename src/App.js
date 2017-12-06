@@ -35,7 +35,7 @@ class App extends Component {
   handleLogin (token, user) {
     this.setState({authToken: token, currentUser: user})
     window.localStorage.setItem('authToken', token)
-    window.localStorage.setItem('userId', user.id)
+    window.localStorage.setItem('userId', user.user_id)
   }
 
   handleLogout () {

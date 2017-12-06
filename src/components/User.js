@@ -23,31 +23,12 @@ class User extends React.Component {
       journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-
-      displayNewGoalForm: false
-    }
-
-    this.goalsCall = this.goalsCall.bind(this)
-    this.journalEntriesCall = this.journalEntriesCall.bind(this)
-    this.addGoal = this.addGoal.bind(this)
-    this.addJournalEntry = this.addJournalEntry.bind(this)
-    this.updateGoal = this.updateGoal.bind(this)
-    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
-  }
-
       displayNewGoalForm: false,
-            messages: [
-      {
-        text:"foo1",
-                }
-            ],
+      messages: [{ text:"foo1" }],
       currentMessage: "This is my message to you.",
       username:"no-name",
       users:[]
-    };
-    
+    }
 
     this.goalsCall = this.goalsCall.bind(this)
     this.journalEntriesCall = this.journalEntriesCall.bind(this)
@@ -83,9 +64,10 @@ class User extends React.Component {
       this.service.getSelfInfo((info)=>{
           if(info.username) this.setState({username: info.username})
       });
+    }
 
     changedMessage() {
-        this.setState({ currentMessage:this.refs.input.value });
+        this.setState({ currentMessage:this.refs.input.value })
     }
     
     sendMessage() {
