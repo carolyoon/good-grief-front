@@ -37,8 +37,8 @@ class User extends React.Component {
 
 
        this.pubnub = new PubNub({
-            publishKey: "pub-c-f48cd925-db85-4ba9-a8a8-aeed6033746a",
-            subscribeKey: "sub-c-f7f82a0e-a779-11e6-85a3-02ee2ddab7fe",
+            publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
+            subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
             presenceTimeout: 30
         });
 
