@@ -95,7 +95,11 @@ class App extends Component {
               />
             )} />
             <Route path='/profile/:id' component={(props) => <User {...props} currentUser={this.state.currentUser} />} />
-            <Route exact path='/Anger' component={Anger} />
+            <Route exact path='/denial' component={Denial} />
+            <Route exact path='/anger' component={Anger} />
+            <Route exact path='/bargaining' component={Bargaining} />
+            <Route exact path='/depression' component={Anger} />
+            <Route exact path='/acceptance' component={Acceptance} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
