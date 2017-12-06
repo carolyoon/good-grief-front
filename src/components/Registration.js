@@ -9,7 +9,7 @@ class Registration extends React.Component {
     this.state = {
       userName: '',
       userPassword: '',
-      stage: ''
+      stage: 'Denial'
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -25,12 +25,11 @@ class Registration extends React.Component {
 
   handleOnSubmit (event) {
     event.preventDefault()
-    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.stageId}})
+    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.stage}})
     .then(({data}) => {
       console.log(data)
-      this.setState({userName: '', userPassword: '', stage: ''})
-      this.props.handleLogin(data.token, data.id)
-      console.log(data.id)
+      this.setState({userName: '', userPassword: '', stage: 'Denial'})
+      this.props.handleLogin(data.token, data.user)
       this.props.history.push(`/profile/${data.id}`)
     })
     .catch((error) => { console.log('Error in creating a new user.', error) })
@@ -45,8 +44,9 @@ class Registration extends React.Component {
           <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
           <div>
           <br /><br />
-          <label htmlFor='select-stageId'>Select your stage</label><br /><br />
-          <select id='select-stageId' value={this.state.stageId} name="stageId" onChange={(e) => this.handleChange(e, 'stageId')}>
+
+          <label htmlFor='select-stage'>Select your stage</label><br /><br />
+          <select id='select-stage' className="stages-dropdown" name="stageId" onChange={(e) => this.handleChange(e, 'content')}>
               <option value='1'>Denial</option>
               <option value='2'>Anger</option>
               <option value='3'>Bargaining</option>
@@ -66,7 +66,6 @@ class Registration extends React.Component {
             <li><Link className='navigation-text' to='/acceptance_quiz'>Acceptance</Link></li>
           </ul>
         </div>
-
       </div>
     )
   }

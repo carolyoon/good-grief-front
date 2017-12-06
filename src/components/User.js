@@ -23,6 +23,20 @@ class User extends React.Component {
       journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
+
+      displayNewGoalForm: false
+    }
+
+    this.goalsCall = this.goalsCall.bind(this)
+    this.journalEntriesCall = this.journalEntriesCall.bind(this)
+    this.addGoal = this.addGoal.bind(this)
+    this.addJournalEntry = this.addJournalEntry.bind(this)
+    this.updateGoal = this.updateGoal.bind(this)
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
+  }
+
       displayNewGoalForm: false,
             messages: [
       {
