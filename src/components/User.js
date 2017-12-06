@@ -115,7 +115,7 @@ class User extends React.Component {
         <ul className='options'>
           {this.state.options.map((option) =>
             <li
-              style={option === this.state.selectedOption ? { color: '#003399' } : null}
+              style={option === this.state.selectedOption ? { color: '#E24E42' } : null}
               onClick={() => this.handleClick(option)}
               key={option}>
               {option}

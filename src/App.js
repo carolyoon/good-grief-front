@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import './App.css';
 import './User.css';
 import './Registration.css';
+import './Navigation.css';
 
 import Registration from './components/Registration';
 import Home from './components/Home';
@@ -48,12 +49,13 @@ class App extends Component {
         <div>
 
           <div className='navigation-bar'>
-            <Link className='navigation-text' to='/'>Home</Link> |
-            <Link className='navigation-text' to='/registration'> Register</Link> |
-            <Link className='navigation-text' to='/profile/:id'> My Profile</Link> |
+            <Link className='navigation-text' to='/'>Home</Link>
+            <a className='navigation-text' href={'https://github.com/carolyoon/good-grief-front'} target='_blank'>About</a>
+            <Link className='navigation-text' to='/registration'> Register</Link>
+            <Link className='navigation-text' to='/profile/:id'> Profile</Link>
             <Link className='navigation-text' to='/stage'> Stages</Link>
-
           </div>
+
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/advice' component={NewAdvicePostForm} />

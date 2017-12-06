@@ -1,24 +1,9 @@
-body {
-  background: rgba(150,133,143,0.6);
-}
-
-#root {
-  background: #FFFFFF;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 80%;
-  margin: auto;
-}
-
 .quote-body {
   padding-top: 40px;
   padding-bottom: 0;
   font-size: 16px;
-  color: #9099A2;
   text-align: center;
+  font-family: 'Spectral SC', serif;
 }
 
 .hidden-text {
@@ -36,15 +21,17 @@ body {
   text-align: center;
   padding-top: 0;
   margin-top: 0;
+  font-family: 'Spectral SC', serif;
 }
 
 hr {
-  height: 6px;
-  background: url(http://ibrahimjabbari.com/english/images/hr-12.png) repeat-x 0 0;
-  background-size: auto;
-  border: 0;
   width: 85%;
-  display: block;
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
 }
 
 ul {
@@ -73,7 +60,7 @@ li {
 
 .fa-quote-add {
   padding: .2em .25em .15em;
-  border: solid 3px #6D7993;
+  border: solid 3px #BFD8D2;
   border-radius: .9em;
   float: left;
   font-size: 3em;
@@ -85,7 +72,7 @@ li {
 }
 
 .form-control {
-  border: 2px solid #6D7993;
+  border: 2px solid #F4DECB;
   width: 98%;
   height: 120px;
   color: #333333;
@@ -116,11 +103,11 @@ li {
   padding: 15px;
   margin: 5px;
   border-radius: 3px;
-  background: #D5D5D5;
+  background: #BFD8D2;
 }
 
 .journal-entries-list-container li:hover {
-  background: #96858F;
+  background: #DF744A;
 }
 
 .create-journal-button {
@@ -128,13 +115,13 @@ li {
   font-size: 16px;
   margin-top: 0px;
   margin-right: 2px;
-  background-color: #9099A2;
-  border: 2px solid #6D7993;
+  background-color: #DCB239;
+  border: 2px solid #F4DECB;
   width: 99%;
 }
 
 .create-journal-button:hover {
-  background-color: #6D7993;
+  background-color: #DF744A;
   border: 2px solid #003399;
   cursor: pointer;
 }
@@ -157,13 +144,13 @@ li {
 
 .goals-list-container li {
   padding: 15px;
-  background: #D5D5D5;
+  background: #BFD8D2;
   border-radius: 3px;
   margin-bottom: 0px;
 }
 
 .goals-list-container li:hover {
-  background: #96858F;
+  background: #DF744A;
 }
 
 input[type=checkbox] {
@@ -177,7 +164,7 @@ input[type=checkbox] {
 .goal-form-container input {
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #6D7993;
+  border: 2px solid #F4DECB;
   width: 70%;
 }
 
@@ -186,13 +173,13 @@ input[type=checkbox] {
   font-size: 16px;
   margin: 10px;
   margin-right: 0px;
-  background-color: #9099A2;
-  border: 2px solid #6D7993;
+  background-color: #DCB239;
+  border: 2px solid #F4DECB;
   width: 20%;
 }
 
 .goal-form-container button:hover {
-  background-color: #6D7993;
+  background-color: #DF744A;
   border: 2px solid #003399;
   cursor: pointer;
 }
