@@ -4,10 +4,11 @@ import GoalList from './GoalList'
 import JournalEntryList from './JournalEntryList'
 import NewJournalEntryForm from './NewJournalEntryForm'
 import NewGoalForm from './NewGoalForm'
+import Tracker from './Tracker'
 import PubNub from "pubnub";
-
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+
 
 class User extends React.Component {
   constructor () {
@@ -19,7 +20,7 @@ class User extends React.Component {
         'Goals',
         'Journal Entries'
       ],
-      journal_entries: [],
+      journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
 
@@ -37,7 +38,7 @@ class User extends React.Component {
   }
 
       displayNewGoalForm: false,
-      messages: [
+            messages: [
       {
         text:"foo1",
                 }
@@ -46,53 +47,47 @@ class User extends React.Component {
       username:"no-name",
       users:[]
     };
+    
 
-
-
-
-       this.pubnub = new PubNub({
-            publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
-            subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
-            presenceTimeout: 30
+    this.goalsCall = this.goalsCall.bind(this)
+    this.journalEntriesCall = this.journalEntriesCall.bind(this)
+    this.addGoal = this.addGoal.bind(this)
+    this.addJournalEntry = this.addJournalEntry.bind(this)
+    this.updateGoal = this.updateGoal.bind(this)
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
+    this.pubnub = new PubNub({
+      publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
+      subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
+      presenceTimeout: 30
+     })
+     //init presence service
+      this.service = new PubNubService({
+           pubnub:this.pubnub,
+           channel:'simple-chat'
         });
+      //on users update, trigger screen refresh
+      this.service.onUserChange((users) => this.setState({ users:users }));
+      this.service.onMessage((evt) => {
+          this.state.messages.push({
+              text:evt.message.text,
+              sender:evt.publisher
+          });
+          this.setState({
+              messages: this.state.messages
+          })
+      });
+      this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
 
-        //init presence service
-        this.service = new PubNubService({
-            pubnub:this.pubnub,
-            channel:'simple-chat'
-        });
-
-        //on users update, trigger screen refresh
-        this.service.onUserChange((users) => this.setState({ users:users }));
-        this.service.onMessage((evt) => {
-            this.state.messages.push({
-                text:evt.message.text,
-                sender:evt.publisher
-            });
-            this.setState({
-                messages: this.state.messages
-            })
-        });
-        this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
-
-        this.service.getSelfInfo((info)=>{
-            if(info.username) this.setState({username: info.username})
-        });
-
-    this.goalsCall = this.goalsCall.bind(this);
-    this.journalEntriesCall = this.journalEntriesCall.bind(this);
-    this.addGoal = this.addGoal.bind(this);
-    this.addJournalEntry = this.addJournalEntry.bind(this);
-    this.updateGoal = this.updateGoal.bind(this);
-    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
-    }
-
+      this.service.getSelfInfo((info)=>{
+          if(info.username) this.setState({username: info.username})
+      });
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value });
     }
+    
     sendMessage() {
         this.pubnub.publish({
             channel:"simple-chat",
@@ -105,14 +100,13 @@ class User extends React.Component {
         this.setState({ currentMessage:"" })
     }
 
-
     changedUsername() {
         this.setState({ username:this.refs.username.value });
     }
+    
     setUsername() {
         this.service.setUserState({username:this.state.username})
     }
-
 
     renderUsers() {
         var users = this.state.users.map((user,i)=> {
@@ -120,7 +114,6 @@ class User extends React.Component {
         });
         return <div className="userlist">{users}</div>
     }
-
 
   goalsCall () {
     const that = this
@@ -136,8 +129,8 @@ class User extends React.Component {
     const that = this
     axios.get(`/api/users/${this.props.match.params.id}/journal_entries`)
     .then(function (response) {
-      const journal_entries = response.data
-      that.setState({ journal_entries })
+      const journalEntries = response.data
+      that.setState({ journalEntries })
     })
     .catch((error) => console.log('Fail to fetch journal entries.', error))
   }
@@ -154,9 +147,9 @@ class User extends React.Component {
   }
 
   addJournalEntry (newJournalEntry) {
-    let journal_entries = this.state.journal_entries
-    journal_entries.unshift(newJournalEntry)
-    this.setState({ journal_entries })
+    let journalEntries = this.state.journalEntries
+    journalEntries.unshift(newJournalEntry)
+    this.setState({ journalEntries })
   }
 
   updateGoal (index) {
@@ -198,7 +191,9 @@ class User extends React.Component {
     return (
       <div className='user-profile-container'>
         <h1>User's Profile</h1>
-
+        <Tracker
+          stageId={this.props.currentUser.stage_id}
+        />
         <ul className='options'>
           {this.state.options.map((option) =>
             <li
@@ -234,14 +229,14 @@ class User extends React.Component {
         <div className='journal-entry-container'>
           <NewJournalEntryForm
             userId={this.props.currentUser.id}
-            journal_entries={this.state.journal_entries}
+            journalEntries={this.state.journalEntries}
             addJournalEntry={this.addJournalEntry}
             displayNewJournalEntryForm={this.state.displayNewJournalEntryForm}
             toggleJournalEntryFormState={this.toggleJournalEntryFormState}
           />
 
           <JournalEntryList
-            journal_entries={this.state.journal_entries}
+            journalEntries={this.state.journalEntries}
           />
         </div>
         }

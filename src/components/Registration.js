@@ -32,7 +32,7 @@ class Registration extends React.Component {
       this.props.handleLogin(data.token, data.user)
       this.props.history.push(`/profile/${data.id}`)
     })
-    .catch((error) => { console.log('Error in creating a new journal entry.', error) })
+    .catch((error) => { console.log('Error in creating a new user.', error) })
   }
 
   render () {
@@ -44,6 +44,7 @@ class Registration extends React.Component {
           <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
           <div>
           <br /><br />
+
           <label htmlFor='select-stage'>Select your stage</label><br /><br />
           <select id='select-stage' className="stages-dropdown" name="stageId" onChange={(e) => this.handleChange(e, 'content')}>
               <option value='1'>Denial</option>
@@ -59,9 +60,12 @@ class Registration extends React.Component {
           <p>If you're unsure of which stage you're currently at, take our quizzes to find out!</p>
           <ul>
             <li><Link className='navigation-text' to='/denial_quiz'>Denial</Link></li>
+            <li><Link className='navigation-text' to='/anger_quiz'>Anger</Link></li>
+            <li><Link className='navigation-text' to='/bargaining_quiz'>Bargaining</Link></li>
+            <li><Link className='navigation-text' to='/depression_quiz'>Depression</Link></li>
+            <li><Link className='navigation-text' to='/acceptance_quiz'>Acceptance</Link></li>
           </ul>
         </div>
-
       </div>
     )
   }

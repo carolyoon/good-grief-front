@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
-
 import './App.css'
 import './User.css'
-
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
 import BargainingQuiz from './components/BargainingQuiz'
@@ -14,14 +12,12 @@ import Home from './components/Home'
 import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
 import Registration from './components/Registration'
-import Stage from './components/Stage'
 import User from './components/User'
-
-// import GoalList from './components/GoalList'
-// import JournalEntryList from './components/JournalEntryList'
-// import NewJournalEntryForm from './components/NewJournalEntryForm'
-// import NewGoalForm from './components/NewGoalForm'
-// import Goals from './components/Goals'
+import Anger from './components/Anger'
+import Denial from './components/Denial'
+import Depression from './components/Depression'
+import Bargaining from './components/Bargaining'
+import Acceptance from './components/Acceptance'
 
 class App extends Component {
   constructor () {
@@ -71,10 +67,8 @@ class App extends Component {
               <Link className='navigation-text' to='/login'>Login</Link>}
             { this.state.authToken &&
               <Link className='navigation-text' to='/' onClick={this.handleLogout}>Logout</Link>}
-            { this.state.authToken &&
-              <Link className='navigation-text' to='/profile/:id'>My Profile</Link>}
-            { this.state.authToken &&
-              <Link className='navigation-text' to='/stage'>Stages</Link>}
+            { this.state.authToken && this.state.currentUser &&
+              <Link className='navigation-text' to={`/profile/${this.state.currentUser.id}`}>My Profile</Link>}
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
@@ -85,23 +79,29 @@ class App extends Component {
                 authToken={this.state.authToken}
                 handleLogin={this.handleLogin}
               />
-            )} />
+             )} 
+            />
             <Route exact path='/login' render={(props) => (
               <Login
                 {...props}
                 authToken={this.state.authToken}
                 handleLogin={this.handleLogin}
               />
-            )} />
+             )} 
+            />
             <Route path='/profile/:id' component={(props) => <User {...props} currentUser={this.state.currentUser} />} />
-            <Route exact path='/stage' component={Stage} />
+            <Route exact path='/denial' component={Denial} />
+            <Route exact path='/anger' component={Anger} />
+            <Route exact path='/bargaining' component={Bargaining} />
+            <Route exact path='/depression' component={Depression} />
+            <Route exact path='/acceptance' component={Acceptance} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
             <Route exact path='/acceptance_quiz' component={AcceptanceQuiz} />
             <Route exact path='/anger_quiz' component={AngerQuiz} />
             <Route render={() => <h1>Page not found</h1>} />
-          </Switch>
+         </Switch>
         </div>
       </Router>
     )
