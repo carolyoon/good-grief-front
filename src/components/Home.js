@@ -5,7 +5,8 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-container">
-        <h1>Mission Statement:</h1>
+        <h1>Good Grief</h1>
+        <h2>Mission Statement</h2>
         <p>We strive to create a safe environment for those with a broken heart from a relationship dissolution, and want to start the healing process. We aim provide resources, concerned with the five common stages of grief, to those that want to know how others have overcome the grieving process.</p>
 
         <div className="disclaimer">

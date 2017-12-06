@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import axios from 'axios'
 
 import './App.css'
 import './User.css'
 
-import Registration from './components/Registration'
-import Login from './components/Login'
-import Home from './components/Home'
-import User from './components/User'
-
-import DenialQuiz from './components/DenialQuiz'
+import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
 import BargainingQuiz from './components/BargainingQuiz'
-import AcceptanceQuiz from './components/AcceptanceQuiz'
+import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
-
-// import GoalList from './components/GoalList'
-// import JournalEntryList from './components/JournalEntryList'
-// import NewJournalEntryForm from './components/NewJournalEntryForm'
-// import NewGoalForm from './components/NewGoalForm'
-// import Goals from './components/Goals'
-import Stage from './components/Stage'
+import Home from './components/Home'
 import NewAdvicePostForm from './components/NewAdvicePostForm'
+import Login from './components/Login'
+import Registration from './components/Registration'
+// import Stage from './components/Stage'
+import User from './components/User'
+import Anger from './components/Anger'
+import Denial from './components/Denial'
+import Depression from './components/Depression'
+import Bargaining from './components/Bargaining'
+import Acceptance from './components/Acceptance'
 
 class App extends Component {
   constructor () {
@@ -33,32 +32,48 @@ class App extends Component {
     }
 
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   handleLogin (token, user) {
     this.setState({authToken: token, currentUser: user})
+    window.localStorage.setItem('authToken', token)
+    window.localStorage.setItem('userId', user.id)
   }
 
   handleLogout () {
     this.setState({authToken: null, currentUser: null})
+    window.localStorage.removeItem('authToken')
+    window.localStorage.removeItem('userId')
+  }
+
+  componentWillMount () {
+    if (window.localStorage.getItem('authToken') !== null) {
+      console.log(window.localStorage.getItem('authToken'))
+      axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
+      .then(({data}) => {
+        this.handleLogin(data.token, data)
+      })
+    .catch((error) => { console.log('Error when logging in.', error) })
+    }
   }
 
   render () {
     return (
       <Router>
         <div>
-
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'>Home</Link>
             { !this.state.authToken &&
-              <Link className='navigation-text' to='/registration'> Register</Link>}
+              <Link className='navigation-text' to='/registration'>Register</Link>}
             { !this.state.authToken &&
-              <Link className='navigation-text' to='/login'> Login</Link>}
+              <Link className='navigation-text' to='/login'>Login</Link>}
             { this.state.authToken &&
-              <Link className='navigation-text' to='/login' onClick={this.handleLogout}> Logout</Link>}
-            <Link className='navigation-text' to='/profile/:id'> My Profile</Link>
-            <Link className='navigation-text' to='/stage'> Stages</Link>
-
+              <Link className='navigation-text' to='/' onClick={this.handleLogout}>Logout</Link>}
+            { this.state.authToken && this.state.currentUser &&
+              <Link className='navigation-text' to={`/profile/${this.state.currentUser.id}`}>My Profile</Link>}
+            { this.state.authToken &&
+              <Link className='navigation-text' to='/stage'>Stages</Link>}
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
@@ -77,8 +92,12 @@ class App extends Component {
                 handleLogin={this.handleLogin}
               />
             )} />
-            <Route exact path='/profile/:id' component={User} />
-            <Route exact path='/stage' component={Stage} />
+            <Route path='/profile/:id' component={(props) => <User {...props} currentUser={this.state.currentUser} />} />
+            <Route exact path='/denial' component={Denial} />
+            <Route exact path='/anger' component={Anger} />
+            <Route exact path='/bargaining' component={Bargaining} />
+            <Route exact path='/depression' component={Depression} />
+            <Route exact path='/acceptance' component={Acceptance} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
@@ -86,7 +105,6 @@ class App extends Component {
             <Route exact path='/anger_quiz' component={AngerQuiz} />
             <Route render={() => <h1>Page not found</h1>} />
           </Switch>
-
         </div>
       </Router>
     )
