@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AdvicePost from './AdvicePost';
 import axios from 'axios';
@@ -6,9 +5,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
-import { base } from '../fire';
-
-
+import fire from '../fire';
 
 class Denial extends React.Component {
   constructor () {
@@ -50,25 +47,24 @@ class Denial extends React.Component {
       });
     }
 
-  //    componentWillMount(){
-  //   let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
-  //   messagesRef.on('child_added', snapshot => {
-  //     let message = { text: snapshot.val(), id: snapshot.key };
-  //     this.setState({ messages: [message].concat(this.state.messages) });
-  //   })
-  // }
-  //   componentWillMount() {
-  //     this.ref = base.syncState('/denial', {
+  componentWillMount(){
+    let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
+    messagesRef.on('child_added', snapshot => {
+      let message = { text: snapshot.val(), id: snapshot.key };
+      this.setState({ messages: [message].concat(this.state.messages) });
+    })
+  }
+  // componentWillMount(){
+  //   this.ref = base.syncState('/denial', {
   //       context: this,
   //       state: 'messages'
   //   });
-  //   }
+  // }
 
   //   componentWillUnmount() {
   //   base.removeBinding(this.ref);
   // }
 
-  //
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
@@ -81,10 +77,16 @@ class Denial extends React.Component {
         sender: this.pubnub.getUUID()
         }
     });
-      this.setState({ currentMessage:"" })
-
-
+    this.setState({ currentMessage:"" })
     }
+
+  addMessage() {
+    fire.database().ref('messages').push( this.inputEl.value );
+    this.inputEl.value = '';
+  }
+
+
+
     changedUsername() {
       this.setState({ username:this.refs.username.value });
     }
@@ -172,7 +174,7 @@ class Denial extends React.Component {
             <button onClick={this.setUsername.bind(this)}>set</button>
           </div>
           <div className="hbox">
-            <input className="grow"
+            <input ref={ el => this.inputEl = el } className="grow"
               ref="input"
               type="text"
               value={this.state.currentMessage}
@@ -180,7 +182,7 @@ class Denial extends React.Component {
             />
             <button
               onClick={this.sendMessage.bind(this)}
-            >send</button>
+              onSubmit={this.addMessage.bind(this)}>send</button>
           </div>
           <div className="hbox">
             {this.renderUsers()}
