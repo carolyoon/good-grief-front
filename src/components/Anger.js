@@ -13,7 +13,7 @@ class Anger extends React.Component {
       advicePosts : [],
     messages: [{ text:"" }],
     currentMessage: "This is my message to you.",
-    username:"no-name",
+    username:"",
     users:[]
     }
     this.pubnub = new PubNub({
@@ -40,7 +40,7 @@ class Anger extends React.Component {
     this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
 
     this.service.getSelfInfo((info)=>{
-        if(info.username) this.setState({username: info.username})
+        this.setState({username: this.props.currentUser && this.props.currentUser.username})
       });
     }
 
@@ -58,17 +58,15 @@ class Anger extends React.Component {
     });
       this.setState({ currentMessage:"" })
     }
-    changedUsername() {
-      this.setState({ username:this.refs.username.value });
-    }
+
 
     setUsername() {
-      this.service.setUserState({username:this.state.username})
+      this.service.setUserState({username:this.props.currentUser && this.props.currentUser.username})
     }
 
     renderUsers() {
       var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{user.username}</span>
+        return <span key={i}>{this.props.currentUser && this.props.currentUser.username}</span>
       });
         return <div className="userlist">{users}</div>
     }
@@ -135,14 +133,11 @@ A
         <div className="vbox fill">
           <h1>Anger Chat Room</h1>
           <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}/>
+            <ChatHistory messages={this.state.messages} service={this.service} currentUser={this.props.currentUser}/>
           </div>
           <div className="hbox">
-            <label>username</label>
-            <input type="text" ref="username" value={this.state.username}
-              onChange={this.changedUsername.bind(this)}
-            />
-            <button onClick={this.setUsername.bind(this)}>set</button>
+            <label>{this.props.currentUser && this.props.currentUser.username}</label>
+
           </div>
           <div className="hbox">
             <input className="grow"
