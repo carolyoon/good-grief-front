@@ -21,22 +21,17 @@ class User extends React.Component {
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
     };
-
-    if (props.currentUser) {
-      this.state.username = props.currentUser.username,
-      this.state.stage_id = props.currentUser.stage_id
-    }
-
-    this.goalsCall = this.goalsCall.bind(this);
-    this.journalEntriesCall = this.journalEntriesCall.bind(this);
-    this.addGoal = this.addGoal.bind(this);
-    this.addJournalEntry = this.addJournalEntry.bind(this);
-    this.updateGoal = this.updateGoal.bind(this);
-    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
-  }
-
+    
+    this.goalsCall = this.goalsCall.bind(this)
+    this.journalEntriesCall = this.journalEntriesCall.bind(this)
+    this.addGoal = this.addGoal.bind(this)
+    this.addJournalEntry = this.addJournalEntry.bind(this)
+    this.updateGoal = this.updateGoal.bind(this)
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)   
+   }
+    
     goalsCall () {
       const that = this
       axios.get(`/api/users/${this.props.match.params.id}/goals`)
@@ -55,10 +50,6 @@ class User extends React.Component {
         that.setState({ journalEntries })
       })
       .catch((error) => console.log('Fail to fetch journal entries.', error))
-    }
-
-    componentWillMount () {
-      this.props.handleLogin(window.localStorage.getItem('authToken'))
     }
 
     componentDidMount () {
@@ -123,10 +114,10 @@ class User extends React.Component {
           </div>
 
           <hr/>
-
-          <div className='stages-tracker-container'>
-            <Tracker
-              stageId={this.state.stage_id}
+        
+          <div className='stage-tracker-container'>
+            <Tracker 
+              stageId={this.props.currentUser ? this.props.currentUser.stage_id : null}
             />
           </div>
 
