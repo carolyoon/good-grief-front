@@ -2,16 +2,103 @@ import React from 'react';
 import AdvicePost from './AdvicePost';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import PubNub from "pubnub";
+import ChatHistory from './ChatHistory';
+import PubNubService from "./PubNubService";
+import { base } from '../fire';
+
 
 class Denial extends React.Component {
   constructor() {
     super();
     this.state = {
-      advicePosts : []
+      advicePosts : [],
+      messages: [{ text:"" }],
+      currentMessage: "This is my message to you.",
+      username:"no-name",
+      users:[]
     };
 
     this.toggleAdvicePostFormState = this.toggleAdvicePostFormState.bind(this)
-  }
+    this.pubnub = new PubNub({
+      publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
+      subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
+      presenceTimeout: 30
+     })
+     //init presence service
+    this.service = new PubNubService({
+         pubnub:this.pubnub,
+         channel:'denial-chat'
+      });
+    //on users update, trigger screen refresh
+    this.service.onUserChange((users) => this.setState({ users:users }));
+    this.service.onMessage((evt) => {
+        this.state.messages.push({
+            text:evt.message.text,
+            sender:evt.publisher
+        });
+        this.setState({
+            messages: this.state.messages
+        })
+      });
+    this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
+
+    this.service.getSelfInfo((info)=>{
+        if(info.username) this.setState({username: info.username})
+      });
+    }
+
+  //    componentWillMount(){
+  //   let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
+  //   messagesRef.on('child_added', snapshot => {
+  //     let message = { text: snapshot.val(), id: snapshot.key };
+  //     this.setState({ messages: [message].concat(this.state.messages) });
+  //   })
+  // }
+  //   componentWillMount() {
+  //     this.ref = base.syncState('/denial', {
+  //       context: this,
+  //       state: 'messages'
+  //   });
+  //   }
+
+  //   componentWillUnmount() {
+  //   base.removeBinding(this.ref);
+  // }
+
+  //
+
+    changedMessage() {
+        this.setState({ currentMessage:this.refs.input.value })
+    }
+    sendMessage() {
+      this.pubnub.publish({
+        channel:"denial-chat",
+        message: {
+        text:this.refs.input.value,
+        sender: this.pubnub.getUUID()
+        }
+    });
+      this.setState({ currentMessage:"" })
+
+
+    }
+    changedUsername() {
+      this.setState({ username:this.refs.username.value });
+    }
+
+    setUsername() {
+      this.service.setUserState({username:this.state.username})
+    }
+
+    renderUsers() {
+      var users = this.state.users.map((user,i)=> {
+        return <span key={i}>{user.username}</span>
+      });
+        return <div className="userlist">{users}</div>
+    }
+
+
 
   toggleAdvicePostFormState() {
     this.setState(prevState => ({
@@ -70,6 +157,34 @@ class Denial extends React.Component {
             Ready to Move on to Anger?
          </button>
         </Link>
+
+        <div className="vbox fill">
+          <h1>Denial Chat Room</h1>
+          <div className="scroll grow">
+            <ChatHistory messages={this.state.messages} service={this.service}/>
+          </div>
+          <div className="hbox">
+            <label>username</label>
+            <input type="text" ref="username" value={this.state.username}
+              onChange={this.changedUsername.bind(this)}
+            />
+            <button onClick={this.setUsername.bind(this)}>set</button>
+          </div>
+          <div className="hbox">
+            <input className="grow"
+              ref="input"
+              type="text"
+              value={this.state.currentMessage}
+              onChange={this.changedMessage.bind(this)}
+            />
+            <button
+              onClick={this.sendMessage.bind(this)}
+            >send</button>
+          </div>
+          <div className="hbox">
+            {this.renderUsers()}
+          </div>
+        </div>
       </div>
     )
   }
