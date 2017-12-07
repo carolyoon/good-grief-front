@@ -120,40 +120,50 @@ class Denial extends React.Component {
   render () {
     return (
       <div className='denial-container'>
-        <span className='stage-name'><h1>The DENIAL Stage</h1></span>
+        <span className='stage-name'>
+          <h1>The DENIAL Stage</h1>
+        </span>
+
+          <h3 className='subheader'>Helpful Apps</h3>
         <div className='helpful-apps'>
-          <h3>Helpful Apps</h3>
           <ul>
             <li>
-              <img className='denial-image' src={require('../denial_images/blockYourEx.png')} />
+              <img className='denial-image' width='250' height='115' src={require('../denial_images/blockYourEx.png')} />
               <p>Block Your Ex: a Chrome and Firefox-based plugin that allows you to remove an ex’s Twitter, Facebook and blog from your view in one go.</p>
             </li><br />
             <li>
-              <img className='denial-image' src={require('../denial_images/killSwitch.png')} />
+              <img className='denial-image' width='250' height='100' src={require('../denial_images/killSwitch.png')} />
               <p>Killswitch: a mobile app that removes all traces of your ex from your Facebook by deleting pictures, videos, posts and status updates that tagged both of you</p>
             </li><br />
             <li>
-              <img className='denial-image' src={require('../denial_images/massPasswordReset.png')} />
+              <img className='denial-image' width='250' height='100' src={require('../denial_images/massPasswordReset.png')} />
               <p>Mass Password Reset: a Firefox extension that allows you to change the password for numerous shared accounts at once.</p>
             </li><br />
           </ul>
         </div>
+
+        <hr />
+
         <div className='helpful-articles'>
-          <h3>Helpful Articles</h3>
+          <h3 className='subheader'>Helpful Articles</h3>
           <ul>
             <li><a href='https://www.psychologytoday.com/blog/me-we/201501/the-9-stages-grieving-breakup-no-2-denial'>All About Denial</a></li><br />
             <li><a href='https://pairedlife.com/breakups/Feelings-of-Denial-When-a-Relationship-Ends'>Feelings of Denial When a Relationship Ends</a></li><br />
             <li><a href='https://datingtips.match.com/over-denial-breakup-42642.html'>How to Get Over Denial About a Breakup</a></li><br />
           </ul>
         </div>
+
+        <hr />
+
         <div className='advice-posts'>
-          <h3>Helpful Advice</h3>
+          <h3 className='subheader'>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map(key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
         </div>
+
         <Link to='/anger_quiz'>
           <button type='button'>
             Ready to Move on to Anger?
