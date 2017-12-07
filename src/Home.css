@@ -1,57 +1,68 @@
+.mission-statement {
+  width: 95%;
+  padding-left: 20px;
+}
+
 .mission-statement-header {
   color: #D8BFC5;
   font-family: 'Lora', serif;
   font-size: 2.5em;
+  padding-top: 35px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.mission-statement-body {
+  padding-top: 0;
+  margin-top: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  text-align: justify;
 }
 
 .understanding-grief-container {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.understanding-grief-container .image-and-title {
+.stages-of-grief-image {
+  align-self: center;
+}
+
+.understanding-grief-title {
   position: relative;
 }
 
-.image-and-title {
-  /*display: flex;*/
-}
-
-.fa-angle-double-down {
-  position: absolute;
-  width: 65px;
-  height: 65px;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 10%;
-  border: solid 3px #FFFFFF;
-  padding: 0;
-  background: linear-gradient(#BFD8D2, #42A2BC);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    0 1px 2px rgba(0,0,0,0.35),
-    inset 0 3px 2px rgba(255,255,255,0.2),
-    inset 0 -3px 2px rgba(0,0,0,0.1);
-}
-
-.understanding {
+.understanding-grief-title span {
   font-family: 'Bungee', cursive;
-  margin-left: 5px;
+  color: #DF744A;
   font-size: 2.5em;
   position: absolute;
-  right: -240px;
-
 }
 
-.the-stages-of-grief {
+.understanding-grief-title p {
   font-family: 'Orbitron', sans-serif;
-  right: -150px;
-  top: 30px;
-  position: relative;
+  color: #DCB239;
+  padding-top: 30px;
+  position: absolute;
 }
 
-.fa-angle-double-down:hover {
-  background: #8FBBB1;
-  transition: all 0.3s ease-out;
+.understanding-grief-body {
+  width: 90%;
+}
+
+.understanding-grief-body dl {
+  font-size: 13px;
+  padding-top: 70px;
+}
+
+.grief-explanation {
+  color: #696969;
+}
+
+.heart-bullet {
+  color: #DF744A;
 }
 
 .disclaimer-container {

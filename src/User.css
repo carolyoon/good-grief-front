@@ -97,6 +97,7 @@ li {
   border-radius: .2em;
   float: left;
   margin-right: 1em;
+  margin-left: 2em;
 }
 
 .journal-entries-list-container li {
@@ -104,10 +105,20 @@ li {
   margin: 5px;
   border-radius: 3px;
   background: #BFD8D2;
+  text-align: justify;
 }
 
 .journal-entries-list-container li:hover {
   background: #DF744A;
+}
+
+.journal-entries-list-container li .timestamp {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  float: left;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  font-size: 11px;
 }
 
 .create-journal-button {
