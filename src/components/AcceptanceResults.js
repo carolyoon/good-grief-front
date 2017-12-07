@@ -8,7 +8,7 @@ function AcceptanceResults (props) {
         <Link to='/acceptance'>
         <button>Stay in Acceptance</button>
       </Link><br />
-      <Link to={`/proile/${props.currentUserId}`}>
+      <Link to={`/profile/${props.currentUserId}`}>
       <button>Go to Your Profile</button>
     </Link><br />
       {/* Have you reached acceptance?
