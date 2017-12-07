@@ -50,6 +50,7 @@ class App extends Component {
         <div>
 
           <div className='navigation-bar'>
+            <Link className='navigation-text' to='/'><img className='image' height='190' width='190' src={require('./GoodGriefLogo.png')} /></Link>
             <Link className='navigation-text' to='/'>Home</Link>
             <a className='navigation-text' href={'https://github.com/carolyoon/good-grief-front'} target='_blank'>About</a>
             <Link className='navigation-text' to='/registration'> Register</Link>

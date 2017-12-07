@@ -17,3 +17,9 @@
   text-decoration: overline;
   color: #003399;
 }
+
+.navigation-text .image {
+  position: fixed;
+  top: -50px;
+  left: -35px;
+}
