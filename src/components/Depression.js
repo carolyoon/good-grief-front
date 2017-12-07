@@ -1,16 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import axios from 'axios';
-
 import AdvicePost from './AdvicePost';
-<<<<<<< HEAD
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-
-=======
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
->>>>>>> b80a9217a7a984644b3caa93bc06e112f1989d61
 
 class Depression extends React.Component {
   constructor () {

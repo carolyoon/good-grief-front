@@ -5,6 +5,8 @@ import axios from 'axios';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 
 class Acceptance extends React.Component {
   constructor() {
