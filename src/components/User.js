@@ -5,10 +5,9 @@ import JournalEntryList from './JournalEntryList'
 import NewJournalEntryForm from './NewJournalEntryForm'
 import NewGoalForm from './NewGoalForm'
 import Tracker from './Tracker'
-import PubNub from "pubnub";
-import ChatHistory from './ChatHistory';
-import PubNubService from "./PubNubService";
-
+import PubNub from 'pubnub'
+import ChatHistory from './ChatHistory'
+import PubNubService from './PubNubService'
 
 class User extends React.Component {
   constructor (props) {
@@ -24,9 +23,14 @@ class User extends React.Component {
       goals: [],
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false,
-      messages: [{ text:"foo1" }],
-      currentMessage: "This is my message to you.",
-      users:[],
+      messages: [
+        {
+          text: 'foo1'
+        }
+      ],
+      currentMessage: 'This is my message to you.',
+      username: 'no-name',
+      users: [],
     }
     if (props.currentUser) {
       this.state.username = props.currentUser.username,
@@ -42,8 +46,8 @@ class User extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
     this.pubnub = new PubNub({
-      publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
-      subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
+      publishKey: 'pub-c-50b2965a-2ab4-407f-b560-217a00a43e81',
+      subscribeKey: 'sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7',
       presenceTimeout: 30
      })
      //init presence service
@@ -68,19 +72,6 @@ class User extends React.Component {
         if(info.username) this.setState({username: info.username})
       });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
@@ -244,6 +235,7 @@ class User extends React.Component {
           />
         </div>
         }
+
 
         <div className="vbox fill">
           <h1>My Simple Chat</h1>
