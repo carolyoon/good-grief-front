@@ -19,7 +19,6 @@ class User extends React.Component {
       journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-      displayNewGoalForm: false
     };
 
     this.goalsCall = this.goalsCall.bind(this)
@@ -66,7 +65,7 @@ class User extends React.Component {
     addJournalEntry (newJournalEntry) {
       let journalEntries = this.state.journalEntries
       journalEntries.unshift(newJournalEntry)
-      this.setState({ journalEntries })
+      this.setState({ journalEntries, displayNewJournalEntryForm: true })
     }
 
     updateGoal (index) {
