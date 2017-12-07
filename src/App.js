@@ -74,13 +74,7 @@ class App extends Component {
     window.localStorage.removeItem('userId')
   }
 
-<<<<<<< HEAD
-  componentWillMount () {
 
-  }
-
-=======
->>>>>>> 614d32fb0f3c50afe9e5d16cd9668f5c038fc6f0
   render () {
     return (
       <Router>
