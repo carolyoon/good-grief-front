@@ -1,16 +1,14 @@
-import React from 'react'
-import axios from 'axios'
-import GoalList from './GoalList'
-import JournalEntryList from './JournalEntryList'
-import NewJournalEntryForm from './NewJournalEntryForm'
-import NewGoalForm from './NewGoalForm'
-import Tracker from './Tracker'
-
+import React from 'react';
+import axios from 'axios';
+import GoalList from './GoalList';
+import JournalEntryList from './JournalEntryList';
+import NewJournalEntryForm from './NewJournalEntryForm';
+import NewGoalForm from './NewGoalForm';
+import Tracker from './Tracker';
 
 class User extends React.Component {
   constructor (props) {
-    super(props)
-    
+    super(props);
     this.state = {
       userId: '',
       selectedOption: 'Goals',
@@ -23,23 +21,22 @@ class User extends React.Component {
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
     };
-    
+
     if (props.currentUser) {
       this.state.username = props.currentUser.username,
       this.state.stage_id = props.currentUser.stage_id
     }
 
-    this.goalsCall = this.goalsCall.bind(this)
-    this.journalEntriesCall = this.journalEntriesCall.bind(this)
-    this.addGoal = this.addGoal.bind(this)
-    this.addJournalEntry = this.addJournalEntry.bind(this)
-    this.updateGoal = this.updateGoal.bind(this)
-    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
-    
-   }
-    
+    this.goalsCall = this.goalsCall.bind(this);
+    this.journalEntriesCall = this.journalEntriesCall.bind(this);
+    this.addGoal = this.addGoal.bind(this);
+    this.addJournalEntry = this.addJournalEntry.bind(this);
+    this.updateGoal = this.updateGoal.bind(this);
+    this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this);
+  }
+
     goalsCall () {
       const that = this
       axios.get(`/api/users/${this.props.match.params.id}/goals`)
@@ -119,19 +116,20 @@ class User extends React.Component {
     render () {
       return (
         <div className='user-profile-container'>
-        
+
           <div className='div-for-hover-item'>
             <p className='quote-body'>“Life always waits for some crisis to occur before revealing itself at its most brilliant.”</p>
               <div className='hidden-text'><p></p>Paulo Coelho</div>
           </div>
+
           <hr/>
-        
-          <div className='stage-tracker-container'>
-            <Tracker 
+
+          <div className='stages-tracker-container'>
+            <Tracker
               stageId={this.state.stage_id}
             />
           </div>
-        
+
           <ul className='options'>
             {this.state.options.map((option) =>
               <li
@@ -143,22 +141,22 @@ class User extends React.Component {
               )}
           </ul>
 
-          {this.state.selectedOption === 'Goals' && this.props.currentUser &&
-          <div className='goal-container'>
-            <NewGoalForm
-              userId={this.props.currentUser.id}
-              goals={this.state.goals}
-              addGoal={this.addGoal}
-            />
+        {this.state.selectedOption === 'Goals' && this.props.currentUser &&
+        <div className='goal-container'>
+          <NewGoalForm
+            userId={this.props.currentUser.id}
+            goals={this.state.goals}
+            addGoal={this.addGoal}
+          />
 
-          {this.state.goals.map((goal, index) =>
-            <GoalList
-              index={index}
-              goal={goal}
-              goalCompleted={goal['completed']}
-              updateGoal={() => this.updateGoal(index)}
-              deleteCompletedGoal={() => this.deleteCompletedGoal(index)}
-            />
+        {this.state.goals.map((goal, index) =>
+          <GoalList
+            index={index}
+            goal={goal}
+            goalCompleted={goal['completed']}
+            updateGoal={() => this.updateGoal(index)}
+            deleteCompletedGoal={() => this.deleteCompletedGoal(index)}
+          />
           )}
         </div>
         }
@@ -178,9 +176,10 @@ class User extends React.Component {
           />
         </div>
         }
+
       </div>
     )
   }
 }
 
-export default User
+export default User;

@@ -5,15 +5,15 @@ import * as FontAwesome from 'react-icons/lib/fa';
 
 class Login extends React.Component {
   constructor () {
-    super()
+    super();
 
     this.state = {
       userName: '',
       userPassword: ''
-    }
+    };
 
-    this.handleOnChange = this.handleOnChange.bind(this)
-    this.handleOnSubmit = this.handleOnSubmit.bind(this)
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
   handleOnChange (e, fieldName) {
