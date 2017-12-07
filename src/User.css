@@ -1,3 +1,39 @@
+.quote-body {
+  padding-top: 40px;
+  padding-bottom: 0;
+  font-size: 16px;
+  text-align: center;
+  font-family: 'Spectral SC', serif;
+}
+
+.hidden-text {
+  display: none;
+}
+
+.div-for-hover-item {
+  padding-bottom: 20px;
+}
+
+.div-for-hover-item:hover .hidden-text {
+  display: block;
+  font-size: 11px;
+  color: #D5D5D5;
+  text-align: center;
+  padding-top: 0;
+  margin-top: 0;
+  font-family: 'Spectral SC', serif;
+}
+
+hr {
+  width: 85%;
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #DF744A, #f0f0f0);
+}
+
 ul {
   padding: 0;
 }
@@ -12,20 +48,38 @@ li {
 }
 
 .options li {
+  padding-top: 40px;
   margin: 10px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.add-button {
+  border: none;
+}
+
+.fa-quote-add {
+  padding: .2em .25em .15em;
+  border: solid 3px #BFD8D2;
+  border-radius: .9em;
+  float: left;
+  font-size: 3em;
+  margin-left: 10px;
 }
 
 .journal-entry-form-container {
   text-align: center;
 }
 
-.journal-entry-form-container input {
-  width: 600px;
+.form-control {
+  border: 2px solid #F4DECB;
+  width: 98%;
   height: 120px;
-  border: 2px solid #6D7993;
+  color: #333333;
   font-size: 16px;
+  padding: 3px;
+  margin-right: 0px;
+  margin-bottom: 0px;
 }
 
 .journal-entry-container {
@@ -34,18 +88,58 @@ li {
   padding: 10px;
   border-radius: 5px;
   margin: 45px auto;
-  width: 90%;
+  width: 80%;
+}
+
+.fa-quote-left {
+  padding: .2em .25em .15em;
+  border: solid 3px #9099A2;
+  border-radius: .2em;
+  float: left;
+  margin-right: 1em;
+  margin-left: 2em;
 }
 
 .journal-entries-list-container li {
   padding: 15px;
   margin: 5px;
   border-radius: 3px;
-  background: #D5D5D5;
+  background: #BFD8D2;
+  text-align: justify;
 }
 
 .journal-entries-list-container li:hover {
-  background: #96858F;
+  background: #DF744A;
+}
+
+.journal-entries-list-container li .timestamp {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  float: left;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  font-size: 11px;
+}
+
+.create-journal-button {
+  padding: 5px;
+  font-size: 16px;
+  margin-top: 0px;
+  margin-right: 2px;
+  background-color: #DCB239;
+  border: 2px solid #F4DECB;
+  width: 99%;
+}
+
+.create-journal-button:hover {
+  background-color: #DF744A;
+  border: 2px solid #003399;
+  cursor: pointer;
+}
+
+.journal-entry-form-container p {
+  font-size: 10px;
+  color: #9099A2;
 }
 
 .goal-container {
@@ -61,12 +155,13 @@ li {
 
 .goals-list-container li {
   padding: 15px;
-  background: #D5D5D5;
+  background: #BFD8D2;
   border-radius: 3px;
+  margin-bottom: 0px;
 }
 
 .goals-list-container li:hover {
-  background: #96858F;
+  background: #DF744A;
 }
 
 input[type=checkbox] {
@@ -80,7 +175,7 @@ input[type=checkbox] {
 .goal-form-container input {
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #6D7993;
+  border: 2px solid #F4DECB;
   width: 70%;
 }
 
@@ -89,13 +184,13 @@ input[type=checkbox] {
   font-size: 16px;
   margin: 10px;
   margin-right: 0px;
-  background-color: #9099A2;
-  border: 2px solid #6D7993;
+  background-color: #DCB239;
+  border: 2px solid #F4DECB;
   width: 20%;
 }
 
 .goal-form-container button:hover {
-  background-color: #6D7993;
+  background-color: #DF744A;
   border: 2px solid #003399;
   cursor: pointer;
 }

@@ -5,16 +5,14 @@ import JournalEntryList from './JournalEntryList'
 import NewJournalEntryForm from './NewJournalEntryForm'
 import NewGoalForm from './NewGoalForm'
 import Tracker from './Tracker'
-import PubNub from "pubnub";
-import ChatHistory from './ChatHistory';
-import PubNubService from "./PubNubService";
 
 
 class User extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+    
     this.state = {
-      // userId: '',
+      userId: '',
       selectedOption: 'Goals',
       options: [
         'Goals',
@@ -23,11 +21,12 @@ class User extends React.Component {
       journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-      displayNewGoalForm: false,
-      messages: [{ text:"foo1" }],
-      currentMessage: "This is my message to you.",
-      username:"no-name",
-      users:[]
+      displayNewGoalForm: false
+    };
+    
+    if (props.currentUser) {
+      this.state.username = props.currentUser.username,
+      this.state.stage_id = props.currentUser.stage_id
     }
 
     this.goalsCall = this.goalsCall.bind(this)
@@ -38,65 +37,9 @@ class User extends React.Component {
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
-    this.pubnub = new PubNub({
-      publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
-      subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
-      presenceTimeout: 30
-     })
-     //init presence service
-    this.service = new PubNubService({
-         pubnub:this.pubnub,
-         channel:'simple-chat'
-      });
-    //on users update, trigger screen refresh
-    this.service.onUserChange((users) => this.setState({ users:users }));
-    this.service.onMessage((evt) => {
-        this.state.messages.push({
-            text:evt.message.text,
-            sender:evt.publisher
-        });
-        this.setState({
-            messages: this.state.messages
-        })
-      });
-    this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
-
-    this.service.getSelfInfo((info)=>{
-        if(info.username) this.setState({username: info.username})
-      });
-    }
-
-    changedMessage() {
-        this.setState({ currentMessage:this.refs.input.value })
-    }
     
-    sendMessage() {
-      this.pubnub.publish({
-        channel:"simple-chat",
-        message: {
-            text:this.refs.input.value,
-            sender: this.pubnub.getUUID()
-
-        }
-    });
-      this.setState({ currentMessage:"" })
-    }
-
-    changedUsername() {
-      this.setState({ username:this.refs.username.value });
-    }
+   }
     
-    setUsername() {
-      this.service.setUserState({username:this.state.username})
-    }
-
-    renderUsers() {
-      var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{user.username}</span>
-      });
-        return <div className="userlist">{users}</div>
-    }
-
     goalsCall () {
       const that = this
       axios.get(`/api/users/${this.props.match.params.id}/goals`)
@@ -115,6 +58,10 @@ class User extends React.Component {
         that.setState({ journalEntries })
       })
       .catch((error) => console.log('Fail to fetch journal entries.', error))
+    }
+
+    componentWillMount () {
+      this.props.handleLogin(window.localStorage.getItem('authToken'))
     }
 
     componentDidMount () {
@@ -151,7 +98,7 @@ class User extends React.Component {
     deleteCompletedGoal (index) {
       const goal = this.state.goals[index]
       const goals = [...this.state.goals]
-      axios.delete(`/api/users/${this.props.userId}/goals/${goal.id}`)
+      axios.delete(`/api/users/${this.props.match.params.id}/goals/${goal.id}`)
       .then(response => {
         goals[index] = response.data.goal
         this.setState({ goals })
@@ -172,7 +119,19 @@ class User extends React.Component {
     render () {
       return (
         <div className='user-profile-container'>
-          <h1>Profile</h1>
+        
+          <div className='div-for-hover-item'>
+            <p className='quote-body'>“Life always waits for some crisis to occur before revealing itself at its most brilliant.”</p>
+              <div className='hidden-text'><p></p>Paulo Coelho</div>
+          </div>
+          <hr/>
+        
+          <div className='stage-tracker-container'>
+            <Tracker 
+              stageId={this.state.stage_id}
+            />
+          </div>
+        
           <ul className='options'>
             {this.state.options.map((option) =>
               <li
@@ -219,34 +178,6 @@ class User extends React.Component {
           />
         </div>
         }
-
-        <div className="vbox fill">
-          <h1>My Simple Chat</h1>
-          <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}/>
-          </div>
-          <div className="hbox">
-            <label>username</label>
-            <input type="text" ref="username" value={this.state.username}
-              onChange={this.changedUsername.bind(this)}
-            />
-            <button onClick={this.setUsername.bind(this)}>set</button>
-          </div>
-          <div className="hbox">
-            <input className="grow"
-              ref="input"
-              type="text"
-              value={this.state.currentMessage}
-              onChange={this.changedMessage.bind(this)}
-            />
-            <button
-              onClick={this.sendMessage.bind(this)}
-            >send</button>
-          </div>
-          <div className="hbox">
-            {this.renderUsers()}
-          </div>
-        </div>
       </div>
     )
   }

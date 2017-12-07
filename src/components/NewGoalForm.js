@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import * as FontAwesome from 'react-icons/lib/fa';
-
 class NewGoalForm extends React.Component {
   constructor(props) {
     super(props);
@@ -15,9 +13,6 @@ class NewGoalForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.submitNewGoal = this.submitNewGoal.bind(this);
-
-    console.log("YAYYYY")
-    console.log(this.state.newGoal, this.state.formSubmitted);
   }
 
   handleChange(event, fieldName) {
@@ -44,7 +39,7 @@ class NewGoalForm extends React.Component {
         <form className='goal-form-container' onSubmit={this.submitNewGoal}>
           <input placeholder='enter goal' onChange={(event) => this.handleChange(event, 'content')} value={this.state.goals} />
           <button type='submit'>add</button>
-          <p>To remove a goal, click on an existing entry.</p>
+          <p>Upon completion, click on an existing entry to remove it.</p>
         </form>
       )
     } else {
