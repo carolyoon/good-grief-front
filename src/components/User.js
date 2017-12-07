@@ -23,19 +23,9 @@ class User extends React.Component {
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
     };
-
-    console.log("props:", props)
     
-    if (props.currentUser) {
-      console.log("props.currentUser is truthy")
-      console.log("props.currentUser.stage_id:",props.currentUser.stage_id)
-      this.state.username = props.currentUser.username,
-      this.state.stage_id = props.currentUser.stage_id
-    } else{
-      console.log("props.currentUser is falsy")
-
-    }
-
+    this.state.username = props.currentUser.username,
+    this.state.stage_id = props.currentUser.stage_id
     this.goalsCall = this.goalsCall.bind(this)
     this.journalEntriesCall = this.journalEntriesCall.bind(this)
     this.addGoal = this.addGoal.bind(this)
@@ -66,10 +56,6 @@ class User extends React.Component {
       })
       .catch((error) => console.log('Fail to fetch journal entries.', error))
     }
-
-    // componentWillMount () {
-    //   this.props.handleLogin(window.localStorage.getItem('authToken'))
-    // }
 
     componentDidMount () {
       this.goalsCall()
