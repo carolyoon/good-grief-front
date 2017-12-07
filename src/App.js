@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
+
 import './App.css'
 import './User.css'
+import './Registration.css';
+import './Navigation.css';
+import './Home.css';
+
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
 import BargainingQuiz from './components/BargainingQuiz'
@@ -73,8 +78,11 @@ class App extends Component {
     return (
       <Router>
         <div>
+      
           <div className='navigation-bar'>
+            <Link className='navigation-text' to='/'><img className='image' height='190' width='190' src={require('./GoodGriefLogo.png')} /></Link>
             <Link className='navigation-text' to='/'>Home</Link>
+            <a className='navigation-text' href={'https://github.com/carolyoon/good-grief-front'} target='_blank'>About</a>
             { !this.state.authToken &&
               <Link className='navigation-text' to='/registration'>Register</Link>}
             { !this.state.authToken &&
@@ -82,8 +90,9 @@ class App extends Component {
             { this.state.authToken &&
               <Link className='navigation-text' to='/' onClick={this.handleLogout}>Logout</Link>}
             { this.state.authToken && this.state.currentUser &&
-              <Link className='navigation-text' to={`/profile/${this.state.currentUser.id}`}>My Profile</Link>}
+              <Link className='navigation-text' to={`/profile/${this.state.currentUser.id}`}>Profile</Link>}
           </div>
+
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/advice' component={NewAdvicePostForm} />
@@ -124,10 +133,11 @@ class App extends Component {
             <Route exact path='/anger_quiz' component={AngerQuiz} />
             <Route render={() => <h1>Page not found</h1>} />
          </Switch>
+
         </div>
       </Router>
     )
   }
 }
 
-export default App
+export default App;

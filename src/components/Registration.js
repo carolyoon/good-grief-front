@@ -1,6 +1,7 @@
-import React from 'react'
-import axios from 'axios'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import React from 'react';
+import axios from 'axios';
+
+import * as FontAwesome from 'react-icons/lib/fa';
 
 class Registration extends React.Component {
   constructor () {
@@ -37,14 +38,18 @@ class Registration extends React.Component {
 
   render () {
     return (
-      <div>
-        <h2>Registration</h2>
-        <form className='registration' onSubmit={this.handleOnSubmit}>
-          <input type='text' placeholder='Username' onChange={(e) => this.handleChange(e, 'userName')} />
-          <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
-          <div>
-          <br /><br />
+      <div className='registration-container'>
+        <h2 className='registration-text'>Registration</h2>
 
+        <form className='registration-form' onSubmit={this.handleOnSubmit}>
+          <p className='field'>
+            <input type='text' placeholder='Username' onChange={(e) => this.handleOnChange(e, 'userName')} />
+            <FontAwesome.FaUser className='registration-icon' />
+          </p>
+          <p className='field'>
+            <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
+            <FontAwesome.FaLock className='registration-icon' />
+          </p>
           <label htmlFor='select-stage'>Select your stage</label><br /><br />
           <select id='select-stage' value={this.state.stageId} name="stage" onChange={(e) => this.handleChange(e, 'stageId')}>
               <option value='1'>Denial</option>
@@ -53,9 +58,11 @@ class Registration extends React.Component {
               <option value='4'>Depression</option>
               <option value='5'>Acceptance</option>
           </select>
-          </div>
-          <button type='submit' value='Register'>Submit</button>
+          <p className='submit'>
+            <button type='submit' value='Register'><FontAwesome.FaArrowRight className='registration-icon' /></button>
+          </p>
         </form>
+
         <div className='quiz-options'>
           <p>If you're unsure of which stage you're currently at, take our quizzes to find out!</p>
           <ul>
@@ -71,4 +78,4 @@ class Registration extends React.Component {
   }
 }
 
-export default Registration
+export default Registration;
