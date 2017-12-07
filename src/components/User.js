@@ -24,11 +24,8 @@ class User extends React.Component {
       displayNewGoalForm: false
     };
     
-    if (props.currentUser) {
-      this.state.username = props.currentUser.username,
-      this.state.stage_id = props.currentUser.stage_id
-    }
-
+    this.state.username = props.currentUser.username,
+    this.state.stage_id = props.currentUser.stage_id
     this.goalsCall = this.goalsCall.bind(this)
     this.journalEntriesCall = this.journalEntriesCall.bind(this)
     this.addGoal = this.addGoal.bind(this)
@@ -58,10 +55,6 @@ class User extends React.Component {
         that.setState({ journalEntries })
       })
       .catch((error) => console.log('Fail to fetch journal entries.', error))
-    }
-
-    componentWillMount () {
-      this.props.handleLogin(window.localStorage.getItem('authToken'))
     }
 
     componentDidMount () {
@@ -128,7 +121,7 @@ class User extends React.Component {
         
           <div className='stage-tracker-container'>
             <Tracker 
-              stageId={this.state.stage_id}
+              stageId={this.props.currentUser ? this.props.currentUser.stage_id : null}
             />
           </div>
         
