@@ -1,8 +1,6 @@
 .navigation-bar {
   display: flex;
-  justify-content: center;
   float: right;
-  margin-bottom: 5px;
 }
 
 .navigation-text {
