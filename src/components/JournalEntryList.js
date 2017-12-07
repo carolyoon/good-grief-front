@@ -8,7 +8,7 @@ class JournalEntryList extends React.Component {
   render() {
     return(
         <ul className='journal-entries-list-container'>
-          {this.props.journal_entries.map((journal) =>
+          {this.props.journalEntries.map((journal) =>
             <li>
               <Timestamp time={journal.created_at} precision={1} className='timestamp' />
               <FontAwesome.FaQuoteLeft className='fa-quote-left' />

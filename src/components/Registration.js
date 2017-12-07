@@ -10,14 +10,14 @@ class Registration extends React.Component {
     this.state = {
       userName: '',
       userPassword: '',
-      defaultStage: 'denial'
+      stage: ''
     }
 
-    this.handleOnChange = this.handleOnChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleOnSubmit = this.handleOnSubmit.bind(this)
   }
 
-  handleOnChange (e, fieldName) {
+  handleChange (e, fieldName) {
     const value = e.target.value
     const state = this.state
     state[fieldName] = value
@@ -26,13 +26,14 @@ class Registration extends React.Component {
 
   handleOnSubmit (event) {
     event.preventDefault()
-    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.defaultStage}})
+    axios.post(`/api/users`, {user: {username: this.state.userName, password: this.state.userPassword, stage: this.state.stageId}})
     .then(({data}) => {
       console.log(data)
-      this.setState({userName: '', userPassword: ''})
-      this.props.updateAuth(data.token, data.user)
+      this.setState({userName: '', userPassword: '', stage: ''})
+      this.props.handleLogin(data.token, data)
+      this.props.history.push(`/profile/${data.id}`)
     })
-    .catch((error) => { console.log('Error in creating a new journal entry.', error) })
+    .catch((error) => { console.log('Error in creating a new user.', error) })
   }
 
   render () {
@@ -49,10 +50,29 @@ class Registration extends React.Component {
             <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
             <FontAwesome.FaLock className='registration-icon' />
           </p>
+          <label htmlFor='select-stage'>Select your stage</label><br /><br />
+          <select id='select-stage' value={this.state.stageId} name="stage" onChange={(e) => this.handleChange(e, 'stageId')}>
+              <option value='1'>Denial</option>
+              <option value='2'>Anger</option>
+              <option value='3'>Bargaining</option>
+              <option value='4'>Depression</option>
+              <option value='5'>Acceptance</option>
+          </select>
           <p className='submit'>
             <button type='submit' value='Register'><FontAwesome.FaArrowRight className='registration-icon' /></button>
           </p>
         </form>
+
+        <div className='quiz-options'>
+          <p>If you're unsure of which stage you're currently at, take our quizzes to find out!</p>
+          <ul>
+            <li><Link className='navigation-text' to='/denial_quiz'>Denial</Link></li>
+            <li><Link className='navigation-text' to='/anger_quiz'>Anger</Link></li>
+            <li><Link className='navigation-text' to='/bargaining_quiz'>Bargaining</Link></li>
+            <li><Link className='navigation-text' to='/depression_quiz'>Depression</Link></li>
+            <li><Link className='navigation-text' to='/acceptance_quiz'>Acceptance</Link></li>
+          </ul>
+        </div>
       </div>
     )
   }
