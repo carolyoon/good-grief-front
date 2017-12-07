@@ -35,6 +35,19 @@ class App extends Component {
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.updateCurrentUser = this.updateCurrentUser.bind(this)
+  }
+
+  updateCurrentUser(newCurrentUserData){
+    if(newCurrentUserData){
+      // if newCurrentUserData is an object, merge the data
+      const currentUser = this.state.currentUser || {}
+      const newCurrentUser = Object.assign(currentUser, newCurrentUserData)
+      this.setState({ currentUser: newCurrentUser })
+    } else {
+      // if not, just set it
+      this.setState({ currentUser: newCurrentUserData })
+    }
   }
 
 
@@ -61,7 +74,7 @@ class App extends Component {
         this.setState({currentUser: user})
       }
       window.localStorage.setItem('authToken', token)
-      window.localStorage.setItem('userId', user.id)
+      window.localStorage.setItem('userId', user ? user.id : null)
       window.localStorage.setItem('user', JSON.stringify(user))
     }
     console.log(user)
@@ -127,11 +140,18 @@ class App extends Component {
             <Route exact path='/acceptance' component={Acceptance} />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
-            <Route exact path='/depression_quiz' component={DepressionQuiz} />
+            <Route exact path='/depression_quiz' render={(props) => (
+              <DepressionQuiz 
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )} 
+            />
             <Route exact path='/acceptance_quiz' render={(props) => (
               <AcceptanceQuiz
                 {...props}
-                currentUser={this.state.currentUser}
+                currentUser={this.updateCurrentUser}
               />
             )}
           />

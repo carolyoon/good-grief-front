@@ -10,8 +10,8 @@ import update from 'react-addons-update';
 
 class DepressionQuiz extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
      counter: 0,
@@ -123,7 +123,7 @@ class DepressionQuiz extends Component {
 
   renderResult() {
     return (
-      <DepressionResults depressionQuizResult={this.state.result} />
+      <DepressionResults updateCurrentUser={this.props.updateCurrentUser} depressionQuizResult={this.state.result} />
     );
   }
 

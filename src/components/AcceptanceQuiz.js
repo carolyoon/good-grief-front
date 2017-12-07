@@ -14,7 +14,8 @@ class AcceptanceQuiz extends Component {
     super(props);
 
     this.state = {
-     currentUserId: props.currentUser && props.currentUser.id,
+     // currentUserId: props.currentUser && props.currentUser.id,
+     // currentStageId: props.currentUser && props.currentUser.stage_id
      counter: 0,
      questionId: 1,
      question: '',
@@ -122,7 +123,7 @@ class AcceptanceQuiz extends Component {
 
   renderResult() {
     return (
-      <AcceptanceResults acceptanceQuizResult={this.state.result} currentUserId={this.state.currentUserId}/>
+      <AcceptanceResults acceptanceQuizResult={this.state.result} currentUserId={this.currentUserId()}/>
     );
   }
 
@@ -135,6 +136,14 @@ class AcceptanceQuiz extends Component {
 
       </div>
     );
+  }
+
+  currentUserId(){
+    return this.props.currentUser && this.props.currentUser.id
+  }
+
+  currentStageId() {
+    return this.props.currentUser && this.props.currentUser.stage_id
   }
 }
 

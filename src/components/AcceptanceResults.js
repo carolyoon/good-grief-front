@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function AcceptanceResults (props) {
+
   return (
     <div className='result'>
         <br />
@@ -10,10 +11,7 @@ function AcceptanceResults (props) {
       </Link><br />
       <Link to={`/profile/${props.currentUserId}`}>
       <button>Go to Your Profile</button>
-    </Link><br />
-      {/* Have you reached acceptance?
-      Do you want to leave advice? */}
-
+      </Link><br />
     </div>
   )
 }
