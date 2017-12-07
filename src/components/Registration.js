@@ -29,7 +29,7 @@ class Registration extends React.Component {
     .then(({data}) => {
       console.log(data)
       this.setState({userName: '', userPassword: '', stage: ''})
-      this.props.handleLogin(data.token, data.id)
+      this.props.handleLogin(data.token, data)
       this.props.history.push(`/profile/${data.id}`)
     })
     .catch((error) => { console.log('Error in creating a new user.', error) })
