@@ -5,6 +5,8 @@ import axios from 'axios';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 
 class Acceptance extends React.Component {
   constructor() {
@@ -132,9 +134,11 @@ class Acceptance extends React.Component {
           </ul>
         </div>
         <div className='move-on-button'>
-          <form>
-            <input type="button" value="Ready to Move on?" />
-          </form>
+          <Link to="/acceptance_quiz">
+           <button type="button">
+              Ready to Move on?
+           </button>
+          </Link>
         </div>
 
         <div className="vbox fill">

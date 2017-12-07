@@ -128,12 +128,13 @@ class DenialQuiz extends Component {
 
   render() {
     return (
-      <div className="quiz-container">
+      <div className="App">
+
         {this.state.result ? this.renderResult() : this.renderQuiz()}
+
       </div>
     );
   }
 }
 
 export default DenialQuiz;
-
