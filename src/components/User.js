@@ -5,9 +5,7 @@ import JournalEntryList from './JournalEntryList'
 import NewJournalEntryForm from './NewJournalEntryForm'
 import NewGoalForm from './NewGoalForm'
 import Tracker from './Tracker'
-import PubNub from 'pubnub'
-import ChatHistory from './ChatHistory'
-import PubNubService from './PubNubService'
+
 
 class User extends React.Component {
   constructor (props) {
@@ -22,15 +20,7 @@ class User extends React.Component {
       journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-      displayNewGoalForm: false,
-      messages: [
-        {
-          text: 'foo1'
-        }
-      ],
-      currentMessage: 'This is my message to you.',
-      username: 'no-name',
-      users: [],
+      displayNewGoalForm: false
     }
     if (props.currentUser) {
       this.state.username = props.currentUser.username,
@@ -235,35 +225,6 @@ class User extends React.Component {
           />
         </div>
         }
-
-
-        <div className="vbox fill">
-          <h1>My Simple Chat</h1>
-          <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}/>
-          </div>
-          <div className="hbox">
-            <label>username</label>
-            <input type="text" ref="username" value={this.state.username}
-              onChange={this.changedUsername.bind(this)}
-            />
-            <button onClick={this.setUsername.bind(this)}>set</button>
-          </div>
-          <div className="hbox">
-            <input className="grow"
-              ref="input"
-              type="text"
-              value={this.state.currentMessage}
-              onChange={this.changedMessage.bind(this)}
-            />
-            <button
-              onClick={this.sendMessage.bind(this)}
-            >send</button>
-          </div>
-          <div className="hbox">
-            {this.renderUsers()}
-          </div>
-        </div>
       </div>
     )
   }
