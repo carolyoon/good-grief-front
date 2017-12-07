@@ -41,6 +41,7 @@ class App extends Component {
   updateCurrentUser(newCurrentUserData){
     if(newCurrentUserData){
       // if newCurrentUserData is an object, merge the data
+      axios.put(`/api/users/${this.state.currentUser.id}`, {user: newCurrentUserData})
       const currentUser = this.state.currentUser || {}
       const newCurrentUser = Object.assign(currentUser, newCurrentUserData)
       this.setState({ currentUser: newCurrentUser })
@@ -53,18 +54,33 @@ class App extends Component {
 
   componentDidMount () {
     const user = JSON.parse(window.localStorage.getItem('user'))
-    this.handleLogin(window.localStorage.getItem('authToken'), user)
+    this.handleLogin(this.getFromStorage('authToken'), user)
+  }
+
+  getFromStorage(key){
+    try {
+      return JSON.parse(window.localStorage.getItem(key))
+    } catch (e) {
+      return window.localStorage.getItem(key)
+    }
+  }
+
+  setInStorage(key, value){
+    window.localStorage.setItem(key, JSON.stringify(value))
   }
 
   handleLogin (token, user) {
-    if (window.localStorage.getItem('authToken') !== null) {
-      axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
+    const authToken = this.getFromStorage('authToken')
+    const userId = this.getFromStorage('userId')
+    if (authToken !== null) {
+      axios.post(`/api/sessions/refresh`, {session: {user_id: userId, token: authToken}})
       .then(({data}) => {
         console.log("data:", data)
 
         this.setState({authToken: data.token, currentUser: data})
-        window.localStorage.setItem('authToken', data.token)
-        window.localStorage.setItem('userId', data.id)
+
+        this.setInStorage('authToken', data.token)
+        this.setInStorage('userId', data.id)
 
       })
     .catch((error) => { console.log('Error when logging in.', error) })
@@ -73,11 +89,11 @@ class App extends Component {
       if(user !== null) {
         this.setState({currentUser: user})
       }
-      window.localStorage.setItem('authToken', token)
-      window.localStorage.setItem('userId', user ? user.id : null)
-      window.localStorage.setItem('user', JSON.stringify(user))
+
+      this.setInStorage('authToken', token)
+      this.setInStorage('userId', user ? user.id : null)
+      this.setInStorage('user', user)
     }
-    console.log(user)
   }
 
   handleLogout () {
