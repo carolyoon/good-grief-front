@@ -199,3 +199,26 @@ input[type=checkbox] {
   font-size: 10px;
   color: #9099A2;
 }
+
+.stages-tracker-container {
+  padding-top: 40px;
+  padding-left: 30px;
+}
+
+.stages-tracker-buttons {
+  background: #F4DECB;
+  background: -webkit-linear-gradient(#F8EEE7, #F4DECB);
+  background: linear-gradient(#F8EEE7, #F4DECB);
+  border: 1px solid #F4DECB;
+  border-radius: 1000px;
+  width: 170px;
+  height: 50px;
+  color: #000000;
+  display: inline-block;
+  font: normal 300 24px/50px 'Lora', serif;
+  text-align: center;
+  text-shadow: none;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
