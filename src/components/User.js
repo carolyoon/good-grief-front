@@ -10,7 +10,7 @@ import Tracker from './Tracker'
 class User extends React.Component {
   constructor (props) {
     super(props)
-    
+
     this.state = {
       userId: '',
       selectedOption: 'Goals',
@@ -23,9 +23,7 @@ class User extends React.Component {
       displayNewJournalEntryForm: false,
       displayNewGoalForm: false
     };
-    
-    this.state.username = props.currentUser.username,
-    this.state.stage_id = props.currentUser.stage_id
+
     this.goalsCall = this.goalsCall.bind(this)
     this.journalEntriesCall = this.journalEntriesCall.bind(this)
     this.addGoal = this.addGoal.bind(this)
@@ -34,9 +32,9 @@ class User extends React.Component {
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
-    
+
    }
-    
+
     goalsCall () {
       const that = this
       axios.get(`/api/users/${this.props.match.params.id}/goals`)
@@ -112,19 +110,19 @@ class User extends React.Component {
     render () {
       return (
         <div className='user-profile-container'>
-        
+
           <div className='div-for-hover-item'>
             <p className='quote-body'>“Life always waits for some crisis to occur before revealing itself at its most brilliant.”</p>
               <div className='hidden-text'><p></p>Paulo Coelho</div>
           </div>
           <hr/>
-        
+
           <div className='stage-tracker-container'>
-            <Tracker 
+            <Tracker
               stageId={this.props.currentUser ? this.props.currentUser.stage_id : null}
             />
           </div>
-        
+
           <ul className='options'>
             {this.state.options.map((option) =>
               <li
