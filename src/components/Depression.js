@@ -1,5 +1,7 @@
 import React from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import axios from 'axios';
+
 import AdvicePost from './AdvicePost';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
