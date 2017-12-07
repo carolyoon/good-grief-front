@@ -64,7 +64,7 @@ class Anger extends React.Component {
           </ul>
         </div>
 
-        <Link to="/bargaining_quiz">
+        <Link to="/anger_quiz">
            <button type="button">
               Ready to Move on to Bargaining?
            </button>
