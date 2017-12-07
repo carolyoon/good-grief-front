@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import Quiz from './Quiz';
-import Results from './Results';
+import AngerResults from './AngerResults';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
 import angerQuestions from '../api/angerQuestions';
@@ -121,7 +121,7 @@ class AngerQuiz extends Component {
 
   renderResult() {
     return (
-      <Results quizResult={this.state.result} />
+      <AngerResults angerQuizResult={this.state.result} />
     );
   }
 
@@ -138,4 +138,3 @@ class AngerQuiz extends Component {
 }
 
 export default AngerQuiz;
-

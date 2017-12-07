@@ -55,11 +55,11 @@ class App extends Component {
       axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
       .then(({data}) => {
         console.log("data:", data)
-        
+
         this.setState({authToken: data.token, currentUser: data})
         window.localStorage.setItem('authToken', data.token)
         window.localStorage.setItem('userId', data.id)
-        
+
       })
     .catch((error) => { console.log('Error when logging in.', error) })
     } else {
@@ -82,14 +82,14 @@ class App extends Component {
   }
 
   componentWillMount () {
-    
+
   }
 
   render () {
     return (
       <Router>
         <div>
-      
+
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'><img className='image' height='190' width='190' src={require('./GoodGriefLogo.png')} /></Link>
             <Link className='navigation-text' to='/'>Home</Link>
@@ -113,7 +113,7 @@ class App extends Component {
                 authToken={this.state.authToken}
                 handleLogin={this.handleLogin}
               />
-             )} 
+             )}
             />
             <Route exact path='/login' render={(props) => (
               <Login
@@ -121,14 +121,14 @@ class App extends Component {
                 authToken={this.state.authToken}
                 handleLogin={this.handleLogin}
               />
-             )} 
+             )}
             />
             <Route path='/profile/:id' render={(props) => (
-              <User 
-              {...props} 
-              currentUser={this.state.currentUser} 
+              <User
+              {...props}
+              currentUser={this.state.currentUser}
               />
-              )} 
+              )}
             />
             <Route exact path='/denial' component={Denial} />
             <Route exact path='/anger' component={Anger} />
@@ -138,7 +138,13 @@ class App extends Component {
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
-            <Route exact path='/acceptance_quiz' component={AcceptanceQuiz} />
+            <Route exact path='/acceptance_quiz' render={(props) => (
+              <AcceptanceQuiz
+                {...props}
+                currentUser={this.state.currentUser}
+              />
+            )}
+          />
             <Route exact path='/anger_quiz' component={AngerQuiz} />
             <Route render={() => <h1>Page not found</h1>} />
          </Switch>
