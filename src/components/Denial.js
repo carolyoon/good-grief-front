@@ -116,6 +116,7 @@ class Denial extends React.Component {
       this.setState({advicePosts})
     })
   }
+
   render () {
     return (
       <div className='denial-container'>

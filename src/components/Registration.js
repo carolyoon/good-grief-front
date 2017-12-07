@@ -67,7 +67,7 @@ class Registration extends React.Component {
         </form>
 
         <div className='quiz-options'>
-          <p>If you're unsure of which stage you're currently at, take our quizzes to find out!</p>
+          <p>If you are unsure of which stage you are currently at, take our quizzes below to find out:</p>
           <ul>
             <li><Link className='quiz-option' to='/denial_quiz'>Denial</Link></li>
             <li><Link className='quiz-option' to='/anger_quiz'>Anger</Link></li>

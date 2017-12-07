@@ -1,0 +1,13 @@
+.denial-container {
+  width: 95%;
+  margin: auto;
+}
+
+.stage-name {
+  color: #D8BFC5;
+  font-family: 'Lora', serif;
+  font-size: 1.5em;
+  padding-top: 35px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
