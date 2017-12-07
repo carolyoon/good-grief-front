@@ -11,10 +11,10 @@ import PubNubService from "./PubNubService";
 
 
 class User extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+    
     this.state = {
-      // userId: '',
       selectedOption: 'Goals',
       options: [
         'Goals',
@@ -26,8 +26,11 @@ class User extends React.Component {
       displayNewGoalForm: false,
       messages: [{ text:"foo1" }],
       currentMessage: "This is my message to you.",
-      username:"no-name",
-      users:[]
+      users:[],
+    }
+    if (props.currentUser) {
+      this.state.username = props.currentUser.username,
+      this.state.stage_id = props.currentUser.stage_id
     }
 
     this.goalsCall = this.goalsCall.bind(this)
@@ -65,6 +68,19 @@ class User extends React.Component {
         if(info.username) this.setState({username: info.username})
       });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
@@ -115,6 +131,10 @@ class User extends React.Component {
         that.setState({ journalEntries })
       })
       .catch((error) => console.log('Fail to fetch journal entries.', error))
+    }
+
+    componentWillMount () {
+      this.props.handleLogin(window.localStorage.getItem('authToken'))
     }
 
     componentDidMount () {
@@ -172,7 +192,12 @@ class User extends React.Component {
     render () {
       return (
         <div className='user-profile-container'>
-          <h1>Profile</h1>
+          <h1>{this.state.username}'s' Profile</h1>
+        <div className='stage-tracker-container'>
+          <Tracker 
+            stageId={this.state.stage_id}
+          />
+        </div>
           <ul className='options'>
             {this.state.options.map((option) =>
               <li

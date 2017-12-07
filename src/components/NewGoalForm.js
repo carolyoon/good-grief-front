@@ -15,9 +15,6 @@ class NewGoalForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.submitNewGoal = this.submitNewGoal.bind(this);
-
-    console.log("YAYYYY")
-    console.log(this.state.newGoal, this.state.formSubmitted);
   }
 
   handleChange(event, fieldName) {
