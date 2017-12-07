@@ -29,8 +29,7 @@ class Registration extends React.Component {
     .then(({data}) => {
       console.log(data)
       this.setState({userName: '', userPassword: '', stage: ''})
-      this.props.handleLogin(data.token, data.id)
-      console.log(data.id)
+      this.props.handleLogin(data.token, data)
       this.props.history.push(`/profile/${data.id}`)
     })
     .catch((error) => { console.log('Error in creating a new user.', error) })
@@ -45,8 +44,9 @@ class Registration extends React.Component {
           <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
           <div>
           <br /><br />
-          <label htmlFor='select-stageId'>Select your stage</label><br /><br />
-          <select id='select-stageId' value={this.state.stageId} name="stageId" onChange={(e) => this.handleChange(e, 'stageId')}>
+
+          <label htmlFor='select-stage'>Select your stage</label><br /><br />
+          <select id='select-stage' value={this.state.stageId} name="stage" onChange={(e) => this.handleChange(e, 'stageId')}>
               <option value='1'>Denial</option>
               <option value='2'>Anger</option>
               <option value='3'>Bargaining</option>
@@ -66,7 +66,6 @@ class Registration extends React.Component {
             <li><Link className='navigation-text' to='/acceptance_quiz'>Acceptance</Link></li>
           </ul>
         </div>
-
       </div>
     )
   }
