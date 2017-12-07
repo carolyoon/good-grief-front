@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import AdvicePost from './AdvicePost';
+// import AdvicePost from './AdvicePost';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
@@ -10,7 +10,7 @@ class Anger extends React.Component {
   constructor() {
     super();
     this.state = {
-      advicePosts : [],
+      // advicePosts : [],
     messages: [{ text:"" }],
     currentMessage: "This is my message to you.",
     username:"no-name",
@@ -73,14 +73,14 @@ class Anger extends React.Component {
         return <div className="userlist">{users}</div>
     }
 A
-  componentDidMount() {
-    axios.get('http://localhost:3001/api/advice_posts')
-    .then(res => {
-      const advicePosts = res.data.map ( (post) =>
-        ({id: post.id, content: post.content, stageId: post.stageId}))
-      this.setState( {advicePosts})
-    })
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:3001/api/advice_posts')
+  //   .then(res => {
+  //     const advicePosts = res.data.map ( (post) =>
+  //       ({id: post.id, content: post.content, stageId: post.stageId}))
+  //     this.setState( {advicePosts})
+  //   })
+  // }
 
   render() {
     return(
@@ -117,14 +117,14 @@ A
             <li><a href="https://www.7cups.com/qa-breakups-21/is-it-normal-to-have-sudden-mood-shifts-of-from-anger-to-grief-to-love-again-and-many-other-shades-of-the-mood-after-a-break-up-especially-after-a-close-dependent-relationship-1247/">Mood Swings and Anger</a></li><br />
           </ul>
         </div>
-        <div className='advice-posts'>
+        {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map (key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
-        </div>
+        </div> */}
 
         <Link to="/anger_quiz">
            <button type="button">

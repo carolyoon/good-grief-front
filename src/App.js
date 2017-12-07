@@ -14,7 +14,7 @@ import BargainingQuiz from './components/BargainingQuiz'
 import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
 import Home from './components/Home'
-import NewAdvicePostForm from './components/NewAdvicePostForm'
+// import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
 import Registration from './components/Registration'
 import User from './components/User'
@@ -48,11 +48,11 @@ class App extends Component {
       axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
       .then(({data}) => {
         console.log("data:", data)
-        
+
         this.setState({authToken: data.token, currentUser: data})
         window.localStorage.setItem('authToken', data.token)
         window.localStorage.setItem('userId', data.id)
-        
+
       })
     .catch((error) => { console.log('Error when logging in.', error) })
     } else {
@@ -78,7 +78,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-      
+
           <div className='navigation-bar'>
             <Link className='navigation-text' to='/'><img className='image' height='190' width='190' src={require('./GoodGriefLogo.png')} /></Link>
             <Link className='navigation-text' to='/'>Home</Link>
@@ -95,14 +95,14 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/advice' component={NewAdvicePostForm} />
+            {/* <Route exact path='/advice' component={NewAdvicePostForm} /> */}
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
                 authToken={this.state.authToken}
                 handleLogin={this.handleLogin}
               />
-             )} 
+             )}
             />
             <Route exact path='/login' render={(props) => (
               <Login
@@ -110,14 +110,14 @@ class App extends Component {
                 authToken={this.state.authToken}
                 handleLogin={this.handleLogin}
               />
-             )} 
+             )}
             />
             <Route path='/profile/:id' render={(props) => (
-              <User 
-              {...props} 
-              currentUser={this.state.currentUser} 
+              <User
+              {...props}
+              currentUser={this.state.currentUser}
               />
-              )} 
+              )}
             />
             <Route exact path='/denial' component={Denial} />
             <Route exact path='/anger' component={Anger} />

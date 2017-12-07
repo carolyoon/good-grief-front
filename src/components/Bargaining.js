@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import AdvicePost from './AdvicePost';
+// import AdvicePost from './AdvicePost';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
@@ -10,7 +10,7 @@ class Bargaining extends React.Component {
   constructor() {
     super();
     this.state = {
-      advicePosts : [],
+      // advicePosts : [],
       messages: [{ text:"" }],
       currentMessage: "This is my message to you.",
       username:"no-name",
@@ -74,14 +74,14 @@ class Bargaining extends React.Component {
     }
 
 
-  componentDidMount() {
-    axios.get('http://localhost:3001/api/advice_posts')
-    .then(res => {
-      const advicePosts = res.data.map ( (post) =>
-        ({id: post.id, content: post.content}))
-      this.setState( {advicePosts})
-    })
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:3001/api/advice_posts')
+  //   .then(res => {
+  //     const advicePosts = res.data.map ( (post) =>
+  //       ({id: post.id, content: post.content}))
+  //     this.setState( {advicePosts})
+  //   })
+  // }
 
   render() {
     return(
@@ -112,14 +112,14 @@ class Bargaining extends React.Component {
             <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-5-internal-bargaining">Internal Bargaining</a></li><br />
           </ul>
         </div>
-        <div className='advice-posts'>
+        {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map (key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
-        </div>
+        </div> */}
         <Link to="/bargaining_quiz">
            <button type="button">
               Ready to Move on to Depression?
