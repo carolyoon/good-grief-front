@@ -24,8 +24,6 @@ class User extends React.Component {
       displayNewGoalForm: false
     };
     
-    this.state.username = props.currentUser.username,
-    this.state.stage_id = props.currentUser.stage_id
     this.goalsCall = this.goalsCall.bind(this)
     this.journalEntriesCall = this.journalEntriesCall.bind(this)
     this.addGoal = this.addGoal.bind(this)
