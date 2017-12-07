@@ -44,11 +44,11 @@ class Registration extends React.Component {
 
         <form className='registration-form' onSubmit={this.handleOnSubmit}>
           <p className='field'>
-            <input type='text' placeholder='Username' onChange={(e) => this.handleOnChange(e, 'userName')} />
+            <input type='text' placeholder='Username' onChange={(e) => this.handleChange(e, 'userName')} />
             <FontAwesome.FaUser className='registration-icon' />
           </p>
           <p className='field'>
-            <input type='password' placeholder='Password' onChange={(e) => this.handleOnChange(e, 'userPassword')} />
+            <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
             <FontAwesome.FaLock className='registration-icon' />
           </p>
           <label htmlFor='select-stage'>Select your stage</label><br /><br />
