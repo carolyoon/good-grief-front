@@ -123,7 +123,10 @@ class AcceptanceQuiz extends Component {
 
   renderResult() {
     return (
-      <AcceptanceResults acceptanceQuizResult={this.state.result} currentUserId={this.currentUserId()}/>
+      <AcceptanceResults 
+        acceptanceQuizResult={this.state.result} 
+        updateCurrentUser={this.props.updateCurrentUser} 
+      />
     );
   }
 
@@ -142,9 +145,9 @@ class AcceptanceQuiz extends Component {
     return this.props.currentUser && this.props.currentUser.id
   }
 
-  currentStageId() {
-    return this.props.currentUser && this.props.currentUser.stage_id
-  }
+  // currentStageId() {
+  //   return this.props.currentUser && this.props.currentUser.stage_id
+  // }
 }
 
 export default AcceptanceQuiz;

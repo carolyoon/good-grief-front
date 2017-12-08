@@ -182,6 +182,7 @@ class App extends Component {
               <AcceptanceQuiz
                 {...props}
                 currentUser={this.updateCurrentUser}
+                updateCurrentUser={this.updateCurrentUser}
               />
             )}
           />
