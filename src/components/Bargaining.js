@@ -2,10 +2,19 @@ import React from 'react';
 import axios from 'axios';
 // import AdvicePost from './AdvicePost';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import PubNub from "pubnub";
+import ReactHover from 'react-hover';
+
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
 import fire from '../fire';
+
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: -90,
+  shiftY: -10
+}
 
 class Bargaining extends React.Component {
   constructor() {
@@ -110,32 +119,59 @@ componentWillMount(){
 
   render() {
     return(
-      <div className="bargaining-container">
-      <span className="stage-name"><h1>The BARGAINING Stage</h1></span>
-        <div className="helpful-apps">
-          <h3>Helpful Apps</h3>
-            <ul>
-              <li>
-              <img className="bargaining-image" src={require("../bargaining_images/dontText.png")} />
-              <p>Don’t Text That Man!: an app that helps you control your urges to text your ex by providing motivational or wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
-              </li><br />
-              <li>
-              <img className="bargaining-image" src={require("../bargaining_images/drunkBlocker.png")} />
-              <p>DrunkDial: a mobile app that stops you from drunk dialing your ex by blocking calls to the numbers you selected in the app.</p>
-              </li><br />
-              <li>
-              <img className="bargaining-image" src={require("../bargaining_images/exLoverBlocker.png")} />
-              <p>Ex-Lover Blocker: a mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
-              </li><br />
-            </ul>
-        </div>
-        <div className="helpful-articles">
-          <h3>Helpful Articles</h3>
-          <ul>
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-3-desperate-answers">Desperate for Answers</a></li><br />
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-4-external-bargaining">External Bargaining</a></li><br />
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-5-internal-bargaining">Internal Bargaining</a></li><br />
+      <div className="stage-container">
+        <span className="stage-name">
+          <h1>The BARGAINING Stage</h1>
+        </span>
+
+        <h3 className='subheader'>Helpful Apps</h3>
+        <div>
+          <ul className="helpful-apps">
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="bargaining-image" width='185' height='185' src={require("../bargaining_images/drunkBlocker.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>DrunkDial</p> A mobile app that stops you from drunk dialing your ex by blocking calls to the numbers you selected in the app.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="bargaining-image" width='200' height='200' src={require("../bargaining_images/dontText.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Don’t Text That Man!</p> An app that helps you control your urges to text your ex by providing motivational or wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+              options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="bargaining-image" width='185' height='185' src={require("../bargaining_images/exLoverBlocker.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Ex-Lover Blocker</p> A mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
           </ul>
+        </div>
+
+        <hr />
+
+        <h3 className='subheader'>Helpful Articles</h3>
+        <div className="helpful-articles">
+          <ol className='ordered-list'>
+            <li className='links'><span className='number'>1.</span><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-3-desperate-answers" target='blank'>Desperate for Answers</a></li>
+            <li className='links'><span className='number'>2.</span><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-4-external-bargaining" target='blank'>External Bargaining</a></li>
+            <li className='links'><span className='number'>3.</span><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-5-internal-bargaining" target='blank'>Internal Bargaining</a></li>
+          </ol>
         </div>
         {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
@@ -145,16 +181,21 @@ componentWillMount(){
             )}
           </ul>
         </div> */}
-        <Link to="/bargaining_quiz">
-           <button type="button">
-              Ready to Move on to Depression?
-           </button>
-        </Link>
 
+        <p className='move-on-sentence'> Ready to Move on to Depression? Take the
+        <Link className='quiz-link' to="/bargaining_quiz"> BARGAINING QUIZ </Link>
+        to see if you are ready.
+        </p>
+
+        <hr />
+
+        <h3 className='subheader'>Bargaining Chat Room</h3>
         <div className="vbox fill">
+
           <h1>Bargaining Chat Room</h1>
      <div className='scroll grow'>
             <ChatHistory messages={this.state.bargainingMessages} service={this.service} />
+
           </div>
           <div className='hbox'>
             <label>username</label>

@@ -8,13 +8,15 @@ function DepressionResults (props) {
   }
 
   return (
-    <div className='result'>
-        Based on your answers, your suggested stage is <strong>{props.depressionQuizResult}</strong>! 
-      <Link to='/depression'>
-        <button onClick={() => updateStageId(4)}>Stay in Depression</button>
-      </Link><br />
-      <Link to='/acceptance'>
-        <button onClick={() => updateStageId(5)}>Move on to Acceptance</button>
+    <div className='result-container'>
+      <p className='result-sentence'>
+        Based on your answers, your suggested stage is <span className='result'>{props.depressionQuizResult}</span>
+      </p>
+
+      <Link className='result-link' to='/depression' onClick={() => updateStageId(4)}>Stay in Depression
+      </Link>
+      |
+      <Link className='result-link' to='/acceptance' onClick={() => updateStageId(5)}>Move on to Acceptance
       </Link>
     </div>
   )

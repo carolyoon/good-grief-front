@@ -8,7 +8,8 @@ import './Registration.css';
 import './Navigation.css';
 import './Home.css';
 import './Quiz.css';
-import './DenialPage.css';
+import './Stage.css';
+import './Chat.css';
 
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'

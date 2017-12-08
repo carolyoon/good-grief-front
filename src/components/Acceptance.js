@@ -1,14 +1,21 @@
 import React from 'react';
 // import AdvicePost from './AdvicePost';
-import img from '../acceptance_images/bumble.png';
 import axios from 'axios';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import PubNub from "pubnub";
+import ReactHover from 'react-hover';
+
+import img from '../acceptance_images/bumble.png';
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
 import fire from '../fire';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
-
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: -90,
+  shiftY: -10
+}
 
 class Acceptance extends React.Component {
   constructor(props) {
@@ -101,41 +108,76 @@ class Acceptance extends React.Component {
         ({id: post.id, content: post.content}))
       this.setState( {advicePosts})
     })
-
   }
+
   render() {
     return(
-      <div className="acceptance-container">
-      <span className="stage-name"><h1>The ACCEPTANCE Stage</h1></span>
-        <div className="helpful-apps">
-          <h3>Helpful Apps</h3>
-            <ul>
-              <li>
-              <img className="acceptance-image" src={require("../acceptance_images/bumble.png")} />
-              <p>Bumble: A mobile app that allows you to connect with other singles in near you.</p>
-              </li><br />
-              <li>
-              <img className="acceptance-image" src={require("../acceptance_images/futureMe.png")} />
-              <p>FutureMe.org: A web app that allows you to write advice to yourself and emailed to you in the future.</p>
-              </li><br />
-              <li>
-              <img className="acceptance-image" src={require("../acceptance_images/kayak.png")} />
-              <p>Kayak: A travel app that makes it easy for you to plan and book your next travel destination.</p>
-              </li><br />
-               <li>
-              <img className="acceptance-image" src={require("../acceptance_images/meetup.png")} />
-              <p>Meetup: An app that connects you to clubs/groups in your area based off your interests to stay busy and interact with new people.</p>
-              </li><br />
-            </ul>
-        </div>
-        <div className="helpful-articles">
-          <h3>Helpful Articles</h3>
-          <ul>
-            <li><a href="https://www.zoosk.com/date-mix/dating-advice/dating-advice-women/dating-tips-for-women/">The 15 Most Important Dating Tips</a></li><br />
-            <li><a href="http://www.yourtango.com/2012154626/10-dating-tips-i-wish-i-d-followed-while-i-was-single">10 Dating Tips I REALLY Wish I Followed When I Was Single</a></li><br />
-            <li><a href="https://www.huffingtonpost.com/julie-chen-md/grieving-process_b_3596307.html">Accepting and Embracing Grief:A Road to Healing</a></li><br />
+      <div className="stage-container">
+        <span className="stage-name">
+          <h1>The ACCEPTANCE Stage</h1>
+        </span>
+
+        <h3 className='subheader'>Helpful Apps</h3>
+        <div>
+          <ul className="helpful-apps">
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="acceptance-image" src={require("../acceptance_images/bumble.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Bumble</p> A mobile app that allows you to connect with other singles in your area.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="acceptance-image" src={require("../acceptance_images/futureMe.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>FutureMe</p> A web app that allows you to write advice to yourself, which will be emailed to you in the future.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="acceptance-image" src={require("../acceptance_images/kayak.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Kayak</p> A travel app that makes it easy for you to plan and book your next vacation.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="acceptance-image" src={require("../acceptance_images/meetup.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Meetup</p> An app that connects you to clubs and groups in your area based on your similarities and interests to help you stay occupied as you interact with new people.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
           </ul>
         </div>
+
+        <hr />
+
+        <h3 className='subheader'>Helpful Articles</h3>
+        <div className="helpful-articles">
+          <ol className='ordered-list'>
+            <li className='links'><span className='number'>1.</span><a href="https://www.zoosk.com/date-mix/dating-advice/dating-advice-women/dating-tips-for-women/" target='blank'>The 15 Most Important Dating Tips</a></li>
+            <li className='links'><span className='number'>2.</span><a href="http://www.yourtango.com/2012154626/10-dating-tips-i-wish-i-d-followed-while-i-was-single" target='blank'>10 Dating Tips I REALLY Wish I Followed When I Was Single</a></li>
+            <li className='links'><span className='number'>3.</span><a href="https://www.huffingtonpost.com/julie-chen-md/grieving-process_b_3596307.html" target='blank'>Accepting and Embracing Grief:A Road to Healing</a></li>
+          </ol>
+        </div>
+
         {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
@@ -144,16 +186,16 @@ class Acceptance extends React.Component {
             )}
           </ul>
         </div> */}
-        <div className='move-on-button'>
-          <Link to="/acceptance_quiz">
-           <button type="button">
-              Ready to Move on?
-           </button>
-          </Link>
-        </div>
 
+        <p className='move-on-sentence'> Ready to Move on? Take the
+        <Link className='quiz-link' to="/acceptance_quiz"> ACCEPTANCE QUIZ </Link>
+        to see if you are ready.
+        </p>
+
+        <hr />
+
+        <h3 className='subheader'>Acceptance Chat Room</h3>
         <div className="vbox fill">
-          <h1>Acceptance Chat Room</h1>
           <div className="scroll grow">
             <ChatHistory messages={this.state.acceptanceMessages} service={this.service}
             currentUser={this.props.currentUser}/>

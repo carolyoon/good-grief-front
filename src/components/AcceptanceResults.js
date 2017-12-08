@@ -8,13 +8,12 @@ function AcceptanceResults (props) {
   }
 
   return (
-    <div className='result'>
-      <Link to='/acceptance'>
-        <button onClick={() => updateStageId(5)}>Stay in Acceptance</button>
-      </Link><br />
-      <Link to={`/profile/${props.currentUserId}`}>
-        <button onClick={() => updateStageId(5)}>Go to Your Profile</button>
-      </Link><br />
+    <div className='result-container'>
+      <Link className='result-link' to='/acceptance' onClick={() => updateStageId(5)}>Stay in Acceptance
+      </Link>
+      |
+      <Link className='result-link' to={`/profile/${props.currentUserId}`} onClick={() => updateStageId(5)}>Go to Your Profile
+      </Link>
     </div>
   )
 }
