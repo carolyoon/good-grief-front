@@ -4,6 +4,7 @@ Good Grief is a mobile-first web application that strives to assist people  move
 
 ![Screenshot](src/screenshots/home_page.png)
 
+
 ### **User Stories / Key Features:**
 
 **User**
