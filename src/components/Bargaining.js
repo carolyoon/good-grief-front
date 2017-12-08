@@ -22,71 +22,90 @@ class Bargaining extends React.Component {
     this.state = {
      // advicePosts : [],
      bargainingMessages: [{ text:"" }],
-     currentMessage: "This is my message to you.",
-     username:"",
+     currentMessage: "Type your message here!",
+     username:"no-name",
      users:[]
     }
 
   this.pubnub = new PubNub({
-      publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
-      subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
+      publishKey: 'pub-c-50b2965a-2ab4-407f-b560-217a00a43e81',
+      subscribeKey: 'sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7',
       presenceTimeout: 30
-     })
-     //init presence service
-    this.service = new PubNubService({
-         pubnub:this.pubnub,
-         channel:'bargaining-chat'
-      });
-    //on users update, trigger screen refresh
-    this.service.onUserChange((users) => this.setState({ users:users }));
-    this.service.onMessage((evt) => {
-        this.state.bargaingingMessages.push({
-            text:evt.message.text,
-            sender:evt.publisher
-        });
-        this.setState({
-            bargainingMessages: this.state.bargainingMessages
-        })
-      });
-    this.service.fetchHistory(10,(messages)=>{ this.setState({bargainingMessages:messages}); });
-
-    this.service.getSelfInfo((info)=>{
-        this.setState({username: this.props.currentUser && this.props.currentUser.username})
-      });
-    }
-
-  componentWillMount(){
-    const messages = []
-    let messagesRef = fire.database().ref('bargainingMessages').orderByKey().limitToLast(100);
-
-    messagesRef.on('child_added', snapshot => {
-      let message = { text: snapshot.val(), id: snapshot.key };
-      messages.push(message)
-      this.setState({bargainingMessages: messages});
     })
+     //  init presence service
+    this.service = new PubNubService({
+      pubnub: this.pubnub,
+      channel: 'bargaining-chat'
+    })
+      //  on users update, trigger screen refresh
+    this.service.onUserChange((users) => this.setState({ users: users }))
+    this.service.onMessage((evt) => {
+      this.state.bargainingMessages.push({
+        text: evt.message.text,
+        sender: evt.publisher
+      })
+      this.setState({
+        bargainingMessages: this.state.bargainingMessages
+      })
+    })
+    this.service.fetchHistory(10, (messages) => { this.setState({bargainingMessages: messages}) })
+
+    this.service.getSelfInfo((info) => {
+      if (info.username) this.setState({username: info.username})
+    })
+  }
+
+componentWillMount(){
+    if (this.state.bargainingMessages.length <= 1) {
+      const messages = []
+      let messagesRef = fire.database().ref('bargainingMessages').orderByKey().limitToLast(100);
+
+      messagesRef.on('child_added', snapshot => {
+        let message = { text: snapshot.val(), id: snapshot.key };
+        messages.push(message)
+        this.setState({bargainingMessages: messages});
+      })
+    }
   }
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
     }
 
+  changedMessage() {
+    this.setState({ currentMessage:this.refs.input.value })
+  }
+
   sendMessage() {
+    fire.database().ref('bargainingMessages').push( this.refs.input.value );
+    this.pubnub.publish({
+      channel: 'bargaining-chat',
+      message: {
+        text: this.refs.input.value,
+        sender: this.pubnub.getUUID()
+
+      }
+    })
     this.setState({ currentMessage:"" })
 
-    fire.database().ref('bargainingMessages').push( this.refs.input.value );
     this.refs.input.value = '';
     }
 
-    setUsername() {
-      this.service.setUserState({username:this.props.currentUser && this.props.currentUser.username})
-    }
+  changedUsername () {
+    this.setState({ username: this.refs.username.value })
+  }
 
-    renderUsers() {
-      var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{this.props.currentUser && this.props.currentUser.username}</span>
-      });
-        return <div className="userlist">{users}</div>
-    }
+  setUsername () {
+    this.service.setUserState({username: this.state.username})
+  }
+
+  renderUsers () {
+    var users = this.state.users.map((user, i) => {
+      return <span key={i}>{user.username}</span>
+    })
+    return <div className='userlist'>{users}</div>
+  }
+
 
 
   // componentDidMount() {
@@ -172,24 +191,31 @@ class Bargaining extends React.Component {
 
         <h3 className='subheader'>Bargaining Chat Room</h3>
         <div className="vbox fill">
-          <div className="scroll grow">
-            <ChatHistory messages={this.state.bargainingMessages} service={this.service}currentUser={this.props.currentUser}/>
+
+          <h1>Bargaining Chat Room</h1>
+     <div className='scroll grow'>
+            <ChatHistory messages={this.state.bargainingMessages} service={this.service} />
+
           </div>
-          <div className="hbox">
-            <label>{this.props.currentUser && this.props.currentUser.username}</label>
+          <div className='hbox'>
+            <label>username</label>
+            <input type='text' ref='username' value={this.state.username}
+              onChange={this.changedUsername.bind(this)}
+                    />
+            <button onClick={this.setUsername.bind(this)}>set</button>
           </div>
-          <div className="hbox">
-            <input className="grow"
-              ref="input"
-              type="text"
+          <div className='hbox'>
+            <input className='grow'
+              ref='input'
+              type='text'
               value={this.state.currentMessage}
               onChange={this.changedMessage.bind(this)}
-            />
+                    />
             <button
               onClick={this.sendMessage.bind(this)}
-            >send</button>
+                    >send</button>
           </div>
-          <div className="hbox">
+          <div className='hbox'>
             {this.renderUsers()}
           </div>
         </div>
