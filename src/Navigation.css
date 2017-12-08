@@ -1,0 +1,23 @@
+.navigation-bar {
+  display: flex;
+  float: right;
+}
+
+.navigation-text {
+  text-decoration: none;
+  padding-right: 25px;
+  color: #696969;
+  margin: auto;
+  font-family: 'Raleway', sans-serif;
+}
+
+.navigation-text:hover {
+  text-decoration: overline;
+  color: #003399;
+}
+
+.navigation-text .image {
+  position: fixed;
+  top: -45px;
+  left: -35px;
+}

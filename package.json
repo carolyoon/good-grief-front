@@ -3,9 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
+    "firebase": "^4.7.0",
+    "pubnub": "^4.19.0",
+    "re-base": "^3.2.0",
     "react": "^16.2.0",
+    "react-addons-update": "^15.6.2",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-fontawesome": "^1.6.1",
+    "react-icons": "^2.2.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "react-timestamp": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -13,7 +22,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-    "proxy": {
+  "proxy": {
     "/api": {
       "target": "http://localhost:3001/"
     }
