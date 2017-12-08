@@ -11,8 +11,8 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 
 class Acceptance extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       // advicePosts : [],
      acceptanceMessages: [{ text:"" }],

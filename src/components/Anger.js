@@ -11,13 +11,16 @@ class Anger extends React.Component {
   constructor() {
     super();
     this.state = {
+      messages: [{ text:"" }],
+      currentMessage: "This is my message to you.",
+      username:"no-name",
       // advicePosts : [],
       angerMessages: [{ text:"" }],
-
       currentMessage: "This is my message to you.",
       username:"",
       users:[]
     }
+    
     this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
       subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
