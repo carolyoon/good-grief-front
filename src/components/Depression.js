@@ -2,11 +2,19 @@ import React from 'react';
 import axios from 'axios';
 // import AdvicePost from './AdvicePost';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import PubNub from "pubnub";
+import ReactHover from 'react-hover';
+
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
 import fire from '../fire';
 
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: -90,
+  shiftY: -10
+}
 
 class Depression extends React.Component {
   constructor () {
@@ -18,7 +26,7 @@ class Depression extends React.Component {
      username:"",
      users:[]
     }
-    
+
     this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
       subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
@@ -95,34 +103,62 @@ class Depression extends React.Component {
 
   render () {
     return (
-      <div className='depression-container'>
-        <span className='stage-name'><h1>The DEPRESSION Stage</h1></span>
-        <div className='helpful-apps'>
-          <h3>Helpful Apps</h3>
-          <ul>
+      <div className='stage-container'>
+        <span className='stage-name'>
+          <h1>The DEPRESSION Stage</h1>
+        </span>
+
+        <h3 className='subheader'>Helpful Apps</h3>
+        <div>
+          <ul className='helpful-apps'>
             <li>
-              <img className='depression-image' src={require('../depression_images/breakUpMedicine.png')} />
-              <p>Breakup Medicine: an app that provides daily exercises, inspirational advice, and action tips for getting over a breakup. </p>
-            </li><br />
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className='depression-image' src={require('../depression_images/breakUpMedicine.png')} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Breakup Medicine</p> An app that provides daily exercises, inspirational advice, and action tips for getting over a breakup.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
             <li>
-              <img className='depression-image' src={require('../depression_images/dearOldLove.png')} />
-              <p>Dear Old Love - a Tumblr blog that allows you to mourn or vent through writing anonymous posts.</p>
-            </li><br />
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className='depression-image' width='140' height='140' src={require('../depression_images/talkLife.png')} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>TalkLife</p> An online therapy app that connects you a licensed therapist wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
             <li>
-              <img className='depression-image' src={require('../depression_images/talkLife.png')} />
-              <p>TalkLife - an online therapy app that connects you a licensed therapist wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
-            </li><br />
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className='depression-image' src={require('../depression_images/dearOldLove.png')} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Dear Old Love</p> A Tumblr blog that allows you to mourn or vent through writing anonymous posts.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
           </ul>
         </div>
+
+        <hr />
+
+        <h3 className='subheader'>Helpful Articles</h3>
         <div className='helpful-articles'>
-          <h3>Helpful Articles</h3>
-          <ul>
-            <li><a href='hhttps://consumer.healthday.com/encyclopedia/depression-12/depression-news-176/depression-after-a-breakup-646224.html'>Depression After a Breakup</a></li><br />
-            <li><a href='https://www.elitedaily.com/dating/become-depressed-after-a-breakup/1958108'>How You Can Become Depressed After a Breakup</a></li><br />
-            <li><a href='http://www.empowher.com/mental-health/content/how-get-over-depression-after-breakup'>How to Get Over Depression After a Breakup</a></li><br />
-            <li><a href='https://howloveblossoms.com/post-break-up-overcoming-breakup-depression'>How to Overcome Depressed Feelings After a Breakup</a></li><br />
-          </ul>
+          <ol className='ordered-list'>
+            <li className='links'><span className='number'>1.</span><a href='hhttps://consumer.healthday.com/encyclopedia/depression-12/depression-news-176/depression-after-a-breakup-646224.html' target='blank'>Depression After a Breakup</a></li>
+            <li className='links'><span className='number'>2.</span><a href='https://www.elitedaily.com/dating/become-depressed-after-a-breakup/1958108' target='blank'>How You Can Become Depressed After a Breakup</a></li>
+            <li className='links'><span className='number'>3.</span><a href='http://www.empowher.com/mental-health/content/how-get-over-depression-after-breakup' target='blank'>How to Get Over Depression After a Breakup</a></li>
+            <li className='links'><span className='number'>4.</span><a href='https://howloveblossoms.com/post-break-up-overcoming-breakup-depression' target='blank'>How to Overcome Depressed Feelings After a Breakup</a></li>
+          </ol>
         </div>
+
         {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
@@ -131,41 +167,38 @@ class Depression extends React.Component {
             )}
           </ul>
         </div> */}
-      <Link to="/depression_quiz">
-       <button type="button">
-          Ready to Move on to Acceptance?
-       </button>
-      </Link>
-       <div className="vbox fill">
-          <h1>Depression Chat Room</h1>
-          <div className="scroll grow">
-            <ChatHistory messages={this.state.depressionMessages} service={this.service}
+
+      <p className='move-on-sentence'> Ready to Move on to Acceptance? Take the
+      <Link className='quiz-link' to="/depression_quiz"> DEPRESSION QUIZ </Link>
+      to see if you are ready.
+      </p>
+
+      <hr />
+
+      <h3 className='subheader'>Depression Chat Room</h3>
+      <div className="vbox fill">
+        <div className="scroll grow">
+          <ChatHistory messages={this.state.depressionMessages} service={this.service}
              currentUser={this.props.currentUser}/>
-          </div>
         </div>
         <div className="hbox">
           <label>{this.props.currentUser && this.props.currentUser.username}</label>
         </div>
         <div className="hbox">
           <input className="grow"
-            ref="input"
-            type="text"
-            value={this.state.currentMessage}
-            onChange={this.changedMessage.bind(this)}
-           />
-          <button
-            onClick={this.sendMessage.bind(this)}
-           >send</button>
+              ref="input"
+              type="text"
+              value={this.state.currentMessage}
+              onChange={this.changedMessage.bind(this)}
+             />
+            <button
+              onClick={this.sendMessage.bind(this)}
+             >send</button>
         </div>
         <div className="hbox">
            {this.renderUsers()}
         </div>
-
-        <Link to='/acceptance_quiz'>
-          <button type='button'>
-            Ready to Move on to Acceptance?
-         </button>
-        </Link>
+      </div>
       </div>
     )
   }
