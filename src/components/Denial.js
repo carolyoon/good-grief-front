@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AdvicePost from './AdvicePost';
 import axios from 'axios';

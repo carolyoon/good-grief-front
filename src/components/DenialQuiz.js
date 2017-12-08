@@ -121,7 +121,10 @@ class DenialQuiz extends Component {
 
   renderResult() {
     return (
-      <DenialResults denialQuizResult={this.state.result} />
+      <DenialResults 
+        updateCurrentUser={this.props.updateCurrentUser} 
+        denialQuizResult={this.state.result} 
+      />
     );
   }
 

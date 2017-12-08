@@ -154,8 +154,22 @@ class App extends Component {
             <Route exact path='/bargaining' component={Bargaining} />
             <Route exact path='/depression' component={Depression} />
             <Route exact path='/acceptance' component={Acceptance} />
-            <Route exact path='/denial_quiz' component={DenialQuiz} />
-            <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
+            <Route exact path='/denial_quiz' render={(props) => (
+              <DenialQuiz 
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )}  
+            />
+            <Route exact path='/bargaining_quiz' render={(props) => (
+              <BargainingQuiz 
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )} 
+            />
             <Route exact path='/depression_quiz' render={(props) => (
               <DepressionQuiz 
                 {...props}
@@ -171,7 +185,14 @@ class App extends Component {
               />
             )}
           />
-            <Route exact path='/anger_quiz' component={AngerQuiz} />
+            <Route exact path='/anger_quiz' render={(props) => (
+              <DepressionQuiz 
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )}  
+            />
             <Route render={() => <h1>Page not found</h1>} />
          </Switch>
 

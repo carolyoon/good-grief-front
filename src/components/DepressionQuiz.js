@@ -123,7 +123,10 @@ class DepressionQuiz extends Component {
 
   renderResult() {
     return (
-      <DepressionResults updateCurrentUser={this.props.updateCurrentUser} depressionQuizResult={this.state.result} />
+      <DepressionResults 
+        updateCurrentUser={this.props.updateCurrentUser} 
+        depressionQuizResult={this.state.result} 
+      />
     );
   }
 
