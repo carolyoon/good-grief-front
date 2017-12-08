@@ -7,6 +7,8 @@ import './User.css'
 import './Registration.css';
 import './Navigation.css';
 import './Home.css';
+import './Quiz.css';
+import './DenialPage.css';
 
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
@@ -14,8 +16,9 @@ import BargainingQuiz from './components/BargainingQuiz'
 import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
 import Home from './components/Home'
-import NewAdvicePostForm from './components/NewAdvicePostForm'
+// import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
+import ChatHistory from './components/ChatHistory'
 import Registration from './components/Registration'
 import User from './components/User'
 import Anger from './components/Anger'
@@ -51,7 +54,6 @@ class App extends Component {
     }
   }
 
-
   componentDidMount () {
     const user = JSON.parse(window.localStorage.getItem('user'))
     this.handleLogin(this.getFromStorage('authToken'), user)
@@ -75,13 +77,9 @@ class App extends Component {
     if (authToken !== null) {
       axios.post(`/api/sessions/refresh`, {session: {user_id: userId, token: authToken}})
       .then(({data}) => {
-        console.log("data:", data)
-
         this.setState({authToken: data.token, currentUser: data})
-
         this.setInStorage('authToken', data.token)
         this.setInStorage('userId', data.id)
-
       })
     .catch((error) => { console.log('Error when logging in.', error) })
     } else {
@@ -89,7 +87,6 @@ class App extends Component {
       if(user !== null) {
         this.setState({currentUser: user})
       }
-
       this.setInStorage('authToken', token)
       this.setInStorage('userId', user ? user.id : null)
       this.setInStorage('user', user)
@@ -106,6 +103,7 @@ class App extends Component {
 
   render () {
     return (
+      <div>
       <Router>
         <div>
 
@@ -125,7 +123,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/advice' component={NewAdvicePostForm} />
+            {/* <Route exact path='/advice' component={NewAdvicePostForm} /> */}
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
@@ -144,8 +142,8 @@ class App extends Component {
             />
             <Route path='/profile/:id' render={(props) => (
               <User
-              {...props}
-              currentUser={this.state.currentUser}
+               {...props}
+               currentUser={this.state.currentUser}
               />
               )}
             />
@@ -194,11 +192,12 @@ class App extends Component {
                 />
               )}  
             />
-            <Route render={() => <h1>Page not found</h1>} />
+           <Route render={() => <h1>Page not found</h1>} />
          </Switch>
 
         </div>
       </Router>
+    </div>
     )
   }
 }

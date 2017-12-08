@@ -1,20 +1,28 @@
 .registration-container {
   width: 500px;
+  height: 100vh;
   padding: 0 0 0;
   margin: auto;
-  padding-top: 35px;
+}
+
+.login-container {
+  width: 500px;
+  height: 100vh;
+  padding: 0 0 0;
+  margin: auto;
 }
 
 .registration-text {
   color: #D8BFC5;
   font-family: 'Lora', serif;
   font-size: 2.5em;
+  padding-top: 45px;
 }
 
 .registration-form {
   position: relative;
   max-width: 500px;
-  margin: 0 auto 100px;
+  margin: 0 auto 50px;
   padding: 45px;
   box-shadow:
     0 0 20px 0 rgba(0, 0, 0, 0.2),
@@ -123,3 +131,72 @@
     inset 0 3px 4px rgba(0,0,0,0.3);
 }
 
+.styled-select {
+  background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+  height: 29px;
+  overflow: hidden;
+  width: 240px;
+}
+
+.styled-select select {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 29px;
+  padding: 5px;
+  width: 268px;
+  box-shadow:
+    inset 0 0 5px rgba(0,0,0,0.1),
+    inset 0 3px 2px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  color: #777;
+}
+
+.styled-select.slate {
+  background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+  height: 34px;
+  width: 240px;
+}
+
+.styled-select.slate select {
+  border: 1px solid #ccc;
+  font-size: 16px;
+  height: 34px;
+  width: 268px;
+}
+
+.quiz-options {
+  text-align: center;
+}
+
+.quiz-options li {
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.quiz-option {
+  text-decoration: none;
+  color: #DF744A;
+  border-right: 1px solid #777;
+  padding-right: 10px;
+}
+
+.quiz-option:hover {
+  color: #DCB239;
+}
+
+.last-quiz-option {
+  border-right: none;
+  text-decoration: none;
+  color: #DF744A;
+  border-right: none;
+  padding-right: 10px;
+}
+
+.last-quiz-option:hover {
+  color: #DCB239;
+}

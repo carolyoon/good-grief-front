@@ -51,28 +51,30 @@ class Registration extends React.Component {
             <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
             <FontAwesome.FaLock className='registration-icon' />
           </p>
-          <label htmlFor='select-stage'>Select your stage</label><br /><br />
-          <select id='select-stage' value={this.state.stageId} name="stage" onChange={(e) => this.handleChange(e, 'stageId')}>
-              <option value="">Stages</option>
+          <div class='styled-select slate'>
+            <select id='select-stage' value={this.state.stageId} name='stage' onChange={(e) => this.handleChange(e, 'stageId')}>
+            <label htmlFor='select-stage'>Select your stage</label>
+              <option value=''>Stages</option>
               <option value='1'>Denial</option>
               <option value='2'>Anger</option>
               <option value='3'>Bargaining</option>
               <option value='4'>Depression</option>
               <option value='5'>Acceptance</option>
-          </select>
+            </select>
+          </div>
           <p className='submit'>
             <button type='submit' value='Register'><FontAwesome.FaArrowRight className='registration-icon' /></button>
           </p>
         </form>
 
         <div className='quiz-options'>
-          <p>If you're unsure of which stage you're currently at, take our quizzes to find out!</p>
+          <p>If you are unsure of which stage you are currently at, take our quizzes below to find out:</p>
           <ul>
-            <li><Link className='navigation-text' to='/denial_quiz'>Denial</Link></li>
-            <li><Link className='navigation-text' to='/anger_quiz'>Anger</Link></li>
-            <li><Link className='navigation-text' to='/bargaining_quiz'>Bargaining</Link></li>
-            <li><Link className='navigation-text' to='/depression_quiz'>Depression</Link></li>
-            <li><Link className='navigation-text' to='/acceptance_quiz'>Acceptance</Link></li>
+            <li><Link className='quiz-option' to='/denial_quiz'>Denial</Link></li>
+            <li><Link className='quiz-option' to='/anger_quiz'>Anger</Link></li>
+            <li><Link className='quiz-option' to='/bargaining_quiz'>Bargaining</Link></li>
+            <li><Link className='quiz-option' to='/depression_quiz'>Depression</Link></li>
+            <li><Link className='last-quiz-option' to='/acceptance_quiz'>Acceptance</Link></li>
           </ul>
         </div>
       </div>

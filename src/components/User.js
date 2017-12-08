@@ -20,9 +20,8 @@ class User extends React.Component {
       journalEntries: [],
       goals: [],
       displayNewJournalEntryForm: false,
-      displayNewGoalForm: false
     };
-    
+
     this.goalsCall = this.goalsCall.bind(this)
     this.journalEntriesCall = this.journalEntriesCall.bind(this)
     this.addGoal = this.addGoal.bind(this)
@@ -31,7 +30,6 @@ class User extends React.Component {
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)   
-
    }
 
     goalsCall () {
@@ -68,7 +66,7 @@ class User extends React.Component {
     addJournalEntry (newJournalEntry) {
       let journalEntries = this.state.journalEntries
       journalEntries.unshift(newJournalEntry)
-      this.setState({ journalEntries })
+      this.setState({ journalEntries, displayNewJournalEntryForm: true })
     }
 
     updateGoal (index) {
@@ -90,8 +88,11 @@ class User extends React.Component {
       const goals = [...this.state.goals]
       axios.delete(`/api/users/${this.props.match.params.id}/goals/${goal.id}`)
       .then(response => {
-        goals[index] = response.data.goal
-        this.setState({ goals })
+        // goals[index] = response.data.goal
+        this.setState(prevState => ({
+        goals: prevState.response.data.goal.filter( goal => goal !== index)
+      }))
+      //   this.setState({ goals })
       })
       .catch((error) => console.log('Error in removing a goal.', error))
     }
