@@ -19,16 +19,21 @@
   }
 
     return (
-       <div className="quiz">
-         <QuestionCount
+      <div className="quiz">
+        <div className='question-count'>
+          <QuestionCount
            counter={props.questionId}
            total={props.questionTotal}
-         />
-         <Question content={props.question} />
-         <ul className="answerOptions">
+          />
+        </div>
+
+        <div className='question-body'>
+          <Question content={props.question} />
+          <ul className="answerOptions">
            {props.answerOptions.map(renderAnswerOptions)}
-         </ul>
-       </div>
+          </ul>
+        </div>
+      </div>
     );
   }
 

@@ -7,6 +7,8 @@ import './User.css'
 import './Registration.css';
 import './Navigation.css';
 import './Home.css';
+import './Quiz.css';
+import './DenialPage.css';
 
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
@@ -114,15 +116,15 @@ class App extends Component {
             />
             <Route path='/profile/:id' render={(props) => (
               <User
-              {...props}
-              currentUser={this.state.currentUser}
+               {...props}
+               currentUser={this.state.currentUser}
               />
               )}
             />
             <Route exact path='/denial' render={(props) => (
               <Denial
-              {...props}
-              currentUser={this.state.currentUser}
+               {...props}
+               currentUser={this.state.currentUser}
               />
               )}
             />

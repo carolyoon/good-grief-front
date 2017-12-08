@@ -2,10 +2,22 @@ import React from 'react';
 // import AdvicePost from './AdvicePost';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import PubNub from "pubnub";
+import ReactHover from 'react-hover';
+
+import AdvicePost from './AdvicePost';
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+import { base } from '../fire';
 import fire from '../fire';
+
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: 20,
+  shiftY: 0
+}
+
 
 class Denial extends React.Component {
   constructor () {
@@ -96,35 +108,64 @@ class Denial extends React.Component {
   //     this.setState({advicePosts})
   //   })
   // }
+
   render () {
     return (
       <div className='denial-container'>
-        <span className='stage-name'><h1>The DENIAL Stage</h1></span>
-        <div className='helpful-apps'>
-          <h3>Helpful Apps</h3>
-          <ul>
+        <span className='stage-name'>
+          <h1>The DENIAL Stage</h1>
+        </span>
+
+        <h3 className='subheader'>Helpful Apps</h3>
+        <div>
+          <ul className='helpful-apps'>
             <li>
-              <img className='denial-image' src={require('../denial_images/blockYourEx.png')} />
-              <p>Block Your Ex: a Chrome and Firefox-based plugin that allows you to remove an ex’s Twitter, Facebook and blog from your view in one go.</p>
-            </li><br />
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className='denial-image' width='250' height='115' src={require('../denial_images/blockYourEx.png')} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Block Your Ex</p> A Chrome and Firefox-based plugin that allows you to remove an ex’s Twitter, Facebook and blog from your view in one go.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
             <li>
-              <img className='denial-image' src={require('../denial_images/killSwitch.png')} />
-              <p>Killswitch: a mobile app that removes all traces of your ex from your Facebook by deleting pictures, videos, posts and status updates that tagged both of you</p>
-            </li><br />
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className='denial-image' width='250' height='100' src={require('../denial_images/killSwitch.png')} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Killswitch</p> A mobile app that removes all traces of your ex from your Facebook by deleting pictures, videos, posts and status updates that tagged both of you</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
             <li>
-              <img className='denial-image' src={require('../denial_images/massPasswordReset.png')} />
-              <p>Mass Password Reset: a Firefox extension that allows you to change the password for numerous shared accounts at once.</p>
-            </li><br />
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className='denial-image' width='250' height='100' src={require('../denial_images/massPasswordReset.png')} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Mass Password Reset</p> A Firefox extension that allows you to change the password for numerous shared accounts at once.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
           </ul>
         </div>
+
+        <hr />
+
+        <h3 className='subheader'>Helpful Articles</h3>
         <div className='helpful-articles'>
-          <h3>Helpful Articles</h3>
-          <ul>
-            <li><a href='https://www.psychologytoday.com/blog/me-we/201501/the-9-stages-grieving-breakup-no-2-denial'>All About Denial</a></li><br />
-            <li><a href='https://pairedlife.com/breakups/Feelings-of-Denial-When-a-Relationship-Ends'>Feelings of Denial When a Relationship Ends</a></li><br />
-            <li><a href='https://datingtips.match.com/over-denial-breakup-42642.html'>How to Get Over Denial About a Breakup</a></li><br />
-          </ul>
+          <ol className='ordered-list'>
+            <li className='links'><span className='number'>1.</span><a href='https://www.psychologytoday.com/blog/me-we/201501/the-9-stages-grieving-breakup-no-2-denial' target='blank'>All About Denial</a></li>
+            <li className='links'><span className='number'>2.</span><a href='https://pairedlife.com/breakups/Feelings-of-Denial-When-a-Relationship-Ends' target='blank'>Feelings of Denial When a Relationship Ends</a></li>
+            <li className='links'><span className='number'>3.</span><a href='https://datingtips.match.com/over-denial-breakup-42642.html' target='blank'>How to Get Over Denial About a Breakup</a></li>
+          </ol>
         </div>
+
         {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
@@ -133,6 +174,7 @@ class Denial extends React.Component {
             )}
           </ul>
         </div> */}
+
         <Link to="/denial_quiz">
          <button type="button">
             Ready to Move on to Anger?
