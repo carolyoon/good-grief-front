@@ -8,7 +8,7 @@ class Home extends React.Component {
       <div className="home-container">
         <div className="mission-statement">
           <h1 className='mission-statement-header'>Mission Statement:</h1>
-          <p className='mission-statement-body'>We strive to create a safe environment for those with a broken heart from a relationship dissolution and want to begin the healing process. As such, we aim to provide resources, concerned with the five common stages of grief, to those who want to know how others have overcome the grieving process.</p>
+          <p className='mission-statement-body'>Good Grief aims to assist people move through the five stages of grief after a relationship dissolution. We strive to facilitate the process of healing from a broken heart by providing a collection of resources specifically tailored to each stage, as well as a safe environment to connect with others going through similar experiences.</p>
         </div>
 
         <div className='understanding-grief-container'>
