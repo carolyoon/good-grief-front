@@ -121,7 +121,10 @@ class AngerQuiz extends Component {
 
   renderResult() {
     return (
-      <AngerResults angerQuizResult={this.state.result} />
+      <AngerResults 
+        updateCurrentUser={this.props.updateCurrentUser}
+        angerQuizResult={this.state.result} 
+      />
     );
   }
 

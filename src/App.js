@@ -186,7 +186,7 @@ class App extends Component {
             )}
           />
             <Route exact path='/anger_quiz' render={(props) => (
-              <DepressionQuiz 
+              <AngerQuiz 
                 {...props}
                 currentUser={this.state.currentUser}
                 updateCurrentUser={this.updateCurrentUser}
