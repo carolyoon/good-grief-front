@@ -31,6 +31,7 @@ Good Grief is a mobile-first web application that aims to assist people  move th
 - React 
 - Pubnub
 - Firebase
+- JWT
 
 **Citations:**
 
