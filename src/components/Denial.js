@@ -1,27 +1,24 @@
-
 import React from 'react';
-import AdvicePost from './AdvicePost';
+// import AdvicePost from './AdvicePost';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
-import { base } from '../fire';
-
-
+import fire from '../fire';
 
 class Denial extends React.Component {
   constructor () {
     super()
     this.state = {
-      advicePosts : [],
+      // advicePosts : [],
       messages: [{ text:"" }],
       currentMessage: "This is my message to you.",
-      username:"no-name",
+      username: "",
       users:[]
     };
 
-    this.toggleAdvicePostFormState = this.toggleAdvicePostFormState.bind(this)
+    // this.toggleAdvicePostFormState = this.toggleAdvicePostFormState.bind(this)
     this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
       subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
@@ -46,76 +43,59 @@ class Denial extends React.Component {
     this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
 
     this.service.getSelfInfo((info)=>{
-        if(info.username) this.setState({username: info.username})
+        this.setState({username: this.props.currentUser && this.props.currentUser.username})
       });
     }
 
-  //    componentWillMount(){
-  //   let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
-  //   messagesRef.on('child_added', snapshot => {
-  //     let message = { text: snapshot.val(), id: snapshot.key };
-  //     this.setState({ messages: [message].concat(this.state.messages) });
-  //   })
-  // }
-  //   componentWillMount() {
-  //     this.ref = base.syncState('/denial', {
-  //       context: this,
-  //       state: 'messages'
-  //   });
-  //   }
+  componentWillMount(){
+    const messages = []
+    let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
 
-  //   componentWillUnmount() {
-  //   base.removeBinding(this.ref);
-  // }
-
-  //
+    messagesRef.on('child_added', snapshot => {
+      let message = { text: snapshot.val(), id: snapshot.key };
+      messages.push(message)
+      this.setState({messages});
+    })
+  }
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
     }
+
     sendMessage() {
-      this.pubnub.publish({
-        channel:"denial-chat",
-        message: {
-        text:this.refs.input.value,
-        sender: this.pubnub.getUUID()
-        }
-    });
-      this.setState({ currentMessage:"" })
+    this.setState({ currentMessage:"" })
 
-
-    }
-    changedUsername() {
-      this.setState({ username:this.refs.username.value });
+    fire.database().ref('messages').push( this.refs.input.value );
+    this.refs.input.value = '';
     }
 
     setUsername() {
-      this.service.setUserState({username:this.state.username})
+      this.service.setUserState({username: this.props.currentUser && this.props.currentUser.username})
     }
 
     renderUsers() {
       var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{user.username}</span>
+        return <span key={i}>{this.props.currentUser && this.props.currentUser.username}</span>
       });
         return <div className="userlist">{users}</div>
     }
 
 
 
-  toggleAdvicePostFormState () {
-    this.setState(prevState => ({
-      advicePosts: !prevState.displayNewAdvicePostForm
-    }))
-  }
+  // toggleAdvicePostFormState () {
+  //   this.setState(prevState => ({
+  //     advicePosts: !prevState.displayNewAdvicePostForm
+  //   }))
+  // }
 
-  componentDidMount () {
-    axios.get('http://localhost:3001/api/advice_posts')
-    .then(res => {
-      const advicePosts = res.data.map((post) =>
-        ({id: post.id, content: post.content}))
-      this.setState({advicePosts})
-    })
-  }
+  // componentDidMount () {
+  //   axios.get('http://localhost:3001/api/advice_posts')
+  //   .then(res => {
+  //     const advicePosts = res.data.map((post) =>
+  //       ({id: post.id, content: post.content}))
+  //     this.setState({advicePosts})
+  //   })
+  // }
   render () {
     return (
       <div className='denial-container'>
@@ -145,14 +125,14 @@ class Denial extends React.Component {
             <li><a href='https://datingtips.match.com/over-denial-breakup-42642.html'>How to Get Over Denial About a Breakup</a></li><br />
           </ul>
         </div>
-        <div className='advice-posts'>
+        {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map(key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
-        </div>
+        </div> */}
         <Link to="/denial_quiz">
          <button type="button">
             Ready to Move on to Anger?
@@ -162,14 +142,11 @@ class Denial extends React.Component {
         <div className="vbox fill">
           <h1>Denial Chat Room</h1>
           <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}/>
+            <ChatHistory messages={this.state.messages} service={this.service} currentUser={this.props.currentUser}/>
           </div>
           <div className="hbox">
-            <label>username</label>
-            <input type="text" ref="username" value={this.state.username}
-              onChange={this.changedUsername.bind(this)}
-            />
-            <button onClick={this.setUsername.bind(this)}>set</button>
+            <label>{this.props.currentUser && this.props.currentUser.username}</label>
+
           </div>
           <div className="hbox">
             <input className="grow"
@@ -178,9 +155,10 @@ class Denial extends React.Component {
               value={this.state.currentMessage}
               onChange={this.changedMessage.bind(this)}
             />
+
             <button
-              onClick={this.sendMessage.bind(this)}
-            >send</button>
+              onClick={this.sendMessage.bind(this)}>send
+            </button>
           </div>
           <div className="hbox">
             {this.renderUsers()}

@@ -1,13 +1,12 @@
-import Rebase from 're-base';
 import firebase from 'firebase'
-
-const config = {
+var config = {
   apiKey: "AIzaSyArXJoLvqNDXL_pGYDiGDTfv-0tuR_Tl0M",
   authDomain: "good-grief-58acf.firebaseapp.com",
   databaseURL: "https://good-grief-58acf.firebaseio.com",
-
+  projectId: "good-grief-58acf",
+  storageBucket: "good-grief-58acf.appspot.com",
+  messagingSenderId: "696958046252"
 };
-const app = firebase.initializeApp(config)
-const base = Rebase.createClass(app.database())
+var fire = firebase.initializeApp(config);
+export default fire;
 
-export {base};
