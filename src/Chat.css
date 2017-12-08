@@ -42,7 +42,12 @@
 }
 
 .user-list {
-  background-color: red;
+  width: 100px;
+  height: 20px;
+  font-size: 13px;
+  border: 1px solid #F4DECB;
+  background: rgba(191,216,210, 1);
+  text-align: center;
 }
 
 .hbox .grow {

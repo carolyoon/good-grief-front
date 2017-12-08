@@ -22,7 +22,7 @@ class Depression extends React.Component {
     this.state = {
      // advicePosts : [],
      depressionMessages: [{ text:"" }],
-     currentMessage: "This is my message to you.",
+     currentMessage: "",
      username:"",
      users:[]
     }
@@ -99,7 +99,7 @@ class Depression extends React.Component {
     var users = this.state.users.map((user, i) => {
       return <span key={i}>{user.username}</span>
     })
-    return <div className='userlist'>{users}</div>
+    return <div className='user-list'>{users}</div>
   }
 
   // componentDidMount () {
@@ -192,11 +192,10 @@ class Depression extends React.Component {
             <ChatHistory messages={this.state.depressionMessages} service={this.service} />
           </div>
           <div className='hbox'>
-            <label>username</label>
-            <input type='text' ref='username' value={this.state.username}
+            <input className='username-field' placeholder='enter username' type='text' ref='username' value={this.state.username}
               onChange={this.changedUsername.bind(this)}
                     />
-            <button onClick={this.setUsername.bind(this)}>set</button>
+            <button className='set-button' onClick={this.setUsername.bind(this)}>set</button>
           </div>
           <div className='hbox'>
             <input className='grow'
@@ -206,6 +205,7 @@ class Depression extends React.Component {
               onChange={this.changedMessage.bind(this)}
                     />
             <button
+              className='send-button'
               onClick={this.sendMessage.bind(this)}
                     >send</button>
           </div>
