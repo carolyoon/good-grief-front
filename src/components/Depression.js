@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import axios from 'axios';
-
 import AdvicePost from './AdvicePost';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
@@ -130,35 +129,35 @@ class Depression extends React.Component {
             )}
           </ul>
         </div>
-        <div className='move-on-button'>
-          <form>
-            <input type="button" value="Ready to Move on?" />
-          </form>
-        </div>
-
-         <div className="vbox fill">
+      <Link to="/depression_quiz">
+       <button type="button">
+          Ready to Move on to Acceptance?
+       </button>
+      </Link>
+     </div>
+       <div className="vbox fill">
           <h1>Depression Chat Room</h1>
           <div className="scroll grow">
             <ChatHistory messages={this.state.depressionMessages} service={this.service}
-            currentUser={this.props.currentUser}/>
+             currentUser={this.props.currentUser}/>
           </div>
-          <div className="hbox">
-           <label>{this.props.currentUser && this.props.currentUser.username}</label>
-          </div>
-          <div className="hbox">
-            <input className="grow"
-              ref="input"
-              type="text"
-              value={this.state.currentMessage}
-              onChange={this.changedMessage.bind(this)}
-            />
-            <button
-              onClick={this.sendMessage.bind(this)}
-            >send</button>
-          </div>
-          <div className="hbox">
-            {this.renderUsers()}
-          </div>
+        <div className="hbox">
+          <label>{this.props.currentUser && this.props.currentUser.username}</label>
+        </div>
+        <div className="hbox">
+          <input className="grow"
+            ref="input"
+            type="text"
+            value={this.state.currentMessage}
+            onChange={this.changedMessage.bind(this)}
+           />
+          <button
+            onClick={this.sendMessage.bind(this)}
+           >send</button>
+         </div>
+         <div className="hbox">
+           {this.renderUsers()}
+         </div>
         </div>
         <Link to='/acceptance_quiz'>
           <button type='button'>

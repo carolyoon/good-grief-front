@@ -1,20 +1,21 @@
-import React from 'react'
+import React from 'react';
 
 class Tracker extends React.Component {
   constructor (props) {
-    super(props)
-    this.renderStage = this.renderStage.bind(this)
+    super(props);
+
+    this.renderStage = this.renderStage.bind(this);
   }
 
   renderStage () {
     if (this.props.stageId === 1) {
       return (
         <header>
-          <a href='/denial' onClick={this.handle} style={{color: 'red'}}>Denial</a>
-          <a href='/anger' onClick={this.handle} >Anger</a>
-          <a href='/bargaining' onClick={this.handle} >Bargaining</a>
-          <a href='/depression' onClick={this.handle} >Depression</a>
-          <a href='/acceptance' onClick={this.handle} >Acceptance</a>
+          <a className='stages-tracker-buttons' href='/denial' onClick={this.handle} style={{background: '#DF744A', color: '#FFFFFF'}}>Denial</a>
+          <a className='stages-tracker-buttons' href='/anger' onClick={this.handle} >Anger</a>
+          <a className='stages-tracker-buttons' href='/bargaining' onClick={this.handle} >Bargaining</a>
+          <a className='stages-tracker-buttons' href='/depression' onClick={this.handle} >Depression</a>
+          <a className='stages-tracker-buttons' href='/acceptance' onClick={this.handle} >Acceptance</a>
         </header>
       )
     }
@@ -22,7 +23,7 @@ class Tracker extends React.Component {
       return (
         <header>
           <a href='/denial' onClick={this.handle} >Denial</a>
-          <a href='/anger' onClick={this.handle} style={{color: 'red'}} >Anger</a>
+          <a href='/anger' onClick={this.handle} style={{background: '#DF744A', color: '#FFFFFF'}} >Anger</a>
           <a href='/bargaining' onClick={this.handle} >Bargaining</a>
           <a href='/depression' onClick={this.handle} >Depression</a>
           <a href='/acceptance' onClick={this.handle} >Acceptance</a>
@@ -34,7 +35,7 @@ class Tracker extends React.Component {
         <header>
           <a href='/denial' onClick={this.handle} >Denial</a>
           <a href='/anger' onClick={this.handle} >Anger</a>
-          <a href='/bargaining' onClick={this.handle} style={{color: 'red'}} >Bargaining</a>
+          <a href='/bargaining' onClick={this.handle} style={{background: '#DF744A', color: '#FFFFFF'}} >Bargaining</a>
           <a href='/depression' onClick={this.handle} >Depression</a>
           <a href='/acceptance' onClick={this.handle} >Acceptance</a>
         </header>
@@ -46,7 +47,7 @@ class Tracker extends React.Component {
           <a href='/denial' onClick={this.handle} >Denial</a>
           <a href='/anger' onClick={this.handle} >Anger</a>
           <a href='/bargaining' onClick={this.handle} >Bargaining</a>
-          <a href='/depression' onClick={this.handle} style={{color: 'red'}} >Depression</a>
+          <a href='/depression' onClick={this.handle} style={{background: '#DF744A', color: '#FFFFFF'}} >Depression</a>
           <a href='/acceptance' onClick={this.handle} >Acceptance</a>
         </header>
       )
@@ -58,7 +59,7 @@ class Tracker extends React.Component {
           <a href='/anger' onClick={this.handle} >Anger</a>
           <a href='/bargaining' onClick={this.handle} >Bargaining</a>
           <a href='/depression' onClick={this.handle} >Depression</a>
-          <a href='/acceptance' onClick={this.handle} style={{color: 'red'}} >Acceptance</a>
+          <a href='/acceptance' onClick={this.handle} style={{background: '#DF744A', color: '#FFFFFF'}} >Acceptance</a>
         </header>
       )
     }
@@ -73,4 +74,4 @@ class Tracker extends React.Component {
   }
 }
 
-export default Tracker
+export default Tracker;

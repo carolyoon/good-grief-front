@@ -133,8 +133,8 @@ class Denial extends React.Component {
             )}
           </ul>
         </div>
-        <Link to='/anger_quiz'>
-          <button type='button'>
+        <Link to="/denial_quiz">
+         <button type="button">
             Ready to Move on to Anger?
          </button>
         </Link>

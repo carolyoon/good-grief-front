@@ -125,7 +125,7 @@ class Bargaining extends React.Component {
             )}
           </ul>
         </div>
-        <Link to="/depression_quiz">
+        <Link to="/bargaining_quiz">
            <button type="button">
               Ready to Move on to Depression?
            </button>

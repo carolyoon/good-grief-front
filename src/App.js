@@ -36,23 +36,15 @@ class App extends Component {
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
-    // this.componentWillMount = this.componentWillMount.bind(this)
   }
 
-
   componentDidMount () {
-    console.log("FUCK")
     const user = JSON.parse(window.localStorage.getItem('user'))
     this.handleLogin(window.localStorage.getItem('authToken'), user)
   }
 
   handleLogin (token, user) {
-
-    console.log("token:", token)
-    console.log("user:", user)
-
     if (window.localStorage.getItem('authToken') !== null) {
-      // console.log(window.localStorage.getItem('authToken'))
       axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
       .then(({data}) => {
         console.log("data:", data)
@@ -72,7 +64,6 @@ class App extends Component {
       window.localStorage.setItem('userId', user.id)
       window.localStorage.setItem('user', JSON.stringify(user))
     }
-    console.log(user)
   }
 
   handleLogout () {
@@ -80,10 +71,6 @@ class App extends Component {
     window.localStorage.removeItem('currentUser')
     window.localStorage.removeItem('authToken')
     window.localStorage.removeItem('userId')
-  }
-
-  componentWillMount () {
-
   }
 
   render () {
