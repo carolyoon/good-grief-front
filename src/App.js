@@ -14,7 +14,7 @@ import BargainingQuiz from './components/BargainingQuiz'
 import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
 import Home from './components/Home'
-import NewAdvicePostForm from './components/NewAdvicePostForm'
+// import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
 import ChatHistory from './components/ChatHistory'
 import Registration from './components/Registration'
@@ -95,7 +95,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/advice' component={NewAdvicePostForm} />
+            {/* <Route exact path='/advice' component={NewAdvicePostForm} /> */}
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}

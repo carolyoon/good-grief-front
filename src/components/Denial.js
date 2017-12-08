@@ -1,5 +1,5 @@
 import React from 'react';
-import AdvicePost from './AdvicePost';
+// import AdvicePost from './AdvicePost';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
@@ -11,14 +11,14 @@ class Denial extends React.Component {
   constructor () {
     super()
     this.state = {
-      advicePosts : [],
+      // advicePosts : [],
       messages: [{ text:"" }],
       currentMessage: "This is my message to you.",
       username: "",
       users:[]
     };
 
-    this.toggleAdvicePostFormState = this.toggleAdvicePostFormState.bind(this)
+    // this.toggleAdvicePostFormState = this.toggleAdvicePostFormState.bind(this)
     this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
       subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
@@ -82,20 +82,20 @@ class Denial extends React.Component {
 
 
 
-  toggleAdvicePostFormState () {
-    this.setState(prevState => ({
-      advicePosts: !prevState.displayNewAdvicePostForm
-    }))
-  }
+  // toggleAdvicePostFormState () {
+  //   this.setState(prevState => ({
+  //     advicePosts: !prevState.displayNewAdvicePostForm
+  //   }))
+  // }
 
-  componentDidMount () {
-    axios.get('http://localhost:3001/api/advice_posts')
-    .then(res => {
-      const advicePosts = res.data.map((post) =>
-        ({id: post.id, content: post.content}))
-      this.setState({advicePosts})
-    })
-  }
+  // componentDidMount () {
+  //   axios.get('http://localhost:3001/api/advice_posts')
+  //   .then(res => {
+  //     const advicePosts = res.data.map((post) =>
+  //       ({id: post.id, content: post.content}))
+  //     this.setState({advicePosts})
+  //   })
+  // }
   render () {
     return (
       <div className='denial-container'>
@@ -125,14 +125,14 @@ class Denial extends React.Component {
             <li><a href='https://datingtips.match.com/over-denial-breakup-42642.html'>How to Get Over Denial About a Breakup</a></li><br />
           </ul>
         </div>
-        <div className='advice-posts'>
+        {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map(key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
-        </div>
+        </div> */}
         <Link to="/denial_quiz">
          <button type="button">
             Ready to Move on to Anger?
