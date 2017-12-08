@@ -19,5 +19,57 @@
 
 .helpful-apps {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.app-details {
+  width: 200px;
+  color: #946183;
+  background: rgba(244,222,203, 0.2);
+  margin: 5px;
+  font-family: 'Lora', serif;
+  font-size: 12px;
+  text-align: left;
+  padding: 5px 10px 10px 10px;
+}
+
+.app-name {
+  font-weight: bold;
+  font-family: 'Spectral SC', serif;
+  color: #49274A;
+  font-size: 16px;
+  text-align: right;
+}
+
+.helpful-articles {
+  width: 70%;
+  margin: 10px;
+}
+
+.ordered-list {
+  color: #ccc;
+  list-style-type: none;
+}
+
+.ordered-list .links {
+  position: relative;
+  font: bold italic 45px/1.5 Helvetica, Verdana, sans-serif;
+  margin-bottom: 20px;
+  color: #8FBBB1;
+}
+
+.links a {
+  font: 25px/1.5 Helvetica, sans-serif;
+  padding-left: 60px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #DCB239;
+}
+
+.links a:hover {
+  color: #946183;
+}
+
+.number {
+  position: absolute;
 }
