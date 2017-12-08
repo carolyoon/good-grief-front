@@ -13,7 +13,7 @@ class Anger extends React.Component {
     this.state = {
       // advicePosts : [],
       angerMessages: [{ text:"" }],
-      currentMessage: "This is my message to you.",
+      currentMessage: "Type your message here!",
       username:"no-name",
       users:[]
     }
@@ -49,7 +49,6 @@ class Anger extends React.Component {
 
   componentWillMount(){
     if (this.state.angerMessages.length <= 1) {
-      console.log('***********************************')
       const messages = []
       let messagesRef = fire.database().ref('angerMessages').orderByKey().limitToLast(100);
 
@@ -70,7 +69,7 @@ class Anger extends React.Component {
     this.pubnub.publish({
       channel: 'anger-chat',
       message: {
-        text: this.refs.input.value,
+        // text: this.refs.input.value,
         sender: this.pubnub.getUUID()
 
       }
@@ -79,11 +78,6 @@ class Anger extends React.Component {
 
     this.refs.input.value = '';
     }
-
-
-  // sendMessage () {
-  //   this.setState({currentMessage: ''})
-  // }
 
   changedUsername () {
     this.setState({ username: this.refs.username.value })
