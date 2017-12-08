@@ -9,6 +9,7 @@ import './Navigation.css';
 import './Home.css';
 import './Quiz.css';
 import './DenialPage.css';
+import './Chat.css';
 
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
@@ -153,28 +154,28 @@ class App extends Component {
             <Route exact path='/depression' component={Depression} />
             <Route exact path='/acceptance' component={Acceptance} />
             <Route exact path='/denial_quiz' render={(props) => (
-              <DenialQuiz 
+              <DenialQuiz
                 {...props}
                 currentUser={this.state.currentUser}
                 updateCurrentUser={this.updateCurrentUser}
                 />
-              )}  
+              )}
             />
             <Route exact path='/bargaining_quiz' render={(props) => (
-              <BargainingQuiz 
+              <BargainingQuiz
                 {...props}
                 currentUser={this.state.currentUser}
                 updateCurrentUser={this.updateCurrentUser}
                 />
-              )} 
+              )}
             />
             <Route exact path='/depression_quiz' render={(props) => (
-              <DepressionQuiz 
+              <DepressionQuiz
                 {...props}
                 currentUser={this.state.currentUser}
                 updateCurrentUser={this.updateCurrentUser}
                 />
-              )} 
+              )}
             />
             <Route exact path='/acceptance_quiz' render={(props) => (
               <AcceptanceQuiz
@@ -185,12 +186,12 @@ class App extends Component {
             )}
           />
             <Route exact path='/anger_quiz' render={(props) => (
-              <AngerQuiz 
+              <AngerQuiz
                 {...props}
                 currentUser={this.state.currentUser}
                 updateCurrentUser={this.updateCurrentUser}
                 />
-              )}  
+              )}
             />
            <Route render={() => <h1>Page not found</h1>} />
          </Switch>
