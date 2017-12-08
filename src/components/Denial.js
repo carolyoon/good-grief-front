@@ -23,7 +23,7 @@ class Denial extends React.Component {
     this.state = {
       // advicePosts : [],
       messages: [{ text:"" }],
-      currentMessage: "Type your message here!",
+      currentMessage: "",
       username: "",
       users:[]
     };
@@ -100,7 +100,7 @@ class Denial extends React.Component {
     var users = this.state.users.map((user, i) => {
       return <span key={i}>{user.username}</span>
     })
-    return <div className='userlist'>{users}</div>
+    return <div className='user-list'>{users}</div>
   }
 
 
@@ -200,11 +200,10 @@ class Denial extends React.Component {
             <ChatHistory messages={this.state.messages} service={this.service} />
           </div>
           <div className='hbox'>
-            <label>username</label>
-            <input type='text' ref='username' value={this.state.username}
+            <input className='username-field' placeholder='enter username' type='text' ref='username' value={this.state.username}
               onChange={this.changedUsername.bind(this)}
                     />
-            <button onClick={this.setUsername.bind(this)}>set</button>
+            <button className='set-button' onClick={this.setUsername.bind(this)}>set username</button>
           </div>
           <div className='hbox'>
             <input className='grow'
@@ -214,6 +213,7 @@ class Denial extends React.Component {
               onChange={this.changedMessage.bind(this)}
                     />
             <button
+              className='send-button'
               onClick={this.sendMessage.bind(this)}
                     >send</button>
           </div>

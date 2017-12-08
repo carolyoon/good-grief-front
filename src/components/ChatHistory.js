@@ -7,6 +7,6 @@ export default class extends Component {
             return <li key={i}><b>{info.username}</b>{item.text}</li>
 
         });
-        return <ul className='chat-message'>{items}</ul>
+        return <ul className='chat'>{items}</ul>
     }
 }

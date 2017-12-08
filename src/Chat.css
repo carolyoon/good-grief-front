@@ -5,9 +5,66 @@
 
 .chat {
   padding-bottom: 10px;
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
+  border: 1px solid #F4DECB;
+  background: rgba(191,216,210, 0.1);
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
+}
+
+.hbox {
+  display: relative;
+}
+
+.hbox label {
+  display: absolute;
+}
+
+.username-field {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #F4DECB;
+  width: 100%;
+  height: 20px;
+}
+
+.set-button {
+  width: 30%;
+  font-size: 13px;
+  border: 1px solid #F4DECB;
+  background-color: #DCB239;
+}
+
+.set-button:hover {
+  background-color: #DF744A;
+  border: 1px solid #003399;
+  cursor: pointer;
+}
+
+.user-list {
+  background-color: red;
+}
+
+.hbox .grow {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #F4DECB;
+  width: 100%;
+  height: 50px;
+}
+
+.send-button {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+  margin-right: 0px;
+  background-color: #DCB239;
+  border: 1px solid #F4DECB;
+  width: 20%;
+}
+
+.send-button:hover {
+  background-color: #DF744A;
+  border: 1px solid #003399;
+  cursor: pointer;
 }
