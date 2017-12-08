@@ -81,7 +81,7 @@ componentWillMount(){
     this.pubnub.publish({
       channel: 'bargaining-chat',
       message: {
-        text: this.refs.input.value,
+        // text: this.refs.input.value,
         sender: this.pubnub.getUUID()
 
       }
@@ -191,8 +191,6 @@ componentWillMount(){
 
         <h3 className='subheader'>Bargaining Chat Room</h3>
         <div className="vbox fill">
-
-          <h1>Bargaining Chat Room</h1>
      <div className='scroll grow'>
             <ChatHistory messages={this.state.bargainingMessages} service={this.service} />
 

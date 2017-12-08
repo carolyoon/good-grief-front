@@ -196,8 +196,6 @@ class Denial extends React.Component {
 
         <h3 className='subheader'>Denial Chat Room</h3>
         <div className="vbox fill">
-
-          <h1>Denial Chat Room</h1>
          <div className='scroll grow'>
             <ChatHistory messages={this.state.messages} service={this.service} />
           </div>
