@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import Quiz from './Quiz';
-import Results from './Results';
+import BargainingResults from './BargainingResults';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
 import bargainingQuestions from '../api/bargainingQuestions';
@@ -121,7 +121,10 @@ class BargainingQuiz extends Component {
 
   renderResult() {
     return (
-      <Results quizResult={this.state.result} />
+      <BargainingResults 
+        bargainingQuizResult={this.state.result} 
+        updateCurrentUser={this.props.updateCurrentUser}
+        />
     );
   }
 
@@ -138,4 +141,3 @@ class BargainingQuiz extends Component {
 }
 
 export default BargainingQuiz;
-

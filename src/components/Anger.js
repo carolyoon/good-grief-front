@@ -1,21 +1,26 @@
 import React from 'react';
 import axios from 'axios';
-import AdvicePost from './AdvicePost';
+// import AdvicePost from './AdvicePost';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+import fire from '../fire';
 
 class Anger extends React.Component {
   constructor() {
     super();
     this.state = {
-      advicePosts : [],
-    messages: [{ text:"" }],
-    currentMessage: "This is my message to you.",
-    username:"no-name",
-    users:[]
+      messages: [{ text:"" }],
+      currentMessage: "This is my message to you.",
+      username:"no-name",
+      // advicePosts : [],
+      angerMessages: [{ text:"" }],
+      currentMessage: "This is my message to you.",
+      username:"",
+      users:[]
     }
+    
     this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
       subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
@@ -29,58 +34,62 @@ class Anger extends React.Component {
     //on users update, trigger screen refresh
     this.service.onUserChange((users) => this.setState({ users:users }));
     this.service.onMessage((evt) => {
-        this.state.messages.push({
+        this.state.angerMessages.push({
             text:evt.message.text,
             sender:evt.publisher
         });
         this.setState({
-            messages: this.state.messages
+            angerMessages: this.state.angerMessages
         })
       });
-    this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
+    this.service.fetchHistory(10,(messages)=>{ this.setState({angerMessages: messages}); });
 
     this.service.getSelfInfo((info)=>{
-        if(info.username) this.setState({username: info.username})
+        this.setState({username: this.props.currentUser && this.props.currentUser.username})
       });
     }
+
+  componentWillMount(){
+    const messages = []
+    let messagesRef = fire.database().ref('angerMessages').orderByKey().limitToLast(100);
+
+    messagesRef.on('child_added', snapshot => {
+      let message = { text: snapshot.val(), id: snapshot.key };
+      messages.push(message)
+      this.setState({angerMessages: messages});
+    })
+  }
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
     }
-    sendMessage() {
-      this.pubnub.publish({
-        channel:"anger-chat",
-        message: {
-            text:this.refs.input.value,
-            sender: this.pubnub.getUUID()
+  sendMessage() {
+    this.setState({ currentMessage:"" })
 
-        }
-    });
-      this.setState({ currentMessage:"" })
+    fire.database().ref('angerMessages').push( this.refs.input.value );
+    this.refs.input.value = '';
     }
-    changedUsername() {
-      this.setState({ username:this.refs.username.value });
-    }
+
 
     setUsername() {
-      this.service.setUserState({username:this.state.username})
+      this.service.setUserState({username:this.props.currentUser && this.props.currentUser.username})
     }
 
     renderUsers() {
       var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{user.username}</span>
+        return <span key={i}>{this.props.currentUser && this.props.currentUser.username}</span>
       });
         return <div className="userlist">{users}</div>
     }
 A
-  componentDidMount() {
-    axios.get('http://localhost:3001/api/advice_posts')
-    .then(res => {
-      const advicePosts = res.data.map ( (post) =>
-        ({id: post.id, content: post.content, stageId: post.stageId}))
-      this.setState( {advicePosts})
-    })
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:3001/api/advice_posts')
+  //   .then(res => {
+  //     const advicePosts = res.data.map ( (post) =>
+  //       ({id: post.id, content: post.content, stageId: post.stageId}))
+  //     this.setState( {advicePosts})
+  //   })
+  // }
 
   render() {
     return(
@@ -117,16 +126,16 @@ A
             <li><a href="https://www.7cups.com/qa-breakups-21/is-it-normal-to-have-sudden-mood-shifts-of-from-anger-to-grief-to-love-again-and-many-other-shades-of-the-mood-after-a-break-up-especially-after-a-close-dependent-relationship-1247/">Mood Swings and Anger</a></li><br />
           </ul>
         </div>
-        <div className='advice-posts'>
+        {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map (key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
-        </div>
+        </div> */}
 
-        <Link to="/bargaining_quiz">
+        <Link to="/anger_quiz">
            <button type="button">
               Ready to Move on to Bargaining?
            </button>
@@ -135,14 +144,11 @@ A
         <div className="vbox fill">
           <h1>Anger Chat Room</h1>
           <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}/>
+            <ChatHistory messages={this.state.angerMessages} service={this.service} currentUser={this.props.currentUser}/>
           </div>
           <div className="hbox">
-            <label>username</label>
-            <input type="text" ref="username" value={this.state.username}
-              onChange={this.changedUsername.bind(this)}
-            />
-            <button onClick={this.setUsername.bind(this)}>set</button>
+            <label>{this.props.currentUser && this.props.currentUser.username}</label>
+
           </div>
           <div className="hbox">
             <input className="grow"

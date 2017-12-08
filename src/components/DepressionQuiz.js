@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import Quiz from './Quiz';
-import Results from './Results';
+import DepressionResults from './DepressionResults';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
 import depressionQuestions from '../api/depressionQuestions';
@@ -10,8 +10,8 @@ import update from 'react-addons-update';
 
 class DepressionQuiz extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
      counter: 0,
@@ -123,7 +123,10 @@ class DepressionQuiz extends Component {
 
   renderResult() {
     return (
-      <Results quizResult={this.state.result} />
+      <DepressionResults 
+        updateCurrentUser={this.props.updateCurrentUser} 
+        depressionQuizResult={this.state.result} 
+      />
     );
   }
 
@@ -131,13 +134,10 @@ class DepressionQuiz extends Component {
   render() {
     return (
       <div className="App">
-
         {this.state.result ? this.renderResult() : this.renderQuiz()}
-
       </div>
     );
   }
 }
 
 export default DepressionQuiz;
-
