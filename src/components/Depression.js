@@ -136,13 +136,13 @@ class Depression extends React.Component {
           Ready to Move on to Acceptance?
        </button>
       </Link>
-     </div>
        <div className="vbox fill">
           <h1>Depression Chat Room</h1>
           <div className="scroll grow">
             <ChatHistory messages={this.state.depressionMessages} service={this.service}
              currentUser={this.props.currentUser}/>
           </div>
+        </div>
         <div className="hbox">
           <label>{this.props.currentUser && this.props.currentUser.username}</label>
         </div>
@@ -156,11 +156,11 @@ class Depression extends React.Component {
           <button
             onClick={this.sendMessage.bind(this)}
            >send</button>
-         </div>
-         <div className="hbox">
-           {this.renderUsers()}
-         </div>
         </div>
+        <div className="hbox">
+           {this.renderUsers()}
+        </div>
+
         <Link to='/acceptance_quiz'>
           <button type='button'>
             Ready to Move on to Acceptance?
