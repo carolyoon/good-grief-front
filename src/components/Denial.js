@@ -175,14 +175,15 @@ class Denial extends React.Component {
           </ul>
         </div> */}
 
-        <Link to="/denial_quiz">
-         <button type="button">
-            Ready to Move on to Anger?
-         </button>
-        </Link>
+        <p className='move-on-sentence'> Ready to Move on to Anger? Take the
+        <Link className='quiz-link' to="/denial_quiz"> DENIAL QUIZ </Link>
+        to see if you are ready.
+        </p>
 
+        <hr />
+
+        <h3 className='subheader'>Denial Chat Room</h3>
         <div className="vbox fill">
-          <h1>Denial Chat Room</h1>
           <div className="scroll grow">
             <ChatHistory messages={this.state.messages} service={this.service} currentUser={this.props.currentUser}/>
           </div>
