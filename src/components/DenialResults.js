@@ -8,13 +8,15 @@ function DenialResults (props) {
   }
 
   return (
-    <div className='result'>
-        Based on your answers, your suggested stage is <strong>{props.denialQuizResult}</strong>!
-      <Link to='/denial'>
-        <button onClick={() => updateStageId(1)}>Stay in Denial</button>
-      </Link><br />
-      <Link to='/anger'>
-      <button onClick={() => updateStageId(2)}>Move on to Anger</button>
+    <div className='result-container'>
+      <p className='result-sentence'>
+        Based on your answers, your suggested stage is <span className='result'>{props.denialQuizResult}</span>
+      </p>
+
+      <Link className='result-link' to='/denial' onClick={() => updateStageId(1)}>Stay in Denial
+      </Link>
+      |
+      <Link className='result-link' to='/anger' onClick={() => updateStageId(2)}>Move on to Anger
       </Link>
     </div>
   )

@@ -106,9 +106,6 @@ input[type=radio]:checked ~ label{
 }
 
 .result-container {
-  color: #DF744A;
-  font-family: 'Lora', serif;
-  font-size: 1.3em;
   padding-top: 100px;
   padding-bottom: 0;
   margin-top: 35px;
@@ -116,8 +113,29 @@ input[type=radio]:checked ~ label{
   height: 100vh;
 }
 
+.result-sentence {
+  color: #DF744A;
+  font-family: 'Lora', serif;
+  font-size: 1.3em;
+  padding-bottom: 30px;
+}
+
 .result {
   color: #DCB239;
   font-weight: bold;
   font-family: 'Spectral SC', serif;
+}
+
+.result-link {
+  text-decoration: none;
+  color: #8FBBB1;
+  cursor: pointer;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 30px;
+  font-family: 'Marcellus SC', serif;
+}
+
+.result-link:hover {
+  color: #D8BFC5;
 }
