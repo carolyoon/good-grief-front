@@ -14,10 +14,9 @@ import fire from '../fire';
 
 const optionsCursorTrueWithMargin = {
   followCursor: true,
-  shiftX: 20,
-  shiftY: 0
+  shiftX: -90,
+  shiftY: -10
 }
-
 
 class Denial extends React.Component {
   constructor () {
@@ -111,7 +110,7 @@ class Denial extends React.Component {
 
   render () {
     return (
-      <div className='denial-container'>
+      <div className='stage-container'>
         <span className='stage-name'>
           <h1>The DENIAL Stage</h1>
         </span>
@@ -137,7 +136,7 @@ class Denial extends React.Component {
                   <img className='denial-image' width='250' height='100' src={require('../denial_images/killSwitch.png')} />
                 </ReactHover.Trigger>
                 <ReactHover.Hover type='hover'>
-                  <p className='app-details'><p className='app-name'>Killswitch</p> A mobile app that removes all traces of your ex from your Facebook by deleting pictures, videos, posts and status updates that tagged both of you</p>
+                  <p className='app-details'><p className='app-name'>Killswitch</p> A mobile app that removes all traces of your ex from your Facebook by deleting pictures, videos, posts and status updates that tagged both of you.</p>
                 </ReactHover.Hover>
               </ReactHover>
             </li>
@@ -175,14 +174,15 @@ class Denial extends React.Component {
           </ul>
         </div> */}
 
-        <Link to="/denial_quiz">
-         <button type="button">
-            Ready to Move on to Anger?
-         </button>
-        </Link>
+        <p className='move-on-sentence'> Ready to Move on to Anger? Take the
+        <Link className='quiz-link' to="/denial_quiz"> DENIAL QUIZ </Link>
+        to see if you are ready.
+        </p>
 
+        <hr />
+
+        <h3 className='subheader'>Denial Chat Room</h3>
         <div className="vbox fill">
-          <h1>Denial Chat Room</h1>
           <div className="scroll grow">
             <ChatHistory messages={this.state.messages} service={this.service} currentUser={this.props.currentUser}/>
           </div>

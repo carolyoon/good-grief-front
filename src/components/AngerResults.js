@@ -7,15 +7,16 @@ function AngerResults (props) {
     props.updateCurrentUser({stage_id: newStageId})
   }
   return (
-    <div className='result'>
-        Based on your answers, your suggested stage is <strong>{props.angerQuizResult}</strong>!
-      <Link to='/anger'>
-        <button onClick={() => updateStageId(2)}>Stay in Anger</button>
-      </Link>
-      <Link to='/bargaining'>
-      <button onClick={() => updateStageId(3)}>Move on to Bargaining</button>
-    </Link>
+    <div className='result-container'>
+      <p className='result-sentence'>
+        Based on your answers, your suggested stage is <span className='result'>{props.angerQuizResult}</span>
+      </p>
 
+      <Link className='result-link' to='/anger' onClick={() => updateStageId(2)}>Stay in Anger
+      </Link>
+      |
+      <Link className='result-link' to='/bargaining' onClick={() => updateStageId(3)}>Move on to Bargaining
+      </Link>
     </div>
   )
 }

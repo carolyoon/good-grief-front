@@ -8,15 +8,16 @@ function BargainingResults (props) {
   }
 
   return (
-    <div className='result'>
-        Based on your answers, your suggested stage is <strong>{props.bargainingQuizResult}</strong>!
-      <Link to='/bargaining'>
-        <button onClick={() => updateStageId(3)}>Stay in Bargaining</button>
-      </Link>
-      <Link to='/depression'>
-        <button onClick={() => updateStageId(4)}>Move on to Depression</button>
-    </Link>
+    <div className='result-container'>
+      <p className='result-sentence'>
+        Based on your answers, your suggested stage is <span className='result'>{props.bargainingQuizResult}</span>
+      </p>
 
+      <Link className='result-link' to='/bargaining' onClick={() => updateStageId(3)}>Stay in Bargaining
+      </Link>
+      |
+      <Link className='result-link' to='/depression' onClick={() => updateStageId(4)}>Move on to Depression
+      </Link>
     </div>
   )
 }
