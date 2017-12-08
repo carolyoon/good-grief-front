@@ -16,8 +16,9 @@ import BargainingQuiz from './components/BargainingQuiz'
 import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
 import Home from './components/Home'
-import NewAdvicePostForm from './components/NewAdvicePostForm'
+// import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
+import ChatHistory from './components/ChatHistory'
 import Registration from './components/Registration'
 import User from './components/User'
 import Anger from './components/Anger'
@@ -38,7 +39,6 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
   }
-
 
   componentDidMount () {
     const user = JSON.parse(window.localStorage.getItem('user'))
@@ -66,7 +66,6 @@ class App extends Component {
       window.localStorage.setItem('userId', user.id)
       window.localStorage.setItem('user', JSON.stringify(user))
     }
-    console.log(user)
   }
 
   handleLogout () {
@@ -78,6 +77,7 @@ class App extends Component {
 
   render () {
     return (
+      <div>
       <Router>
         <div>
 
@@ -97,7 +97,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/advice' component={NewAdvicePostForm} />
+            {/* <Route exact path='/advice' component={NewAdvicePostForm} /> */}
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
@@ -116,16 +116,47 @@ class App extends Component {
             />
             <Route path='/profile/:id' render={(props) => (
               <User
+               {...props}
+               currentUser={this.state.currentUser}
+              />
+              )}
+            />
+            <Route exact path='/denial' render={(props) => (
+              <Denial
+               {...props}
+               currentUser={this.state.currentUser}
+              />
+              )}
+            />
+            <Route exact path='/anger' render={(props) => (
+              <Anger
               {...props}
               currentUser={this.state.currentUser}
               />
               )}
             />
-            <Route exact path='/denial' component={Denial} />
-            <Route exact path='/anger' component={Anger} />
-            <Route exact path='/bargaining' component={Bargaining} />
-            <Route exact path='/depression' component={Depression} />
-            <Route exact path='/acceptance' component={Acceptance} />
+            <Route exact path='/bargaining' render={(props) => (
+              <Bargaining
+              {...props}
+              currentUser={this.state.currentUser}
+              />
+              )}
+            />
+            <Route exact path='/depression'
+              render={(props) => (
+              <Depression
+              {...props}
+              currentUser={this.state.currentUser}
+              />
+              )}
+              />
+            <Route exact path='/acceptance' render={(props) => (
+              <Acceptance
+              {...props}
+              currentUser={this.state.currentUser}
+              />
+              )}
+              />
             <Route exact path='/denial_quiz' component={DenialQuiz} />
             <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
             <Route exact path='/depression_quiz' component={DepressionQuiz} />
@@ -136,6 +167,7 @@ class App extends Component {
 
         </div>
       </Router>
+    </div>
     )
   }
 }

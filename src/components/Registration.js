@@ -51,9 +51,11 @@ class Registration extends React.Component {
             <input type='password' placeholder='Password' onChange={(e) => this.handleChange(e, 'userPassword')} />
             <FontAwesome.FaLock className='registration-icon' />
           </p>
+
           <div class='styled-select slate'>
             <select id='select-stage' value={this.state.stageId} name='stage' onChange={(e) => this.handleChange(e, 'stageId')}>
-              <option>Select a stage</option>
+            <label htmlFor='select-stage'>Select your stage</label>
+              <option value=''>Stages</option>
               <option value='1'>Denial</option>
               <option value='2'>Anger</option>
               <option value='3'>Bargaining</option>

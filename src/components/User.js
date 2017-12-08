@@ -9,6 +9,7 @@ import Tracker from './Tracker';
 class User extends React.Component {
   constructor (props) {
     super(props);
+
     this.state = {
       userId: '',
       selectedOption: 'Goals',
@@ -28,7 +29,7 @@ class User extends React.Component {
     this.updateGoal = this.updateGoal.bind(this)
     this.deleteCompletedGoal = this.deleteCompletedGoal.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)
+    this.toggleJournalEntryFormState = this.toggleJournalEntryFormState.bind(this)   
    }
 
     goalsCall () {
