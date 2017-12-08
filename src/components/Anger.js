@@ -207,8 +207,6 @@ class Anger extends React.Component {
 
         <h3 className='subheader'>Anger Chat Room</h3>
         <div className="vbox fill">
-
-          <h1>Anger Chat Room</h1>
         <div className='scroll grow'>
             <ChatHistory messages={this.state.angerMessages} service={this.service} />
           </div>
