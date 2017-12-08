@@ -6,16 +6,17 @@ import AdvicePost from './AdvicePost';
 import PubNub from "pubnub";
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+import fire from '../fire';
 
 class Depression extends React.Component {
   constructor () {
     super()
     this.state = {
       advicePosts : [],
-      messages: [{ text:"" }],
-    currentMessage: "This is my message to you.",
-    username:"",
-    users:[]
+      depressionMessages: [{ text:"" }],
+      currentMessage: "This is my message to you.",
+      username:"",
+      users:[]
     }
     this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
@@ -30,35 +31,43 @@ class Depression extends React.Component {
     //on users update, trigger screen refresh
     this.service.onUserChange((users) => this.setState({ users:users }));
     this.service.onMessage((evt) => {
-        this.state.messages.push({
+        this.state.depressionMessages.push({
             text:evt.message.text,
             sender:evt.publisher
         });
         this.setState({
-            messages: this.state.messages
+            depressionMessages: this.state.messages
         })
       });
-    this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
+    this.service.fetchHistory(10,(messages)=>{ this.setState({depressionMessages:messages}); });
 
     this.service.getSelfInfo((info)=>{
         this.setState({username: this.props.currentUser && this.props.currentUser.username})
       });
     }
 
+  componentWillMount(){
+    const messages = []
+    let messagesRef = fire.database().ref('depressionMessages').orderByKey().limitToLast(100);
+
+    messagesRef.on('child_added', snapshot => {
+      let message = { text: snapshot.val(), id: snapshot.key };
+      messages.push(message)
+      this.setState({depressionMessages: messages});
+    })
+  }
+
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
     }
-    sendMessage() {
-      this.pubnub.publish({
-        channel:"depression-chat",
-        message: {
-            text:this.refs.input.value,
-            sender: this.pubnub.getUUID()
 
-        }
-    });
-      this.setState({ currentMessage:"" })
-    }
+  sendMessage() {
+    this.setState({ currentMessage:"" })
+
+    fire.database().ref('depressionMessages').push( this.refs.input.value );
+    this.refs.input.value = '';
+  }
+
     changedUsername() {
       this.setState({ username:this.refs.username.value });
     }
@@ -130,7 +139,7 @@ class Depression extends React.Component {
          <div className="vbox fill">
           <h1>Depression Chat Room</h1>
           <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}
+            <ChatHistory messages={this.state.depressionMessages} service={this.service}
             currentUser={this.props.currentUser}/>
           </div>
           <div className="hbox">

@@ -48,43 +48,26 @@ class Denial extends React.Component {
     }
 
   componentWillMount(){
+    const messages = []
     let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(100);
+
     messagesRef.on('child_added', snapshot => {
       let message = { text: snapshot.val(), id: snapshot.key };
-      this.setState({ messages: [message].concat(this.state.messages) });
+      messages.push(message)
+      this.setState({messages});
     })
   }
-  // componentWillMount(){
-  //   this.ref = base.syncState('/denial', {
-  //       context: this,
-  //       state: 'messages'
-  //   });
-  // }
-
-  //   componentWillUnmount() {
-  //   base.removeBinding(this.ref);
-  // }
-
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
     }
+
     sendMessage() {
-      this.pubnub.publish({
-        channel:"denial-chat",
-        message: {
-        text:this.refs.input.value,
-        sender: this.pubnub.getUUID()
-        }
-    });
     this.setState({ currentMessage:"" })
+
+    fire.database().ref('messages').push( this.refs.input.value );
+    this.refs.input.value = '';
     }
-
-  addMessage() {
-    fire.database().ref('messages').push( this.inputEl.value );
-    this.inputEl.value = '';
-  }
-
 
     setUsername() {
       this.service.setUserState({username: this.props.currentUser && this.props.currentUser.username})
@@ -166,15 +149,16 @@ class Denial extends React.Component {
 
           </div>
           <div className="hbox">
-            <input ref={ el => this.inputEl = el } className="grow"
+            <input className="grow"
               ref="input"
               type="text"
               value={this.state.currentMessage}
               onChange={this.changedMessage.bind(this)}
             />
+
             <button
-              onClick={this.sendMessage.bind(this)}
-              onSubmit={this.addMessage.bind(this)}>send</button>
+              onClick={this.sendMessage.bind(this)}>send
+            </button>
           </div>
           <div className="hbox">
             {this.renderUsers()}
