@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import Quiz from './Quiz';
-import Results from './Results';
+import AcceptanceResults from './AcceptanceResults';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
 import acceptanceQuestions from '../api/acceptanceQuestions';
@@ -14,6 +14,8 @@ class AcceptanceQuiz extends Component {
     super(props);
 
     this.state = {
+     // currentUserId: props.currentUser && props.currentUser.id,
+     // currentStageId: props.currentUser && props.currentUser.stage_id
      counter: 0,
      questionId: 1,
      question: '',
@@ -121,7 +123,10 @@ class AcceptanceQuiz extends Component {
 
   renderResult() {
     return (
-      <Results quizResult={this.state.result} />
+      <AcceptanceResults 
+        acceptanceQuizResult={this.state.result} 
+        updateCurrentUser={this.props.updateCurrentUser} 
+      />
     );
   }
 
@@ -129,13 +134,18 @@ class AcceptanceQuiz extends Component {
   render() {
     return (
       <div className="App">
-
         {this.state.result ? this.renderResult() : this.renderQuiz()}
-
       </div>
     );
   }
+
+  currentUserId(){
+    return this.props.currentUser && this.props.currentUser.id
+  }
+
+  // currentStageId() {
+  //   return this.props.currentUser && this.props.currentUser.stage_id
+  // }
 }
 
 export default AcceptanceQuiz;
-

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import Quiz from './Quiz';
-import Results from './Results';
+import DenialResults from './DenialResults';
 import QuestionCount from './QuestionCount';
 import AnswerOption from './AnswerOption';
 import denialQuestions from '../api/denialQuestions';
@@ -121,19 +121,23 @@ class DenialQuiz extends Component {
 
   renderResult() {
     return (
-      <Results quizResult={this.state.result} />
+      <DenialResults 
+        updateCurrentUser={this.props.updateCurrentUser} 
+        denialQuizResult={this.state.result} 
+      />
     );
   }
 
 
   render() {
     return (
-      <div className="quiz-container">
+      <div className="App">
+
         {this.state.result ? this.renderResult() : this.renderQuiz()}
+
       </div>
     );
   }
 }
 
 export default DenialQuiz;
-

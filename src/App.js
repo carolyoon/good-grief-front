@@ -8,7 +8,8 @@ import './Registration.css';
 import './Navigation.css';
 import './Home.css';
 import './Quiz.css';
-import './DenialPage.css';
+import './Stage.css';
+import './Chat.css';
 
 import AcceptanceQuiz from './components/AcceptanceQuiz'
 import AngerQuiz from './components/AngerQuiz'
@@ -16,8 +17,9 @@ import BargainingQuiz from './components/BargainingQuiz'
 import DenialQuiz from './components/DenialQuiz'
 import DepressionQuiz from './components/DepressionQuiz'
 import Home from './components/Home'
-import NewAdvicePostForm from './components/NewAdvicePostForm'
+// import NewAdvicePostForm from './components/NewAdvicePostForm'
 import Login from './components/Login'
+import ChatHistory from './components/ChatHistory'
 import Registration from './components/Registration'
 import User from './components/User'
 import Anger from './components/Anger'
@@ -37,24 +39,48 @@ class App extends Component {
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.updateCurrentUser = this.updateCurrentUser.bind(this)
   }
 
+  updateCurrentUser(newCurrentUserData){
+    if(newCurrentUserData){
+      // if newCurrentUserData is an object, merge the data
+      axios.put(`/api/users/${this.state.currentUser.id}`, {user: newCurrentUserData})
+      const currentUser = this.state.currentUser || {}
+      const newCurrentUser = Object.assign(currentUser, newCurrentUserData)
+      this.setState({ currentUser: newCurrentUser })
+    } else {
+      // if not, just set it
+      this.setState({ currentUser: newCurrentUserData })
+    }
+  }
 
   componentDidMount () {
     const user = JSON.parse(window.localStorage.getItem('user'))
-    this.handleLogin(window.localStorage.getItem('authToken'), user)
+    this.handleLogin(this.getFromStorage('authToken'), user)
+  }
+
+  getFromStorage(key){
+    try {
+      return JSON.parse(window.localStorage.getItem(key))
+    } catch (e) {
+      return window.localStorage.getItem(key)
+    }
+  }
+
+  setInStorage(key, value){
+    window.localStorage.setItem(key, JSON.stringify(value))
   }
 
   handleLogin (token, user) {
-    if (window.localStorage.getItem('authToken') !== null) {
-      axios.post(`/api/sessions/refresh`, {session: {user_id: window.localStorage.getItem('userId'), token: window.localStorage.getItem('authToken')}})
+    const authToken = this.getFromStorage('authToken')
+    const userId = this.getFromStorage('userId')
+    if (authToken !== null) {
+      axios.post(`/api/sessions/refresh`, {session: {user_id: userId, token: authToken}})
       .then(({data}) => {
-        console.log("data:", data)
-
         this.setState({authToken: data.token, currentUser: data})
-        window.localStorage.setItem('authToken', data.token)
-        window.localStorage.setItem('userId', data.id)
-
+        this.setInStorage('authToken', data.token)
+        this.setInStorage('userId', data.id)
       })
     .catch((error) => { console.log('Error when logging in.', error) })
     } else {
@@ -62,11 +88,10 @@ class App extends Component {
       if(user !== null) {
         this.setState({currentUser: user})
       }
-      window.localStorage.setItem('authToken', token)
-      window.localStorage.setItem('userId', user.id)
-      window.localStorage.setItem('user', JSON.stringify(user))
+      this.setInStorage('authToken', token)
+      this.setInStorage('userId', user ? user.id : null)
+      this.setInStorage('user', user)
     }
-    console.log(user)
   }
 
   handleLogout () {
@@ -76,8 +101,10 @@ class App extends Component {
     window.localStorage.removeItem('userId')
   }
 
+
   render () {
     return (
+      <div>
       <Router>
         <div>
 
@@ -97,7 +124,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/advice' component={NewAdvicePostForm} />
+            {/* <Route exact path='/advice' component={NewAdvicePostForm} /> */}
             <Route exact path='/registration' render={(props) => (
               <Registration
                 {...props}
@@ -116,8 +143,8 @@ class App extends Component {
             />
             <Route path='/profile/:id' render={(props) => (
               <User
-              {...props}
-              currentUser={this.state.currentUser}
+               {...props}
+               currentUser={this.state.currentUser}
               />
               )}
             />
@@ -126,16 +153,52 @@ class App extends Component {
             <Route exact path='/bargaining' component={Bargaining} />
             <Route exact path='/depression' component={Depression} />
             <Route exact path='/acceptance' component={Acceptance} />
-            <Route exact path='/denial_quiz' component={DenialQuiz} />
-            <Route exact path='/bargaining_quiz' component={BargainingQuiz} />
-            <Route exact path='/depression_quiz' component={DepressionQuiz} />
-            <Route exact path='/acceptance_quiz' component={AcceptanceQuiz} />
-            <Route exact path='/anger_quiz' component={AngerQuiz} />
-            <Route render={() => <h1>Page not found</h1>} />
+            <Route exact path='/denial_quiz' render={(props) => (
+              <DenialQuiz
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )}
+            />
+            <Route exact path='/bargaining_quiz' render={(props) => (
+              <BargainingQuiz
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )}
+            />
+            <Route exact path='/depression_quiz' render={(props) => (
+              <DepressionQuiz
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )}
+            />
+            <Route exact path='/acceptance_quiz' render={(props) => (
+              <AcceptanceQuiz
+                {...props}
+                currentUser={this.updateCurrentUser}
+                updateCurrentUser={this.updateCurrentUser}
+              />
+            )}
+          />
+            <Route exact path='/anger_quiz' render={(props) => (
+              <AngerQuiz
+                {...props}
+                currentUser={this.state.currentUser}
+                updateCurrentUser={this.updateCurrentUser}
+                />
+              )}
+            />
+           <Route render={() => <h1>Page not found</h1>} />
          </Switch>
 
         </div>
       </Router>
+    </div>
     )
   }
 }

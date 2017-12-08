@@ -1,21 +1,32 @@
 import React from 'react';
 import axios from 'axios';
-import AdvicePost from './AdvicePost';
+// import AdvicePost from './AdvicePost';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import PubNub from "pubnub";
+import ReactHover from 'react-hover';
+
 import ChatHistory from './ChatHistory';
 import PubNubService from "./PubNubService";
+import fire from '../fire';
+
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: -90,
+  shiftY: -10
+}
 
 class Bargaining extends React.Component {
   constructor() {
     super();
     this.state = {
-      advicePosts : [],
-      messages: [{ text:"" }],
-      currentMessage: "This is my message to you.",
-      username:"no-name",
-      users:[]
+     // advicePosts : [],
+     bargainingMessages: [{ text:"" }],
+     currentMessage: "This is my message to you.",
+     username:"",
+     users:[]
     }
+
   this.pubnub = new PubNub({
       publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
       subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
@@ -29,114 +40,143 @@ class Bargaining extends React.Component {
     //on users update, trigger screen refresh
     this.service.onUserChange((users) => this.setState({ users:users }));
     this.service.onMessage((evt) => {
-        this.state.messages.push({
+        this.state.bargaingingMessages.push({
             text:evt.message.text,
             sender:evt.publisher
         });
         this.setState({
-            messages: this.state.messages
+            bargainingMessages: this.state.bargainingMessages
         })
       });
-    this.service.fetchHistory(10,(messages)=>{ this.setState({messages:messages}); });
+    this.service.fetchHistory(10,(messages)=>{ this.setState({bargainingMessages:messages}); });
 
     this.service.getSelfInfo((info)=>{
-        if(info.username) this.setState({username: info.username})
+        this.setState({username: this.props.currentUser && this.props.currentUser.username})
       });
     }
+
+  componentWillMount(){
+    const messages = []
+    let messagesRef = fire.database().ref('bargainingMessages').orderByKey().limitToLast(100);
+
+    messagesRef.on('child_added', snapshot => {
+      let message = { text: snapshot.val(), id: snapshot.key };
+      messages.push(message)
+      this.setState({bargainingMessages: messages});
+    })
+  }
 
     changedMessage() {
         this.setState({ currentMessage:this.refs.input.value })
     }
-    sendMessage() {
-      this.pubnub.publish({
-        channel:"bargaining-chat",
-        message: {
-            text:this.refs.input.value,
-            sender: this.pubnub.getUUID()
 
-        }
-    });
-      this.setState({ currentMessage:"" })
-    }
-    changedUsername() {
-      this.setState({ username:this.refs.username.value });
+  sendMessage() {
+    this.setState({ currentMessage:"" })
+
+    fire.database().ref('bargainingMessages').push( this.refs.input.value );
+    this.refs.input.value = '';
     }
 
     setUsername() {
-      this.service.setUserState({username:this.state.username})
+      this.service.setUserState({username:this.props.currentUser && this.props.currentUser.username})
     }
 
     renderUsers() {
       var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{user.username}</span>
+        return <span key={i}>{this.props.currentUser && this.props.currentUser.username}</span>
       });
         return <div className="userlist">{users}</div>
     }
 
 
-  componentDidMount() {
-    axios.get('http://localhost:3001/api/advice_posts')
-    .then(res => {
-      const advicePosts = res.data.map ( (post) =>
-        ({id: post.id, content: post.content}))
-      this.setState( {advicePosts})
-    })
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:3001/api/advice_posts')
+  //   .then(res => {
+  //     const advicePosts = res.data.map ( (post) =>
+  //       ({id: post.id, content: post.content}))
+  //     this.setState( {advicePosts})
+  //   })
+  // }
 
   render() {
     return(
-      <div className="bargaining-container">
-      <span className="stage-name"><h1>The BARGAINING Stage</h1></span>
-        <div className="helpful-apps">
-          <h3>Helpful Apps</h3>
-            <ul>
-              <li>
-              <img className="bargaining-image" src={require("../bargaining_images/dontText.png")} />
-              <p>Don’t Text That Man!: an app that helps you control your urges to text your ex by providing motivational or wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
-              </li><br />
-              <li>
-              <img className="bargaining-image" src={require("../bargaining_images/drunkBlocker.png")} />
-              <p>DrunkDial: a mobile app that stops you from drunk dialing your ex by blocking calls to the numbers you selected in the app.</p>
-              </li><br />
-              <li>
-              <img className="bargaining-image" src={require("../bargaining_images/exLoverBlocker.png")} />
-              <p>Ex-Lover Blocker: a mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
-              </li><br />
-            </ul>
-        </div>
-        <div className="helpful-articles">
-          <h3>Helpful Articles</h3>
-          <ul>
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-3-desperate-answers">Desperate for Answers</a></li><br />
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-4-external-bargaining">External Bargaining</a></li><br />
-            <li><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-5-internal-bargaining">Internal Bargaining</a></li><br />
+      <div className="stage-container">
+        <span className="stage-name">
+          <h1>The BARGAINING Stage</h1>
+        </span>
+
+        <h3 className='subheader'>Helpful Apps</h3>
+        <div>
+          <ul className="helpful-apps">
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="bargaining-image" width='185' height='185' src={require("../bargaining_images/drunkBlocker.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>DrunkDial</p> A mobile app that stops you from drunk dialing your ex by blocking calls to the numbers you selected in the app.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="bargaining-image" width='200' height='200' src={require("../bargaining_images/dontText.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Don’t Text That Man!</p> An app that helps you control your urges to text your ex by providing motivational or wise quotes, as well as measures the time that has passed since you last texted your ex.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
+            <li>
+              <ReactHover
+              options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <img className="bargaining-image" width='185' height='185' src={require("../bargaining_images/exLoverBlocker.png")} />
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <p className='app-details'><p className='app-name'>Ex-Lover Blocker</p> A mobile app that sends a text message to your closest friends and posts a status update on Facebook when you try to call your ex.</p>
+                </ReactHover.Hover>
+              </ReactHover>
+            </li>
           </ul>
         </div>
-        <div className='advice-posts'>
+
+        <hr />
+
+        <h3 className='subheader'>Helpful Articles</h3>
+        <div className="helpful-articles">
+          <ol className='ordered-list'>
+            <li className='links'><span className='number'>1.</span><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-3-desperate-answers" target='blank'>Desperate for Answers</a></li>
+            <li className='links'><span className='number'>2.</span><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-4-external-bargaining" target='blank'>External Bargaining</a></li>
+            <li className='links'><span className='number'>3.</span><a href="https://www.psychologytoday.com/blog/me-we/201501/9-stages-grieving-breakup-no-5-internal-bargaining" target='blank'>Internal Bargaining</a></li>
+          </ol>
+        </div>
+        {/* <div className='advice-posts'>
           <h3>Helpful Advice</h3>
           <ul>
             {this.state.advicePosts.map (key =>
               <AdvicePost id={key.id} content={key.content} />
             )}
           </ul>
-        </div>
-        <Link to="/depression_quiz">
-           <button type="button">
-              Ready to Move on to Depression?
-           </button>
-        </Link>
+        </div> */}
 
+        <p className='move-on-sentence'> Ready to Move on to Depression? Take the
+        <Link className='quiz-link' to="/bargaining_quiz"> BARGAINING QUIZ </Link>
+        to see if you are ready.
+        </p>
+
+        <hr />
+
+        <h3 className='subheader'>Bargaining Chat Room</h3>
         <div className="vbox fill">
-          <h1>Bargaining Chat Room</h1>
           <div className="scroll grow">
-            <ChatHistory messages={this.state.messages} service={this.service}/>
+            <ChatHistory messages={this.state.bargainingMessages} service={this.service}currentUser={this.props.currentUser}/>
           </div>
           <div className="hbox">
-            <label>username</label>
-            <input type="text" ref="username" value={this.state.username}
-              onChange={this.changedUsername.bind(this)}
-            />
-            <button onClick={this.setUsername.bind(this)}>set</button>
+            <label>{this.props.currentUser && this.props.currentUser.username}</label>
           </div>
           <div className="hbox">
             <input className="grow"
