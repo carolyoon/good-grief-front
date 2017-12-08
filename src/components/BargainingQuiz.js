@@ -121,7 +121,10 @@ class BargainingQuiz extends Component {
 
   renderResult() {
     return (
-      <BargainingResults bargainingQuizResult={this.state.result} />
+      <BargainingResults 
+        bargainingQuizResult={this.state.result} 
+        updateCurrentUser={this.props.updateCurrentUser}
+        />
     );
   }
 
