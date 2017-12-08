@@ -2,6 +2,8 @@
 
 Good Grief is a mobile-first web application that strives to assist people  move through the five stages of grief after a relationship dissolution. It aims to facilitate the process of healing from a broken heart by providing a collection of resources specifically tailored to each stage, as well as a safe environment to connect with others going through  similar experiences. 
 
+![Screenshot](src/screenshots/home_page.png)
+
 ### **User stories/ Key Features:**
 
 **User**
@@ -12,6 +14,10 @@ Good Grief is a mobile-first web application that strives to assist people  move
 - can write journal entries that are timestamped and read previous entries.
 - can take a quiz to determine if they ready to move on from their current stage.
 - can chat with other users who are in the same stage.
+
+![Screenshot](src/screenshots/user_page_1.png)
+
+![Screenshot](src/screenshots/user_page_2.png)
 
 **Stages**
 
