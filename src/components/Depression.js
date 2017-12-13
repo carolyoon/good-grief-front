@@ -22,75 +22,85 @@ class Depression extends React.Component {
     this.state = {
      // advicePosts : [],
      depressionMessages: [{ text:"" }],
-     currentMessage: "This is my message to you.",
+     currentMessage: "",
      username:"",
      users:[]
     }
 
     this.pubnub = new PubNub({
-      publishKey: "pub-c-50b2965a-2ab4-407f-b560-217a00a43e81",
-      subscribeKey: "sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7",
+      publishKey: 'pub-c-50b2965a-2ab4-407f-b560-217a00a43e81',
+      subscribeKey: 'sub-c-eb8a716c-d9e3-11e7-9445-0e38ba8011c7',
       presenceTimeout: 30
-     })
-     //init presence service
+    })
+     //  init presence service
     this.service = new PubNubService({
-         pubnub:this.pubnub,
-         channel:'depression-chat'
-      });
-    //on users update, trigger screen refresh
-    this.service.onUserChange((users) => this.setState({ users:users }));
+      pubnub: this.pubnub,
+      channel: 'depression-chat'
+    })
+      //  on users update, trigger screen refresh
+    this.service.onUserChange((users) => this.setState({ users: users }))
     this.service.onMessage((evt) => {
-        this.state.depressionMessages.push({
-            text:evt.message.text,
-            sender:evt.publisher
-        });
-        this.setState({
-            depressionMessages: this.state.messages
-        })
-      });
-    this.service.fetchHistory(10,(messages)=>{ this.setState({depressionMessages:messages}); });
+      this.state.depressionMessages.push({
+        text: evt.message.text,
+        sender: evt.publisher
+      })
+      this.setState({
+        depressionMessages: this.state.depressionMessages
+      })
+    })
+    this.service.fetchHistory(10, (messages) => { this.setState({depressionMessages: messages}) })
 
-    this.service.getSelfInfo((info)=>{
-        this.setState({username: this.props.currentUser && this.props.currentUser.username})
-      });
-    }
-
-  componentWillMount(){
-    const messages = []
-    let messagesRef = fire.database().ref('depressionMessages').orderByKey().limitToLast(100);
-
-    messagesRef.on('child_added', snapshot => {
-      let message = { text: snapshot.val(), id: snapshot.key };
-      messages.push(message)
-      this.setState({depressionMessages: messages});
+    this.service.getSelfInfo((info) => {
+      if (info.username) this.setState({username: info.username})
     })
   }
 
-    changedMessage() {
-        this.setState({ currentMessage:this.refs.input.value })
+  componentWillMount(){
+    if (this.state.depressionMessages.length <= 1) {
+      const messages = []
+      let messagesRef = fire.database().ref('depressionMessages').orderByKey().limitToLast(100);
+
+      messagesRef.on('child_added', snapshot => {
+        let message = { text: snapshot.val(), id: snapshot.key };
+        messages.push(message)
+        this.setState({depressionMessages: messages});
+      })
     }
-
-  sendMessage() {
-    this.setState({ currentMessage:"" })
-
-    fire.database().ref('depressionMessages').push( this.refs.input.value );
-    this.refs.input.value = '';
   }
 
-    changedUsername() {
-      this.setState({ username:this.refs.username.value });
+ changedMessage() {
+    this.setState({ currentMessage:this.refs.input.value })
+  }
+
+  sendMessage() {
+    fire.database().ref('depressionMessages').push( this.refs.input.value );
+    this.pubnub.publish({
+      channel: 'depression-chat',
+      message: {
+        // text: this.refs.input.value,
+        sender: this.pubnub.getUUID()
+
+      }
+    })
+    this.setState({ currentMessage:"" })
+
+    this.refs.input.value = '';
     }
 
-    setUsername() {
-      this.service.setUserState({username: this.props.currentUser && this.props.currentUser.username})
-    }
+  changedUsername () {
+    this.setState({ username: this.refs.username.value })
+  }
 
-    renderUsers() {
-      var users = this.state.users.map((user,i)=> {
-        return <span key={i}>{this.props.currentUser && this.props.currentUser.username}</span>
-      });
-        return <div className="userlist">{users}</div>
-    }
+  setUsername () {
+    this.service.setUserState({username: this.state.username})
+  }
+
+  renderUsers () {
+    var users = this.state.users.map((user, i) => {
+      return <span key={i}>{user.username}</span>
+    })
+    return <div className='user-list'>{users}</div>
+  }
 
   // componentDidMount () {
   //   axios.get('http://localhost:3001/api/advice_posts')
@@ -177,27 +187,31 @@ class Depression extends React.Component {
 
       <h3 className='subheader'>Depression Chat Room</h3>
       <div className="vbox fill">
-        <div className="scroll grow">
-          <ChatHistory messages={this.state.depressionMessages} service={this.service}
-             currentUser={this.props.currentUser}/>
-        </div>
-        <div className="hbox">
-          <label>{this.props.currentUser && this.props.currentUser.username}</label>
-        </div>
-        <div className="hbox">
-          <input className="grow"
-              ref="input"
-              type="text"
+
+        <div className='scroll grow'>
+            <ChatHistory messages={this.state.depressionMessages} service={this.service} />
+          </div>
+          <div className='hbox'>
+            <input className='username-field' placeholder='enter username' type='text' ref='username' value={this.state.username}
+              onChange={this.changedUsername.bind(this)}
+                    />
+            <button className='set-button' onClick={this.setUsername.bind(this)}>set</button>
+          </div>
+          <div className='hbox'>
+            <input className='grow'
+              ref='input'
+              type='text'
               value={this.state.currentMessage}
               onChange={this.changedMessage.bind(this)}
-             />
+                    />
             <button
+              className='send-button'
               onClick={this.sendMessage.bind(this)}
-             >send</button>
-        </div>
-        <div className="hbox">
-           {this.renderUsers()}
-        </div>
+                    >send</button>
+          </div>
+          <div className='hbox'>
+            {this.renderUsers()}
+          </div>
       </div>
       </div>
     )

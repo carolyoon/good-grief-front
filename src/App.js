@@ -148,11 +148,41 @@ class App extends Component {
               />
               )}
             />
-            <Route exact path='/denial' component={Denial} />
-            <Route exact path='/anger' component={Anger} />
-            <Route exact path='/bargaining' component={Bargaining} />
-            <Route exact path='/depression' component={Depression} />
-            <Route exact path='/acceptance' component={Acceptance} />
+            <Route exact path='/denial' render={(props) => (
+              <Denial
+                {...props}
+                currentUser={this.state.currentUser}
+                />
+              )}
+            />
+            <Route exact path='/anger' render={(props) => (
+              <Anger
+                {...props}
+                currentUser={this.state.currentUser}
+                />
+              )}
+            />
+            <Route exact path='/bargaining' render={(props) => (
+              <Bargaining
+                {...props}
+                currentUser={this.state.currentUser}
+                />
+              )}
+            />
+            <Route exact path='/depression' render={(props) => (
+              <Depression
+                {...props}
+                currentUser={this.state.currentUser}
+                />
+              )}
+            />
+            <Route exact path='/acceptance' render={(props) => (
+              <Acceptance
+                {...props}
+                currentUser={this.state.currentUser}
+                />
+              )}
+            />
             <Route exact path='/denial_quiz' render={(props) => (
               <DenialQuiz
                 {...props}

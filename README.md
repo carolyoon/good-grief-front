@@ -1,16 +1,28 @@
-# Good Grief
+<h1> Good Grief </h1>
 
-Good Grief is a mobile-first web application that aims to assist people  move through the five stages of grief after a relationship dissolution. It strives to facilitate the process of healing from a broken heart by providing a collection of resources specifically tailored to each stage, as well as a safe environment to connect with others going through  similar experiences. 
+Good Grief is a mobile-first web application that strives to assist people  move through the five stages of grief after a relationship dissolution. It aims to facilitate the process of healing from a broken heart by providing a collection of resources specifically tailored to each stage, as well as a safe environment to connect with others going through  similar experiences. 
 
-### **User stories/ Key Features:**
+![Screenshot](src/screenshots/home_page.png)
+
+
+### **User Stories / Key Features:**
 
 **User**
 
 - can create an account
+![Screenshot](src/screenshots/registration.png)
 - has a private profile page 
 - can set goals and delete them upon completion
+![Screenshot](src/screenshots/user_page_1.png)
 - can write journal entries that are timestamped and read previous entries.
+![Screenshot](src/screenshots/user_page_2.png)
 - can take a quiz to determine if they ready to move on from their current stage.
+![Screenshot](src/screenshots/bargaining_quiz_1.png)
+![Screenshot](src/screenshots/bargaining_quiz_2.png)
+![Screenshot](src/screenshots/bargaining_quiz_3.png)
+![Screenshot](src/screenshots/bargaining_quiz_4.png)
+![Screenshot](src/screenshots/bargaining_quiz_5.png)
+![Screenshot](src/screenshots/bargaining_result.png)
 - can chat with other users who are in the same stage.
 
 **Stages**
@@ -19,6 +31,9 @@ Good Grief is a mobile-first web application that aims to assist people  move th
 - provide a list of articles pertaining to each individual stage.
 - have a quiz to determine whether users are in the correct stage.
 - have chatrooms to connect people with others in the same stage.
+
+![Screenshot](src/screenshots/denial_page.png)
+![Screenshot](src/screenshots/acceptance_page.png)
 
 **Stretch goals:**
 
@@ -31,6 +46,16 @@ Good Grief is a mobile-first web application that aims to assist people  move th
 - React 
 - Pubnub
 - Firebase
+- JWT
+
+**Contributors**
+
+- Caroline Yoon
+- Ally Seidl
+- Olivia Morgan
+- Shannon Nolan
+- Quynh Nguyen
+
 
 **Citations:**
 
