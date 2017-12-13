@@ -56,6 +56,7 @@ Good Grief is a mobile-first web application that strives to assist people  move
 - Shannon Nolan
 - Quynh Nguyen
 
+
 **Citations:**
 
 https://www.zoosk.com/date-mix/dating-advice/dating-advice-women/dating-tips-for-women/
